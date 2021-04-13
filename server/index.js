@@ -9,18 +9,14 @@ const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 app.use('/api', router)
 //обработчик ошибок идет последним
 app.use(errorHandler)
 
-app.get('/',(req, res) => {
-    res.status(200).json({message: "it's work!"})
-})
-
 
 const start = async () => {
     try {
-
         try {
             await sequelize.authenticate();
             console.log('Connection has been established successfully.');

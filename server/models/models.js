@@ -12,8 +12,17 @@ const User = sequelize.define('user', {
         schema: 'gsmk_poll'
     }
 )
+const Question = sequelize.define('question', {
+        id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+        text: {type: DataTypes.STRING},
+        required: {type: DataTypes.BOOLEAN}
+    },
+    {
+        schema: 'gsmk_poll'
+    }
+)
 
 module.exports = {
-    User
+    User, Question
 }
 
