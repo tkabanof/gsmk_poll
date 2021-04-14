@@ -3,8 +3,8 @@ const {Question} = require("../models/models");
 
 class QuestionController {
     async create(req, res) {
-        const {text} = req.body
-        const que = await Question.create({text})
+        const {text, required} = req.body
+        const que = await Question.create({text, required})
         return res.json(que)
 
     }
@@ -14,6 +14,8 @@ class QuestionController {
     }
 
     async getAll(req, res) {
+        const questions = await Question.findAll()
+        return res.json(questions)
 
     }
 
