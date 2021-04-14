@@ -1,0 +1,21 @@
+{
+  "name": "gsmk_poll",
+  "version": "1.0.0",
+  "description": "Система обзвона клиентов",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm start \" "
+  },
+  "keywords": [
+    "react",
+    "nodejs",
+    "expressjs",
+    "postgre"
+  ],
+  "author": "Timofey Kabanov <kabanov@gsmk.ru>",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^6.0.2"
+  }
+}
