@@ -2,7 +2,7 @@ const {Router} = require("express");
 const router = Router()
 
 const userRouter = require('./userRouter')
-const questionRoute = require('./questionalRoute')
+const questionRoute = require('./questionRoute')
 
 router.use('/user', userRouter)
 router.use('/question', questionRoute)
