@@ -42,11 +42,8 @@ class UserController {
     }
 
     async auth(req, res, next) {
-        const {id} = req.query
-        if (!id) {
-            return next(ApiError.badRequest('неверный id'))
-        }
-        res.json(id)
+
+        res.json({message: 'auth is work'})
 
     }
 }
