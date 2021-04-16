@@ -28,16 +28,23 @@ class UserController {
     }
 
     async login(req, res, next) {
-        const {email, password} = req.body
-        const user = await User.findOne({where: {email}})
-        if (!user){
-            return next(ApiError.internal('Нет такого пользователя!'))
+        try {
+            const {email, password} = req.body
+            const user = await User.findOne({where: {email}})
+            if (!user) {
+                return next(ApiError.internal('Нет такого пользователя!'))
+            }
+            if (password !== user.password) {
+                return next(ApiError.internal('не верный пароль!'))
+            }
+            const token = generateJwt(user.id, user.email, user.role, user.fio)
+
+            return res.json({token})
+
+        } catch (e) {
+            console.log(req.body)
+            return next(ApiError.badRequest('не правильный запрос'))
         }
-        if (password!=user.password){
-            return next(ApiError.internal('не верный пароль!'))
-        }
-        const token = generateJwt(user.id, user.email, user.role, user.fio)
-        return res.json({token})
 
     }
 
