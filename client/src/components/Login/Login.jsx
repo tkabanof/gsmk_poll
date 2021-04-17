@@ -1,8 +1,10 @@
 import s from './Login.module.css'
-import {Form, Input, Button} from 'antd'
-import {useDispatch} from "react-redux"
-import {login} from "../../features/auth";
-
+import {message, Form, Input, Button} from 'antd'
+import {useDispatch, useSelector} from "react-redux"
+import {setAuthData} from "../../features/auth";
+import {authAPI} from "../Api/Api";
+import {Redirect, useHistory} from "react-router-dom";
+import {ADMIN_ROUTE} from "../utils/consts";
 
 
 const layout = {
@@ -23,11 +25,25 @@ const tailLayout = {
 const Login = () => {
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
-    const onFinish = (values) => {
+    const errorMessage = useSelector(state => state.auth.errorMessage)
+
+    const onFinish = async (values) => {
         let {email, password} = values
 
-        dispatch(login(email, password))
+        await authAPI.login(email, password)
+            .then((response) => {
+
+                dispatch(setAuthData(response.data))
+                history.push(ADMIN_ROUTE)
+
+            })
+            .catch((error) => {
+                if (error.response) {
+                    message.error(error.response.data.message);
+                }
+            })
 
     };
 
@@ -47,7 +63,7 @@ const Login = () => {
                 onFinishFailed={onFinishFailed}
             >
                 <Form.Item
-                    label="Username"
+                    label="email"
                     name="email"
                     rules={[
                         {
@@ -79,6 +95,7 @@ const Login = () => {
                     </Button>
                 </Form.Item>
             </Form>
+            {errorMessage}
         </div>
     )
 }

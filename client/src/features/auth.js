@@ -1,15 +1,5 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {authAPI} from "../components/Api/Api";
-
-const loginAuth = createAsyncThunk(
-    'auth/login',
-    async ({email, password}, thunkAPI) => {
-        const response = await authAPI.login(email, password)
-        console.log(response)
-        debugger
-        return response.data
-    }
-)
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -18,7 +8,8 @@ export const authSlice = createSlice({
         email: null,
         role: null,
         fio: null,
-        token: null
+        token: null,
+        errorMessage: null
     },
     reducers: {
         setAuthData: (state, action) => {
@@ -27,17 +18,22 @@ export const authSlice = createSlice({
             state.isAuth = action.payload.isAuth
             state.role = action.payload.role
             state.fio = action.payload.fio
+            state.token = action.payload.token
         }
     }
 })
 
-export const login = (email, password) => async dispatch => {
+/*export const login = (email, password) => async dispatch => { //unused
     let response = await authAPI.login(email, password);
     if (response.status === 200) {
-        console.log(response.data)
-        dispatch(setAuthData(response.data));
+        dispatch(setAuthData(response.data))
+        return response
     }
-};
+    if (response.status === 200) {
+        return response
+
+    }
+};*/
 
 export const {setAuthData} = authSlice.actions
 

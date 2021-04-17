@@ -8,7 +8,6 @@ const {Header} = Layout;
 const UserCard = () => {
 
     const changeUser = () => {
-
         console.log('User changed')
     };
 
@@ -56,7 +55,7 @@ const HeaderNav = (props) => {
                           defaultSelectedKeys={['2']}
                           onClick={handleClick}>
                         <Menu.Item key="/admin">Администратор</Menu.Item>
-                        <Menu.Item key="/call'">Звонки</Menu.Item>
+                        <Menu.Item key="/call">Звонки</Menu.Item>
                     </Menu>
                 </Col>
                 <Col span={6}>

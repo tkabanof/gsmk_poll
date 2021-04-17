@@ -1,4 +1,3 @@
-import './App.css';
 import {Layout} from 'antd';
 import 'antd/dist/antd.css'
 import HeaderNav from "./components/Header/Header";
