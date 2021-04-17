@@ -1,13 +1,10 @@
 import {Route, Switch, Redirect} from 'react-router-dom'
 import {authRoutes, publicRoutes} from "../routes";
 import {LOGIN_ROUTE} from "./utils/consts";
-import {useSelector} from "react-redux";
 
 const AppRouter = () => {
 
-    const token = useSelector(state => state.auth.token)
-    console.log(!!token)
-
+    const token = localStorage.getItem('token')
     const isAuth = !!token
 
     return(

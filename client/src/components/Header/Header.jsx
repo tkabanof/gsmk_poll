@@ -2,26 +2,30 @@ import {Avatar, Button, Col, Menu, Row} from "antd";
 import {Layout} from "antd";
 import {useHistory} from "react-router-dom";
 import s from './Header.module.css'
+import {useDispatch, useSelector} from "react-redux";
+import {wipeAuthData} from "../../features/auth";
 
 const {Header} = Layout;
 
 const UserCard = () => {
 
+    const dispatch = useDispatch()
+    const fio = useSelector(state => state.auth.fio)
     const changeUser = () => {
-        console.log('User changed')
+        dispatch(wipeAuthData())
     };
 
     return (
         <div className={s.userCard}>
             <Avatar
                 style={{
-                    backgroundColor: 'yellow',
+                    backgroundColor: 'green',
                     verticalAlign: 'middle',
                 }}
                 size="large"
                 //gap={2}
             >
-                {'UserInfo'}
+                {fio}
             </Avatar>
             <Button
                 size="small"
@@ -31,7 +35,7 @@ const UserCard = () => {
                 }}
                 onClick={changeUser}
             >
-                ChangeUser
+                Выход
             </Button>
         </div>
     )

@@ -34,7 +34,6 @@ const Login = () => {
 
         await authAPI.login(email, password)
             .then((response) => {
-
                 dispatch(setAuthData(response.data))
                 history.push(ADMIN_ROUTE)
 
