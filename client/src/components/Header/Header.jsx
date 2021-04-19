@@ -45,7 +45,6 @@ const UserCard = () => {
 const HeaderNav = (props) => {
     const history = useHistory()
     const handleClick = e => {
-        console.log('click ', e);
         history.push(e.key)
     };
 

@@ -3,7 +3,7 @@ import {message, Form, Input, Button} from 'antd'
 import {useDispatch, useSelector} from "react-redux"
 import {setAuthData} from "../../features/auth";
 import {authAPI} from "../Api/Api";
-import {Redirect, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {ADMIN_ROUTE} from "../utils/consts";
 
 
@@ -27,13 +27,12 @@ const Login = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const errorMessage = useSelector(state => state.auth.errorMessage)
-
     const onFinish = async (values) => {
         let {email, password} = values
 
         await authAPI.login(email, password)
             .then((response) => {
+                console.log('log')
                 dispatch(setAuthData(response.data))
                 history.push(ADMIN_ROUTE)
 
@@ -94,7 +93,6 @@ const Login = () => {
                     </Button>
                 </Form.Item>
             </Form>
-            {errorMessage}
         </div>
     )
 }

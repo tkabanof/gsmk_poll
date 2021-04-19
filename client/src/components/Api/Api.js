@@ -6,24 +6,23 @@ const instanceAPI = axios.create({
     //headers: {}
 });
 
-const authInterceptor = config => {
-
-    if (localStorage.getItem('token') !== null) {
-        config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
-    }
-}
-instanceAPI.interceptors.request.use(authInterceptor)
-
-// instanceAPI.interceptors.request.use(function (config) {
+// const authInterceptor = config => {
 //
-//     config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
-//     console.log(config.headers.authorization)
-//     return config;
-// }, function (error) {
-//     // Do something with request error
-//     console.log(error)
-//     return Promise.reject(error);
-// });
+//     if (localStorage.getItem('token') !== null) {
+//         config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
+//     }
+// }
+// instanceAPI.interceptors.request.use(authInterceptor)
+
+instanceAPI.interceptors.request.use(function (config) {
+
+    config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
+    return config;
+}, function (error) {
+    // Do something with request error
+    console.log(error)
+    return Promise.reject(error);
+});
 
 
 export const authAPI = {
