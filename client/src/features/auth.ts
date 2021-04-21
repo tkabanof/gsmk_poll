@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {authAPI} from "../components/Api/Api";
+import {authAPI} from "../Api/Api";
 
 interface state {
     userid: null | number
@@ -23,14 +23,16 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        setToken: (state, action) => {
+            state.token = action.payload.token
+        },
         setAuthData: (state, action) => {
-            state.userid = action.payload.userid
+            console.log(action.payload)
+            state.userid = action.payload.id
             state.email = action.payload.email
-            state.isAuth = action.payload.isAuth
             state.role = action.payload.role
             state.fio = action.payload.fio
             state.token = action.payload.token
-
             localStorage.setItem('token', action.payload.token);
         },
         wipeAuthData: (state, action) => {
@@ -40,24 +42,26 @@ export const authSlice = createSlice({
             state.role = null
             state.fio = null
             state.token = null
-
             localStorage.removeItem('token')
         }
     }
 })
 
-/*export const login = (email, password) => async dispatch => { //unused
+export const login = (email: string, password: string) => async (dispatch: any) => {
     let response = await authAPI.login(email, password);
     if (response.status === 200) {
         dispatch(setAuthData(response.data))
-        return response
     }
+
+};
+export const auth = () => async (dispatch: any) => {
+    const token = localStorage.getItem('')
+    let response = await authAPI.authMe();
     if (response.status === 200) {
-        return response
-
+        dispatch(setToken(response.data))
     }
-};*/
+}
 
-export const {setAuthData, wipeAuthData} = authSlice.actions
+export const {setAuthData, wipeAuthData, setToken} = authSlice.actions
 
 export default authSlice.reducer

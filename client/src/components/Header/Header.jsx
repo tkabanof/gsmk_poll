@@ -4,16 +4,27 @@ import {useHistory} from "react-router-dom";
 import s from './Header.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {wipeAuthData} from "../../features/auth";
+import {useEffect} from "react";
+
 
 const {Header} = Layout;
 
 const UserCard = () => {
 
     const dispatch = useDispatch()
+
     const fio = useSelector(state => state.auth.fio)
+
+    //const userid = useSelector(state => state.auth.userid)
+    console.log(fio)
     const changeUser = () => {
         dispatch(wipeAuthData())
     };
+
+    useEffect(()=>{
+        console.log(fio)
+
+    },[fio])
 
     return (
         <div className={s.userCard}>
@@ -25,8 +36,9 @@ const UserCard = () => {
                 size="large"
                 //gap={2}
             >
-                {fio}
+
             </Avatar>
+            {fio}
             <Button
                 size="small"
                 style={{

@@ -35,7 +35,9 @@ export const authAPI = {
     // logOut() {
     //     return instanceAPI.delete('/auth/login');
     // },
-    authMe() {
-        return instanceAPI.get(`user/auth`);
+    authMe(token) {
+        return instanceAPI.get(`user/auth`,{
+            token: token
+        });
     }
 }

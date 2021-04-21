@@ -39,7 +39,9 @@ class UserController {
             }
             const token = generateJwt(user.id, user.email, user.role, user.fio)
 
-            return res.json({token})
+            return res.json({
+                user: {...user.dataValues, token: token}
+            })
 
         } catch (e) {
             console.log(req.body)
@@ -49,9 +51,11 @@ class UserController {
     }
 
     async auth(req, res, next) {
-
+        const decoded = jwt.verify(req.token, process.env.SECRET_KEY)
+        const user = decoded
+        const token = generateJwt(user)
         //res.json({message: 'auth is work'})
-        const token = generateJwt(req.user.id, req.user.email, req.user.role, req.user.fio)
+        //const token = generateJwt(req.user.id, req.user.email, req.user.role, req.user.fio)
         res.json(token)
     }
 }
