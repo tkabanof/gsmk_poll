@@ -76,16 +76,16 @@ export const Polls = () => {
         setIsModalVisible(false);
     };
 
-    return(
+    return (
         <div>
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={data}/>
             <Button onClick={showModal}>Создать новый опрос</Button>
 
             <Modal title="Новый опрос" visible={isModalVisible}
                    onOk={handleOk}
-                   //onCancel={handleCancel}
-            footer={null}>
-                <PollEdit onCancel = {handleCancel}/>
+                   onCancel={handleCancel}
+                   footer={null}>
+                <PollEdit/>
             </Modal>
         </div>
     )

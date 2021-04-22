@@ -34,26 +34,33 @@ const PollEdit = (props) => {
             >
                 <Form.Item
                     label="Название"
-                name = "name">
+                    name="name">
                     <Input/>
                 </Form.Item>
-                <Form.Item label="Шаблон опроса">
+                <Form.Item
+                    label="Шаблон опроса"
+                    name="template">
                     <Select>
                         <Select.Option value="demo">Demo</Select.Option>
                     </Select>
                 </Form.Item>
-                <Form.Item label="Дата опроса">
+                <Form.Item label="Дата опроса"
+                           name="dateCreate">
                     <DatePicker/>
                 </Form.Item>
-                <Form.Item label="Показать">
+                <Form.Item label="Показать"
+                           name="state">
                     <Switch/>
                 </Form.Item>
-                <Form.Item label="Данные">
+                <Form.Item label="Данные"
+                    name="dataSet">
                     <input type="file" accept="text/plain, text/x-csv"
                            onChange={handleChange}/>
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary"
+                            htmlType="submit"
+                    >
                         Submit
                     </Button>
                 </Form.Item>
