@@ -1,7 +1,20 @@
-import {DatePicker, Form, Input, Select, Switch} from "antd";
+import {Button, DatePicker, Form, Input, Select, Switch} from "antd";
+import {useState} from "react";
 
-const PollEdit = (props: any) => {
 
+const PollEdit = (props) => {
+
+    const onFinish = (values) => {
+        console.log(values);
+    };
+
+    const [file, setFile] = useState()
+
+    const handleChange = () => {
+        console.log('confirm form')
+        props.onCancel()
+
+    }
     return (
         <div>
             <Form
@@ -16,8 +29,12 @@ const PollEdit = (props: any) => {
                     size: 'default',
                 }}
                 size={'middle'}
+                onFinish={onFinish}
+                //onFinish={confirmForm}
             >
-                <Form.Item label="Название">
+                <Form.Item
+                    label="Название"
+                name = "name">
                     <Input/>
                 </Form.Item>
                 <Form.Item label="Шаблон опроса">
@@ -30,6 +47,15 @@ const PollEdit = (props: any) => {
                 </Form.Item>
                 <Form.Item label="Показать">
                     <Switch/>
+                </Form.Item>
+                <Form.Item label="Данные">
+                    <input type="file" accept="text/plain, text/x-csv"
+                           onChange={handleChange}/>
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
                 </Form.Item>
             </Form>
         </div>

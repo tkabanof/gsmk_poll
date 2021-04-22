@@ -1,8 +1,9 @@
+import {Polls} from "./Polls/Polls";
 
 const Admin = () => {
     return(
         <div>
-            Admin
+            <Polls />
         </div>
     )
 }
