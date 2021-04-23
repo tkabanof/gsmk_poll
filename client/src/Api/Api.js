@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const instanceAPI = axios.create({
+export const instanceAPI = axios.create({
     // withCredentials: true,
     baseURL: 'http://localhost:7000/api/',
     //headers: {}
@@ -39,5 +39,16 @@ export const authAPI = {
         return instanceAPI.get(`user/auth`,{
             token: token
         });
+    }
+}
+export const pollApi = {
+    getAllPoll() {
+        return instanceAPI.get('poll')
+    },
+    createNewPoll(description, state) {
+        return instanceAPI.post('poll', {
+            description: "Вопрос жизни",
+            state: "open"
+        })
     }
 }

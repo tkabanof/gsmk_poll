@@ -1,9 +1,20 @@
 import {Button, Space, Table, Tag} from "antd";
 import Modal from "antd/es/modal/Modal";
 import PollEdit from "../../Call/NewCall/PollEdit";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllPoll} from "../../../features/polls";
 
 export const Polls = () => {
+
+    const dataPoll = useSelector(state => state.poll.data)
+    console.log(dataPoll)
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getAllPoll())
+        },
+        [])
 
     const columns = [
         {
@@ -25,7 +36,7 @@ export const Polls = () => {
         {
             title: 'Дата создания',
             key: 'dateCraete',
-            dataIndex: 'tags',
+            dataIndex: 'createdAt',
         },
         {
             title: 'Action',
@@ -62,6 +73,7 @@ export const Polls = () => {
             userCreate: 'Иванов И. И.',
         },
     ]
+    console.log(data)
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
@@ -78,11 +90,11 @@ export const Polls = () => {
 
     return (
         <div>
-            <Table columns={columns} dataSource={data}/>
+            <Table columns={columns} dataSource={dataPoll}/>
             <Button onClick={showModal}>Создать новый опрос</Button>
 
             <Modal title="Новый опрос" visible={isModalVisible}
-                   onOk={handleOk}
+                   //onOk={handleOk}
                    onCancel={handleCancel}
                    footer={null}>
                 <PollEdit/>

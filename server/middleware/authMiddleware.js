@@ -6,13 +6,13 @@ module.exports = function (req, res, next){
     try {
         const token = req.headers.authorization.split(' ')[1] //Bearer snfsjdhbfksd....
         if (!token) {
-            res.status(401).json({message: "Не авторизован1"})
+            res.status(401).json({message: "Плохой токен"})
         }
         const decoded = jwt.verify(token, process.env.SECRET_KEY)
         res.user = decoded
         next()
 
     } catch (e) {
-       res.status(401).json({message: "Не авторизован2"})
+       res.status(401).json({message: "Ошибка авторизации"})
     }
 }
