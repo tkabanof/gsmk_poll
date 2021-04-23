@@ -44,14 +44,11 @@ export const pollSlice = createSlice({
     initialState,
     reducers: {
         setPoll: (state, action) => {
-            console.log(action.payload)
             const polls = action.payload.map((p: { id: any; key: any; name: any; description: any}) => {
                 p.key = p.id
                 p.name = p.description
-                console.log(p)
                 return p
             })
-            console.log(polls)
             //polls = polls.map(p.id = p.key)
             state.data = polls
         }

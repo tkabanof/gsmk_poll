@@ -3,42 +3,28 @@ import {Layout} from "antd";
 import {useHistory} from "react-router-dom";
 import s from './Header.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {wipeAuthData} from "../../features/auth";
+import {auth, wipeAuthData} from "../../features/auth";
 import {useEffect} from "react";
-
 
 const {Header} = Layout;
 
 const UserCard = () => {
 
     const dispatch = useDispatch()
-
     const fio = useSelector(state => state.auth.fio)
 
-    //const userid = useSelector(state => state.auth.userid)
-    console.log(fio)
     const changeUser = () => {
         dispatch(wipeAuthData())
     };
 
     useEffect(()=>{
-        console.log(fio)
-
-    },[fio])
+        console.log('header useefect')
+        //dispatch(auth())
+    },[])
 
     return (
         <div className={s.userCard}>
-            <Avatar
-                style={{
-                    backgroundColor: 'green',
-                    verticalAlign: 'middle',
-                }}
-                size="large"
-                //gap={2}
-            >
-
-            </Avatar>
-            {fio}
+            <a> ФИО {fio}</a>
             <Button
                 size="small"
                 style={{

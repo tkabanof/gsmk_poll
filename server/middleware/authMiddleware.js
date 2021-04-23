@@ -13,6 +13,9 @@ module.exports = function (req, res, next){
         next()
 
     } catch (e) {
-       res.status(401).json({message: "Ошибка авторизации"})
+       res.status(401).json({
+           message: "Ошибка авторизации",
+           error: e
+       })
     }
 }

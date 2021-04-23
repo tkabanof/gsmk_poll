@@ -19,7 +19,6 @@ function App() {
             <BrowserRouter>
                 <Layout className="layout">
                     <HeaderNav/>
-
                     <AppRouter/>
                     {/*<Content style={{ padding: '0 50px' }}>*/}
 

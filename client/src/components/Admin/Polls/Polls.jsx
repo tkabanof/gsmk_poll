@@ -8,7 +8,6 @@ import {getAllPoll} from "../../../features/polls";
 export const Polls = () => {
 
     const dataPoll = useSelector(state => state.poll.data)
-    console.log(dataPoll)
 
     const dispatch = useDispatch()
 
@@ -74,7 +73,6 @@ export const Polls = () => {
             userCreate: 'Иванов И. И.',
         },
     ]
-    console.log(data)
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {

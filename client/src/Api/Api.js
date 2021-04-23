@@ -20,6 +20,7 @@ instanceAPI.interceptors.request.use(function (config) {
     return config;
 }, function (error) {
     // Do something with request error
+    console.log('Ошибка в axios интерсепторе ')
     console.log(error)
     return Promise.reject(error);
 });
@@ -35,10 +36,8 @@ export const authAPI = {
     // logOut() {
     //     return instanceAPI.delete('/auth/login');
     // },
-    authMe(token) {
-        return instanceAPI.get(`user/auth`, {
-            token: token
-        });
+    authMe() {
+        return instanceAPI.get(`user/auth`);
     }
 }
 export const pollApi = {

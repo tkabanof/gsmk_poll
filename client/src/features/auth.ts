@@ -24,16 +24,20 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setToken: (state, action) => {
-            state.token = action.payload.token
+            console.log('settoken')
+            console.log(action.payload)
+            state.token = action.payload
+            //localStorage.removeItem('token')
+            localStorage.setItem('token', action.payload)
         },
         setAuthData: (state, action) => {
-            console.log(action.payload)
-            state.userid = action.payload.id
+            //console.log(action.payload)
+            state.userid = action.payload.userid
             state.email = action.payload.email
             state.role = action.payload.role
             state.fio = action.payload.fio
-            state.token = action.payload.token
-            localStorage.setItem('token', action.payload.token);
+            //state.token = action.payload.token
+            //localStorage.setItem('token', action.payload.token);
         },
         wipeAuthData: (state, action) => {
             state.userid = null
@@ -47,18 +51,24 @@ export const authSlice = createSlice({
     }
 })
 
-export const login = (email: string, password: string) => async (dispatch: any) => {
-    let response = await authAPI.login(email, password);
-    if (response.status === 200) {
-        dispatch(setAuthData(response.data))
-    }
-
-};
+// export const login = (email: string, password: string) => async (dispatch: any) => {
+//     let response = await authAPI.login(email, password);
+//     if (response.status === 200) {
+//         dispatch(setAuthData(response.data))
+//     }
+//
+// };
 export const auth = () => async (dispatch: any) => {
-    const token = localStorage.getItem('')
+    const token = localStorage.getItem('token')
+    console.log(token)
+
     let response = await authAPI.authMe();
     if (response.status === 200) {
-        dispatch(setToken(response.data))
+        //dispatch(setToken(response.data.token)
+        console.log('auth')
+        console.log(response.data.user)
+        dispatch(setAuthData(response.data.user))
+        dispatch(setToken(response.data.token))
     }
 }
 

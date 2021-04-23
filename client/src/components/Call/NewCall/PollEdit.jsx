@@ -15,7 +15,6 @@ const PollEdit = (props) => {
             state: values.state ? 'open' : 'close'
         }
 
-        console.log(newPoll);
         dispacth(createNewPoll(newPoll.description, newPoll.template, newPoll.state))
         props.setIsModalVisible(false)
     };

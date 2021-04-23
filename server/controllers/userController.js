@@ -4,7 +4,12 @@ const {User} = require("../models/models");
 
 const generateJwt = (id, email, fio, role) => {
     return jwt.sign(
-        {id, email, role, fio},
+        {
+            userid: id,
+            email: email,
+            fio: fio,
+            role: role
+        },
         process.env.secret_key,
         {expiresIn: '24h'}
     )
@@ -37,13 +42,30 @@ class UserController {
             if (password !== user.password) {
                 return next(ApiError.internal('не верный пароль!'))
             }
-            const token = generateJwt(user.id, user.email, user.role, user.fio)
+            const token = generateJwt(user.id, user.email, user.fio, user.role)
 
+            //console.log('respons данные')
+            //console.log(...user.dataValues)
+            console.log({
+                user: {
+                    userid: user.id,
+                    email: user.email,
+                    role: user.role,
+                    fio: user.fio
+                }
+            })
             return res.json({
-                user: {...user.dataValues, token: token}
+                user: {
+                    userid: user.id,
+                    email: user.email,
+                    role: user.role,
+                    fio: user.fio
+                },
+                token: token
             })
 
         } catch (e) {
+            console.log('не правильный запрос')
             console.log(req.body)
             return next(ApiError.badRequest('не правильный запрос'))
         }
@@ -51,12 +73,20 @@ class UserController {
     }
 
     async auth(req, res, next) {
-        const decoded = jwt.verify(req.token, process.env.SECRET_KEY)
+        let token = req.headers.authorization.split(' ')[1]
+        const decoded = jwt.verify(token, process.env.SECRET_KEY)
         const user = decoded
-        const token = generateJwt(user)
+
+        console.log('jwt user')
+        console.log({user: user})
+
+        token = generateJwt(user)
         //res.json({message: 'auth is work'})
         //const token = generateJwt(req.user.id, req.user.email, req.user.role, req.user.fio)
-        res.json(token)
+        res.json({
+            user: user,
+            token: token
+        })
     }
 }
 

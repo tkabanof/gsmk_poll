@@ -1,7 +1,7 @@
 import s from './Login.module.css'
 import {message, Form, Input, Button} from 'antd'
 import {useDispatch, useSelector} from "react-redux"
-import {auth, setAuthData} from "../../features/auth";
+import {auth, login, setAuthData, setToken} from "../../features/auth";
 import {authAPI} from "../../Api/Api";
 import {useHistory} from "react-router-dom";
 import {HOME_ROUTE} from "../utils/consts";
@@ -28,6 +28,7 @@ const Login = () => {
     const dispatch = useDispatch()
 
     useEffect(()=>{
+        console.log('loginUseEffect')
         dispatch(auth())
     }, [])
 
@@ -40,7 +41,10 @@ const Login = () => {
         await authAPI.login(email, password)
             .then((response) => {
                 console.log(response.data.user)
+                console.log(response.data.token)
                 dispatch(setAuthData(response.data.user))
+                dispatch(setToken(response.data.token))
+
                 history.push(HOME_ROUTE)
 
             })
