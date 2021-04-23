@@ -58,8 +58,8 @@ export const pollSlice = createSlice({
     }
 })
 
-export const createNewPoll = (email: string, password: string) => async (dispatch: any) => {
-    let response = await pollApi.createNewPoll(email, password);
+export const createNewPoll = (description: string, template_id: string, state: string) => async (dispatch: any) => {
+    let response = await pollApi.createNewPoll(description, template_id, state);
     if (response.status === 200) {
         dispatch(getAllPoll())
     }

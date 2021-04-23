@@ -36,7 +36,7 @@ export const authAPI = {
     //     return instanceAPI.delete('/auth/login');
     // },
     authMe(token) {
-        return instanceAPI.get(`user/auth`,{
+        return instanceAPI.get(`user/auth`, {
             token: token
         });
     }
@@ -45,10 +45,11 @@ export const pollApi = {
     getAllPoll() {
         return instanceAPI.get('poll')
     },
-    createNewPoll(description, state) {
+    createNewPoll(description, template_id, state) {
         return instanceAPI.post('poll', {
-            description: "Вопрос жизни",
-            state: "open"
+            description: description,
+            template_id: template_id,
+            state: state
         })
     }
 }

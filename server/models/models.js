@@ -16,9 +16,9 @@ const User = sequelize.define('user', {
 const Poll = sequelize.define('poll', {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
         description: {type: DataTypes.STRING},
-        template_id: {type: DataTypes.INTEGER},
-        state: {type: DataTypes.STRING},
-        user_idCreate: {type: DataTypes.INTEGER}
+        template_id: {type: DataTypes.INTEGER, defaultValue: 1},
+        state: {type: DataTypes.STRING, defaultValue: 'close'},
+        user_idCreate: {type: DataTypes.INTEGER, defaultValue: 1}
     },
     {
         schema: 'gsmk_poll'

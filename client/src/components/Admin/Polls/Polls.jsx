@@ -11,6 +11,7 @@ export const Polls = () => {
     console.log(dataPoll)
 
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(getAllPoll())
         },
@@ -97,7 +98,7 @@ export const Polls = () => {
                    //onOk={handleOk}
                    onCancel={handleCancel}
                    footer={null}>
-                <PollEdit/>
+                <PollEdit setIsModalVisible = {setIsModalVisible}/>
             </Modal>
         </div>
     )
