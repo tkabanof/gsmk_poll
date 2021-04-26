@@ -1,8 +1,8 @@
-import {Button, Space, Table, Tag} from "antd";
+import {Button, Form, Input, Select, Space, Switch, Table, Tag} from "antd";
 import Modal from "antd/es/modal/Modal";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllTemplate} from "../../features/templates";
+import {createNewTemplate, getAllTemplate} from "../../../features/templates";
 
 
 export const Templates = () => {
@@ -45,14 +45,6 @@ export const Templates = () => {
         },
     ];
 
-    const data = [
-        {
-            key: '1',
-            description: 'Шаблон диспансеризация',
-            createdAt: '2021-01-01',
-
-        }
-    ]
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
@@ -71,13 +63,60 @@ export const Templates = () => {
         <div>
             <Table columns={columns} dataSource={dataTemplate}/>
             <Button onClick={showModal}>Создать новый шаблон</Button>
-
             <Modal title="Новый опрос" visible={isModalVisible}
                 //onOk={handleOk}
                    onCancel={handleCancel}
                    footer={null}>
-
+                <TemplateEdit setIsModalVisible = {setIsModalVisible}/>
             </Modal>
         </div>
     )
+}
+
+
+const TemplateEdit = (props) => {
+
+    const dispatch = useDispatch()
+
+    const onFinish = (values) => {
+        const newTemplate = {
+            description: values.name,
+        }
+        dispatch(createNewTemplate(newTemplate.description))
+        props.setIsModalVisible(false)
+    };
+
+    return (
+        <div>
+            <Form
+                labelCol={{
+                    span: 8,
+                }}
+                wrapperCol={{
+                    span: 16,
+                }}
+                layout="horizontal"
+                initialValues={{
+                    size: 'default',
+                }}
+                size={'middle'}
+                onFinish={onFinish}
+            >
+                <Form.Item
+                    label="Описание"
+                    name="name">
+                    <Input />
+                </Form.Item>
+
+                <Form.Item>
+                    <Button type="primary"
+                            htmlType="submit"
+                    >
+                        Submit
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div>
+    )
+
 }

@@ -16,7 +16,6 @@ const User = sequelize.define('user', {
 const Poll = sequelize.define('poll', {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
         description: {type: DataTypes.STRING},
-        template_id: {type: DataTypes.INTEGER, defaultValue: 1},
         state: {type: DataTypes.STRING, defaultValue: 'close'},
         user_idCreate: {type: DataTypes.INTEGER, defaultValue: 1}
     },
@@ -24,6 +23,7 @@ const Poll = sequelize.define('poll', {
         schema: 'gsmk_poll'
     }
 )
+//не забудь экспорт внизу!!!
 const Template = sequelize.define('template', {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
         description: {type: DataTypes.STRING},
@@ -93,6 +93,6 @@ Poll.belongsTo(User)
 
 
 module.exports = {
-    User, Question, Poll, AnswerQuestion, Client, Answer
+    User, Question, Poll, AnswerQuestion, Client, Answer, Template
 }
 

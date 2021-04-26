@@ -1,5 +1,4 @@
 import {Button, DatePicker, Form, Input, Select, Switch} from "antd";
-import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {createNewPoll} from "../../../features/polls";
 
@@ -50,10 +49,6 @@ const PollEdit = (props) => {
                         <Select.Option value="demo">Demo</Select.Option>
                     </Select>
                 </Form.Item>
-{/*                <Form.Item label="Дата опроса"
-                           name="dateCreate">
-                    <DatePicker/>
-                </Form.Item>*/}
                 <Form.Item label="Показать"
                            name="state">
                     <Switch/>

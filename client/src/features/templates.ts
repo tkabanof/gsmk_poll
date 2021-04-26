@@ -14,7 +14,7 @@ const initialState = {
     data : [
         {
             key: '1',
-            description: 'Шаблон диспансеризации store',
+            description: 'Шаблон диспансеризации store1',
             createdAt: '2021-01-01',
         },
     ]

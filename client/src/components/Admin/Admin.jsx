@@ -5,7 +5,7 @@ import {
     TeamOutlined
 } from '@ant-design/icons';
 import {useState} from "react";
-import {Templates} from "./Template";
+import {Templates} from "./Templates/Template";
 
 
 const { SubMenu } = Menu;

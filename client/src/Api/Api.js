@@ -54,7 +54,7 @@ export const pollApi = {
 }
 export const templateApi = {
     getAllTemplate() {
-        return instanceAPI.get('templates')
+        return instanceAPI.get('template')
     },
     createNewTemplate(description) {
         return instanceAPI.post('template', {
