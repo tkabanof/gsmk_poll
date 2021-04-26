@@ -2,16 +2,17 @@ import {Button, Space, Table, Tag} from "antd";
 import Modal from "antd/es/modal/Modal";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {getAllTemplate} from "../../features/templates";
 
 
 export const Templates = () => {
 
-    //const dataPoll = useSelector(state => state.poll.data)
+    const dataTemplate = useSelector(state => state.template.data)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-            // dispatch(getAllPoll())
+             dispatch(getAllTemplate())
         },
         [])
 
@@ -68,7 +69,7 @@ export const Templates = () => {
 
     return (
         <div>
-            <Table columns={columns} dataSource={data}/>
+            <Table columns={columns} dataSource={dataTemplate}/>
             <Button onClick={showModal}>Создать новый шаблон</Button>
 
             <Modal title="Новый опрос" visible={isModalVisible}

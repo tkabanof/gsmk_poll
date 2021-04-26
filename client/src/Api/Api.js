@@ -52,3 +52,13 @@ export const pollApi = {
         })
     }
 }
+export const templateApi = {
+    getAllTemplate() {
+        return instanceAPI.get('templates')
+    },
+    createNewTemplate(description) {
+        return instanceAPI.post('template', {
+            description: description
+        })
+    }
+}
