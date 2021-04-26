@@ -21,20 +21,6 @@ const initialState = {
             dateCreate: '2021-01-01',
             userCreate: 'Иванов И. И.',
         },
-        {
-            key: '2',
-            name: 'Опрос о прохождении диспансеризации 2',
-            state: 'open',
-            dateCreate: '2021-01-01',
-            userCreate: 'Иванов И. И.',
-        },
-        {
-            key: '3',
-            name: 'Опрос о прохождении диспансеризации 3',
-            state: 'open',
-            dateCreate: '2021-01-01',
-            userCreate: 'Иванов И. И.',
-        },
     ]
 
 } as state
