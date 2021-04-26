@@ -1,6 +1,4 @@
-const ApiError = require('../error/ApiError')
 const {Poll} = require("../models/models")
-
 
 class PollController {
     async addNew(req, res, next) {

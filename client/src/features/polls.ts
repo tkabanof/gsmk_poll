@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {authAPI, pollApi} from "../Api/Api";
+import {pollApi} from "../Api/Api";
 
 type poll = {
     key: string,
@@ -35,7 +35,6 @@ export const pollSlice = createSlice({
                 p.name = p.description
                 return p
             })
-            //polls = polls.map(p.id = p.key)
             state.data = polls
         }
     }
@@ -54,7 +53,6 @@ export const getAllPoll = () => async (dispatch: any) => {
         dispatch(setPoll(response.data))
     }
 };
-
 
 export const {setPoll} = pollSlice.actions
 

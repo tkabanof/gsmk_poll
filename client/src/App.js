@@ -15,7 +15,6 @@ function App() {
     const isAuth = !!token
 
     return (
-
             <BrowserRouter>
                 <Layout className="layout">
                     <HeaderNav/>
