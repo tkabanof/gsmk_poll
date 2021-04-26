@@ -6,7 +6,7 @@ import {createNewPoll} from "../../../features/polls";
 
 const PollEdit = (props) => {
 
-    const dispacth = useDispatch()
+    const dispatch = useDispatch()
 
     const onFinish = (values) => {
         const newPoll = {
@@ -15,7 +15,7 @@ const PollEdit = (props) => {
             state: values.state ? 'open' : 'close'
         }
 
-        dispacth(createNewPoll(newPoll.description, newPoll.template, newPoll.state))
+        dispatch(createNewPoll(newPoll.description, newPoll.template, newPoll.state))
         props.setIsModalVisible(false)
     };
 

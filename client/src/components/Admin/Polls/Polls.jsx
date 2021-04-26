@@ -1,6 +1,6 @@
 import {Button, Space, Table, Tag} from "antd";
 import Modal from "antd/es/modal/Modal";
-import PollEdit from "../../Call/NewCall/PollEdit";
+import PollEdit from "./PollEdit";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllPoll} from "../../../features/polls";
