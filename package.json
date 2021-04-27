@@ -18,5 +18,9 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^6.0.2"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.6.2",
+    "antd": "^4.15.3"
   }
 }
