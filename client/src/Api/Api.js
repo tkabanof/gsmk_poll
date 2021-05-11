@@ -60,5 +60,10 @@ export const templateApi = {
         return instanceAPI.post('template', {
             description: description
         })
+    },
+    deleteOne(id) {
+        return instanceAPI.post('template/del', {
+            id: id
+        })
     }
 }

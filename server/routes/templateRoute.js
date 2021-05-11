@@ -5,5 +5,6 @@ const templateController = require('../controllers/templateController')
 
 router.post ('/', authMiddleware, templateController.addNew)
 router.get ('/', authMiddleware, templateController.getAll)
+router.post ('/del', authMiddleware, templateController.deleteOne)
 
 module.exports = router

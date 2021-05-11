@@ -1,15 +1,20 @@
-import {Button, Form, Input, Select, Space, Switch, Table, Tag} from "antd";
+import {Button, Popconfirm, Space, Table} from "antd";
 import Modal from "antd/es/modal/Modal";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {createNewTemplate, getAllTemplate} from "../../../features/templates";
-
+import {deleteTemplate, getAllTemplate} from "../../../features/templates";
+import TemplateEdit from "./TemplateEdit";
 
 export const Templates = () => {
 
     const dataTemplate = useSelector(state => state.template.data)
 
     const dispatch = useDispatch()
+
+    const deleteTemplateClick = (value) => {
+        console.log(value)
+        dispatch(deleteTemplate(value))
+    }
 
     useEffect(() => {
              dispatch(getAllTemplate())
@@ -37,10 +42,9 @@ export const Templates = () => {
             title: 'Action',
             key: 'action',
             render: (text, record) => (
-                <Space size="middle">
-                    <a>Удалить</a>
-                    <a>Скрыть</a>
-                </Space>
+                <Popconfirm title="Sure to delete?" onConfirm={() => deleteTemplateClick(record.key)}>
+                    <a>Delete</a>
+                </Popconfirm>
             ),
         },
     ];
@@ -74,49 +78,3 @@ export const Templates = () => {
 }
 
 
-const TemplateEdit = (props) => {
-
-    const dispatch = useDispatch()
-
-    const onFinish = (values) => {
-        const newTemplate = {
-            description: values.name,
-        }
-        dispatch(createNewTemplate(newTemplate.description))
-        props.setIsModalVisible(false)
-    };
-
-    return (
-        <div>
-            <Form
-                labelCol={{
-                    span: 8,
-                }}
-                wrapperCol={{
-                    span: 16,
-                }}
-                layout="horizontal"
-                initialValues={{
-                    size: 'default',
-                }}
-                size={'middle'}
-                onFinish={onFinish}
-            >
-                <Form.Item
-                    label="Описание"
-                    name="name">
-                    <Input />
-                </Form.Item>
-
-                <Form.Item>
-                    <Button type="primary"
-                            htmlType="submit"
-                    >
-                        Submit
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
-    )
-
-}

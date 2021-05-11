@@ -49,6 +49,14 @@ export const getAllTemplate = () => async (dispatch: any) => {
     }
 };
 
+export const deleteTemplate = (id: number) => async (dispatch: any) => {
+    const response = await templateApi.deleteOne(id)
+
+    if (response.status === 200) {
+        dispatch(getAllTemplate())
+    }
+}
+
 export const {setTemplate} = templateSlice.actions
 
 export default templateSlice.reducer
