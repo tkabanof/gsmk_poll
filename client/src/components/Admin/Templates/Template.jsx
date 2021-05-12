@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteTemplate, getAllTemplate} from "../../../features/templates";
 import TemplateEdit from "./TemplateEdit";
 
-export const Templates = () => {
+export const Templates = (props) => {
 
     const dataTemplate = useSelector(state => state.template.data)
 
@@ -16,7 +16,7 @@ export const Templates = () => {
     }
 
     useEffect(() => {
-             dispatch(getAllTemplate())
+            dispatch(getAllTemplate())
         },
         [])
 
@@ -38,14 +38,19 @@ export const Templates = () => {
             dataIndex: 'createdAt',
         },
         {
-            title: 'Action',
+            title: 'Дествие',
             key: 'action',
             render: (text, record) => (
                 <div>
                     <Popconfirm title="Sure to delete?" onConfirm={() => deleteTemplateClick(record.key)}>
-                        <a>Delete</a>
+                        <Button danger>Delete</Button>
                     </Popconfirm>
-                    <a>Редактировать</a>
+                    <a> </a>
+                    <Button type={"dashed"} onClick={() => {
+                        props.setEditTemplateId(record.key)
+                        console.log(11)
+                    }}>Редактировать </Button>
+
                 </div>
 
             ),
@@ -74,7 +79,7 @@ export const Templates = () => {
                 //onOk={handleOk}
                    onCancel={handleCancel}
                    footer={null}>
-                <TemplateEdit setIsModalVisible = {setIsModalVisible}/>
+                <TemplateEdit setIsModalVisible={setIsModalVisible}/>
             </Modal>
         </div>
     )

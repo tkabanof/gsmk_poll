@@ -13,14 +13,23 @@ const { Content, Sider } = Layout;
 
 const Admin = () => {
 
+
+    const [render, updateRender] = useState(1);
+    const [editTemplateId, setEditTemplateIdState] = useState(1);
+
+    const setEditTemplateId = (value) => {
+        setEditTemplateIdState(value)
+        updateRender(23)
+    }
+
     const components = {
         21: <Polls /> ,
-        22: <Templates />,
-        23: <TemplateEditPage />,
+        22: <Templates setEditTemplateId = {setEditTemplateId}/>,
+        23: <TemplateEditPage editTemplateId = {editTemplateId}/>,
         4: <div> Option 4</div>
     };
 
-    const [render, updateRender] = useState(1);
+
 
     const handleMenuClick = menu => {
         updateRender(menu.key);

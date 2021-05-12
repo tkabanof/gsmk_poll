@@ -60,13 +60,10 @@ export const authSlice = createSlice({
 // };
 export const auth = () => async (dispatch: any) => {
     const token = localStorage.getItem('token')
-    console.log(token)
 
     let response = await authAPI.authMe();
     if (response.status === 200) {
         //dispatch(setToken(response.data.token)
-        console.log('auth')
-        console.log(response.data.user)
         dispatch(setAuthData(response.data.user))
         dispatch(setToken(response.data.token))
     }
