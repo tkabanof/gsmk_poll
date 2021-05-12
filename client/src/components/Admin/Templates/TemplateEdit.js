@@ -1,8 +1,10 @@
 import {useDispatch} from "react-redux";
 import {createNewTemplate} from "../../../features/templates";
 import {Button, Form, Input} from "antd";
+import s from './TemplateEdit.module.css'
 
 const TemplateEdit = (props) => {
+
 
     const dispatch = useDispatch()
 
@@ -15,7 +17,7 @@ const TemplateEdit = (props) => {
     };
 
     return (
-        <div>
+        <div className={s.editForm}>
             <Form
                 labelCol={{
                     span: 8,

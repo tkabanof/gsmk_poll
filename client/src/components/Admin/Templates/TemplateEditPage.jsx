@@ -1,3 +1,4 @@
+import TemplateEdit from "./TemplateEdit";
 
 const TemplateEditPage = (props) => {
     return (
@@ -8,7 +9,7 @@ const TemplateEditPage = (props) => {
                 <a>{props.editTemplateId}</a>
             </div>
             <div>
-                
+                <TemplateEdit />
             </div>
         </div>
     )
