@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import {useState} from "react";
 import {Templates} from "./Templates/Template";
+import TemplateEditPage from "./Templates/TemplateEditPage";
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
@@ -15,7 +16,7 @@ const Admin = () => {
     const components = {
         21: <Polls /> ,
         22: <Templates />,
-        //23: <TemplateEditPage />,
+        23: <TemplateEditPage />,
         4: <div> Option 4</div>
     };
 
@@ -62,12 +63,10 @@ const Admin = () => {
                             minHeight: 280,
                         }}
                     >
-                        {/*<Polls />*/}
                         {components[render]}
                     </Content>
                 </Layout>
             </Layout>
-
         </div>
     )
 }

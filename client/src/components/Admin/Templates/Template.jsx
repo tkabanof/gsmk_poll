@@ -12,7 +12,6 @@ export const Templates = () => {
     const dispatch = useDispatch()
 
     const deleteTemplateClick = (value) => {
-        console.log(value)
         dispatch(deleteTemplate(value))
     }
 
@@ -42,9 +41,13 @@ export const Templates = () => {
             title: 'Action',
             key: 'action',
             render: (text, record) => (
-                <Popconfirm title="Sure to delete?" onConfirm={() => deleteTemplateClick(record.key)}>
-                    <a>Delete</a>
-                </Popconfirm>
+                <div>
+                    <Popconfirm title="Sure to delete?" onConfirm={() => deleteTemplateClick(record.key)}>
+                        <a>Delete</a>
+                    </Popconfirm>
+                    <a>Редактировать</a>
+                </div>
+
             ),
         },
     ];
