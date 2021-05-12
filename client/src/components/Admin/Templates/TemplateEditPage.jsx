@@ -2,9 +2,14 @@
 const TemplateEditPage = (props) => {
     return (
         <div>
-            <a>Редактирование шаблона</a>
-            <a> </a>
-            <a>{props.editTemplateId}</a>
+            <div>
+                <a>Редактирование шаблона</a>
+                <a> id </a>
+                <a>{props.editTemplateId}</a>
+            </div>
+            <div>
+                
+            </div>
         </div>
     )
 }
