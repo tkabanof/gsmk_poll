@@ -11,7 +11,7 @@ const TemplateEditPage = (props) => {
             </div>
             <div>
                 {/*<TemplateEdit />*/}
-                <QuestionForm/>
+                <QuestionForm template_id = {props.editTemplateId}/>
             </div>
         </div>
     )

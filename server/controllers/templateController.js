@@ -14,9 +14,16 @@ class TemplateController {
         }
     }
     async updateOne(req, res, next) {
+
+        const arr = req.body.data.data.questions
+
+        console.log(req.body.data.template_id)
+
+        arr.forEach((q) => {
+            console.log(q.answers)
+        })
         // const template = await Template.findAll()
         // return res.status(200).json(template)
-
     }
 
     async getAll(req, res, next) {

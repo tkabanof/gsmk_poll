@@ -55,7 +55,7 @@ export const createNewTemplate = (description: string) => async (dispatch: any) 
     }
 };
 export const updateTemplate = (data: templateData) => async (dispatch: any) => {
-    let response = await templateApi.createNewTemplate(data);
+    let response = await templateApi.updateTemplateDetails(data);
 
 };
 export const getAllTemplate = () => async (dispatch: any) => {

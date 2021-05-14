@@ -4,18 +4,25 @@ import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import FormControl from "./FormControl";
 import BedForm from "./BedForm";
 import "antd/dist/antd.css";
+import {useDispatch} from "react-redux";
+import {updateTemplate} from "../../../../features/templates";
 
-const QuestionForm = () => {
+const QuestionForm = (props) => {
+    const template_id = props.template_id
+
+    const dispatch = useDispatch()
 
     const onSubmit = (data) => {
-        console.log(data);
+        console.log(template_id);
+        const template_data = {data, template_id}
+        dispatch(updateTemplate(template_data))
     };
 
     return (
         <Form onFinish={(e) => onSubmit(e)}>
             <div>
-                <div> <a>Шаблон</a>
-                    <Input placeholder={'Название шаблона'} />
+                <div><a>Шаблон</a>
+                    <Input placeholder={'Название шаблона'}/>
                 </div>
                 <br/>
                 <FormControl

@@ -48,8 +48,7 @@ const Client = sequelize.define('client', {
 )
 const Question = sequelize.define('question', {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-        text: {type: DataTypes.STRING},
-        required: {type: DataTypes.BOOLEAN}
+        text: {type: DataTypes.STRING}
     },
     {
         schema: 'gsmk_poll'
@@ -57,8 +56,7 @@ const Question = sequelize.define('question', {
 )
 const Answer = sequelize.define('answer', {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-        text: {type: DataTypes.STRING},
-        required: {type: DataTypes.BOOLEAN}
+        text: {type: DataTypes.STRING}
     },
     {
         schema: 'gsmk_poll'
@@ -82,8 +80,11 @@ Answer.belongsTo(Question)
 Template.hasMany(Poll)
 Poll.belongsTo(Template)
 
-Question.belongsToMany(Template, {through: 'TemplateQuestions'})
-Template.belongsToMany(Question,{through: 'TemplateQuestions'})
+// Question.belongsToMany(Template, {through: 'TemplateQuestions'})
+// Template.belongsToMany(Question,{through: 'TemplateQuestions'})
+
+Template.hasMany(Question)
+Question.belongsTo(Template)
 
 Poll.hasMany(Client)
 Client.belongsTo(Poll)
