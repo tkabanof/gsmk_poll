@@ -13,6 +13,11 @@ class TemplateController {
             })
         }
     }
+    async updateOne(req, res, next) {
+        // const template = await Template.findAll()
+        // return res.status(200).json(template)
+
+    }
 
     async getAll(req, res, next) {
         const template = await Template.findAll()

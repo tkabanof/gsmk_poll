@@ -7,6 +7,20 @@ type template = {
     createdAt: string,
 }
 
+type templateData = {
+    questions: Array<question>
+
+}
+
+type question = {
+    question_text: string,
+    answer: Array<answer>
+
+}
+type answer = {
+    answer: string
+}
+
 interface state {
     data: Array<template>
 }
@@ -26,11 +40,10 @@ export const templateSlice = createSlice({
     initialState,
     reducers: {
         setTemplate: (state, action) => {
-            const templates = action.payload.map((p: { id: any; key: any;}) => {
+            state.data = action.payload.map((p: { id: any; key: any; }) => {
                 p.key = p.id
                 return p
             })
-            state.data = templates
         }
     }
 })
@@ -40,6 +53,10 @@ export const createNewTemplate = (description: string) => async (dispatch: any) 
     if (response.status === 200) {
         dispatch(getAllTemplate())
     }
+};
+export const updateTemplate = (data: templateData) => async (dispatch: any) => {
+    let response = await templateApi.createNewTemplate(data);
+
 };
 export const getAllTemplate = () => async (dispatch: any) => {
     let response = await templateApi.getAllTemplate();

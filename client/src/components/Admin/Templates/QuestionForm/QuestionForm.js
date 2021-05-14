@@ -35,8 +35,8 @@ const QuestionForm = () => {
                                         >
                                             <Form.Item
                                                 {...field}
-                                                name={[field.name, "question-text"]}
-                                                fieldKey={[field.fieldKey, "question-text"]}
+                                                name={[field.name, "question_text"]}
+                                                fieldKey={[field.fieldKey, "question_text"]}
                                                 rules={[
                                                     {required: true, message: "Вопрос не может быть пустым!"}
                                                 ]}

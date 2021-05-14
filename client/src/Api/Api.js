@@ -61,6 +61,11 @@ export const templateApi = {
             description: description
         })
     },
+    updateTemplateDetails(data) {
+        return instanceAPI.post('template/details', {
+            data: data
+        })
+    },
     deleteOne(id) {
         return instanceAPI.post('template/del', {
             id: id
