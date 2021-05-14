@@ -1,4 +1,5 @@
 import TemplateEdit from "./TemplateEdit";
+import QuestionForm from "./QuestionForm/QuestionForm";
 
 const TemplateEditPage = (props) => {
     return (
@@ -9,7 +10,8 @@ const TemplateEditPage = (props) => {
                 <a>{props.editTemplateId}</a>
             </div>
             <div>
-                <TemplateEdit />
+                {/*<TemplateEdit />*/}
+                <QuestionForm/>
             </div>
         </div>
     )
