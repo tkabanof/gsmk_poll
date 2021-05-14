@@ -44,16 +44,6 @@ class UserController {
             }
             const token = generateJwt(user.id, user.email, user.fio, user.role)
 
-            //console.log('respons данные')
-            //console.log(...user.dataValues)
-            console.log({
-                user: {
-                    userid: user.id,
-                    email: user.email,
-                    role: user.role,
-                    fio: user.fio
-                }
-            })
             return res.json({
                 user: {
                     userid: user.id,
@@ -74,17 +64,16 @@ class UserController {
 
     async auth(req, res, next) {
         let token = req.headers.authorization.split(' ')[1]
-        const decoded = jwt.verify(token, process.env.SECRET_KEY)
-        const user = decoded
-
-        console.log('jwt user')
-        console.log({user: user})
-
-        token = generateJwt(user)
-        //res.json({message: 'auth is work'})
-        //const token = generateJwt(req.user.id, req.user.email, req.user.role, req.user.fio)
+        if (!token){
+            console.log('Пустой токен')
+            return res.status(400).json({
+                message: 'токен пустой'
+            })
+        }
+        const {userid, email, fio, role} = jwt.verify(token, process.env.SECRET_KEY)
+        token = generateJwt(userid, email, fio, role)
         res.json({
-            user: user,
+            user: {userid, email, fio, role},
             token: token
         })
     }
