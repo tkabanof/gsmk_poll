@@ -1,5 +1,4 @@
 import React from "react";
-import {useForm} from "react-hook-form";
 import {Input, Button, Form, Space} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import FormControl from "./FormControl";
@@ -7,7 +6,6 @@ import BedForm from "./BedForm";
 import "antd/dist/antd.css";
 
 const QuestionForm = () => {
-    const {errors} = useForm();
 
     const onSubmit = (data) => {
         console.log(data);
@@ -16,9 +14,8 @@ const QuestionForm = () => {
     return (
         <Form onFinish={(e) => onSubmit(e)}>
             <div>
-                <div>
-                    описание шаблона опроса INPUT
-                    <Input placeholder={'Название шаблона'}></Input>
+                <div> <a>Шаблон</a>
+                    <Input placeholder={'Название шаблона'} />
                 </div>
                 <br/>
                 <FormControl
