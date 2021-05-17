@@ -3,7 +3,7 @@ import Modal from "antd/es/modal/Modal";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteTemplate, getAllTemplate} from "../../../features/templates";
-import TemplateEdit from "./TemplateEdit";
+import TemplateCreateModalForm from "./TemplateCreateModalForm";
 
 export const Templates = (props) => {
 
@@ -79,7 +79,7 @@ export const Templates = (props) => {
                 //onOk={handleOk}
                    onCancel={handleCancel}
                    footer={null}>
-                <TemplateEdit setIsModalVisible={setIsModalVisible}/>
+                <TemplateCreateModalForm setIsModalVisible={setIsModalVisible}/>
             </Modal>
         </div>
     )

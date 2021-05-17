@@ -1,4 +1,4 @@
-import TemplateEdit from "./TemplateEdit";
+import TemplateCreateModalForm from "./TemplateCreateModalForm";
 import QuestionForm from "./QuestionForm/QuestionForm";
 
 const TemplateEditPage = (props) => {
@@ -10,7 +10,7 @@ const TemplateEditPage = (props) => {
                 <a>{props.editTemplateId}</a>
             </div>
             <div>
-                {/*<TemplateEdit />*/}
+                {/*<TemplateCraeteModalForm />*/}
                 <QuestionForm template_id = {props.editTemplateId}/>
             </div>
         </div>

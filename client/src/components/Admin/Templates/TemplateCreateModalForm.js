@@ -3,8 +3,7 @@ import {createNewTemplate} from "../../../features/templates";
 import {Button, Form, Input} from "antd";
 import s from './TemplateEdit.module.css'
 
-const TemplateEdit = (props) => {
-
+const TemplateCreateModalForm = (props) => {
 
     const dispatch = useDispatch()
 
@@ -52,4 +51,4 @@ const TemplateEdit = (props) => {
     )
 
 }
-export default TemplateEdit
+export default TemplateCreateModalForm
