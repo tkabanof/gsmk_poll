@@ -1,4 +1,4 @@
-const {Template} = require("../models/models")
+const {Template, Question, Answer} = require("../models/models")
 
 class TemplateController {
     async addNew(req, res, next) {
@@ -13,15 +13,52 @@ class TemplateController {
             })
         }
     }
+
     async updateOne(req, res, next) {
 
         const arr = req.body.data.data.questions
+        const template_id = req.body.data.template_id
 
-        console.log(req.body.data.template_id)
+        //arr.forEach((q) => {
+        for (const q of arr) {
 
-        arr.forEach((q) => {
-            console.log(q.answers)
-        })
+            let answers = q.answers
+            console.log(answers)
+            console.log(answers.length)
+            try {
+                let question = await Question.create({
+                    templateId: template_id,
+                    text: q.question_text
+                })
+
+                //answers.forEach((a)=> {
+                for (const a of answers) {
+                    console.log(a)
+                    try {
+                       await Answer.create({
+                            text: a.answer,
+                            questionId: question.id
+                        })
+                    } catch (e) {
+                        console.log(e)
+                        // return res.status(400).json({
+                        //     message: 'Новый шаблон не обновленн!',
+                        //     errorDetail: e
+                        // })
+                    }
+                }
+                return res.status(200).json({
+                    message: 'Шаблон обновленн!'
+                })
+            } catch (e) {
+                return res.status(400).json({
+                    message: 'Новый шаблон не обновленн!',
+                    errorDetail: e
+                })
+            }
+            // console.log(q.question_text)
+            // console.log(q.answers)
+        }
         // const template = await Template.findAll()
         // return res.status(200).json(template)
     }
