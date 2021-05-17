@@ -7,6 +7,12 @@ type poll = {
     state: string,
     dateCreate: string,
     userCreate: string,
+    template: {
+        id: number,
+        description: string,
+        createdAt: string,
+        updatedAt: string
+    }
 }
 
 interface state {
@@ -20,6 +26,12 @@ const initialState = {
             state: 'close',
             dateCreate: '2021-01-01',
             userCreate: 'Иванов И. И.',
+            template: {
+                id: 1,
+                description: "sfasfgag",
+                createdAt: "2021-04-26T18:32:37.345Z",
+                updatedAt: "2021-04-26T18:32:37.345Z"
+            }
         },
     ]
 
@@ -40,8 +52,8 @@ export const pollSlice = createSlice({
     }
 })
 
-export const createNewPoll = (description: string, template_id: string, state: string) => async (dispatch: any) => {
-    let response = await pollApi.createNewPoll(description, template_id, state);
+export const createNewPoll = (description: string, templateId: number, state: string) => async (dispatch: any) => {
+    let response = await pollApi.createNewPoll(description, templateId, state);
     if (response.status === 200) {
         dispatch(getAllPoll())
     }
@@ -49,6 +61,7 @@ export const createNewPoll = (description: string, template_id: string, state: s
 export const getAllPoll = () => async (dispatch: any) => {
     let response = await pollApi.getAllPoll();
 
+    console.log(response.data)
     if (response.status === 200) {
         dispatch(setPoll(response.data))
     }

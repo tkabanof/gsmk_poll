@@ -27,6 +27,7 @@ export const Polls = () => {
             title: 'Шаблон',
             dataIndex: 'template',
             key: 'template',
+            render: text => <a>{text ? text.description : "ERROR Опрос без ШАБЛОНА!" }</a>
         },
         {
             title: 'Состояние',
@@ -35,7 +36,7 @@ export const Polls = () => {
         },
         {
             title: 'Дата создания',
-            key: 'dateCraete',
+            key: 'dateCreate',
             dataIndex: 'createdAt',
         },
         {
@@ -57,6 +58,12 @@ export const Polls = () => {
             state: 'close',
             dateCreate: '2021-01-01',
             userCreate: 'Иванов И. И.',
+            template: {
+                id: 1,
+                description: "sfasfgag",
+                createdAt: "2021-04-26T18:32:37.345Z",
+                updatedAt: "2021-04-26T18:32:37.345Z"
+            }
         },
         {
             key: '2',

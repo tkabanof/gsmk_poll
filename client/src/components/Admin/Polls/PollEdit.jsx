@@ -9,7 +9,6 @@ const PollEdit = (props) => {
 
     const dispatch = useDispatch()
 
-
     useEffect(() => {
             dispatch(getAllTemplate())
         },
@@ -20,11 +19,12 @@ const PollEdit = (props) => {
     const onFinish = (values) => {
         const newPoll = {
             description: values.name,
-            template: values.template,
+            templateId: values.template_id,
             state: values.state ? 'open' : 'close'
         }
 
-        dispatch(createNewPoll(newPoll.description, newPoll.template, newPoll.state))
+
+        dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state))
         props.setIsModalVisible(false)
     };
 
@@ -54,7 +54,7 @@ const PollEdit = (props) => {
                 </Form.Item>
                 <Form.Item
                     label="Шаблон опроса"
-                    name="template">
+                    name="template_id">
                     <Select>
                         {templates.map((t)=><Select.Option value={t.id}>{t.description}</Select.Option>)}
                     </Select>

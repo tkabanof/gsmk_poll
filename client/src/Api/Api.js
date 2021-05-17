@@ -44,12 +44,8 @@ export const pollApi = {
     getAllPoll() {
         return instanceAPI.get('poll')
     },
-    createNewPoll(description, template_id, state) {
-        return instanceAPI.post('poll', {
-            description: description,
-            template_id: template_id,
-            state: state
-        })
+    createNewPoll(description, templateId, state) {
+        return instanceAPI.post('poll', {description, templateId, state})
     }
 }
 export const templateApi = {

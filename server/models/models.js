@@ -80,9 +80,6 @@ Answer.belongsTo(Question)
 Template.hasMany(Poll)
 Poll.belongsTo(Template)
 
-// Question.belongsToMany(Template, {through: 'TemplateQuestions'})
-// Template.belongsToMany(Question,{through: 'TemplateQuestions'})
-
 Template.hasMany(Question)
 Question.belongsTo(Template)
 
