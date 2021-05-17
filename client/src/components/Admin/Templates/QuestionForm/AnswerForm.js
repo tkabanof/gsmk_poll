@@ -1,26 +1,27 @@
 import {Form, Button, Space, Input} from "antd";
 import {PlusOutlined, MinusCircleOutlined} from "@ant-design/icons";
-
+import s from "./AnswerForm.module.css"
 
 //@ATT:this was created to make nested dynamic elements! This is hard!
-const BedForm = props => {
+const AnswerForm = props => {
     return (
         <>
             <Form.List name={[props.fieldKey, "answers"]}>
-                {(beds, {add, remove}) => {
+                {(answers, {add, remove}) => {
                     return (
                         <div>
-                            {beds.map((bed, index2) => (
+                            {answers.map((answer, index2) => (
                                 <Space
-                                    key={bed.key}
+                                    key={answer.key}
                                     style={{display: "flex", marginBottom: 8}}
                                     align="start"
                                 >
                                     <Form.Item
                                         // name={"aar"}
-                                        {...bed}
-                                        name={[bed.name, "answer"]}
-                                        fieldKey={[bed.fieldKey, "answer"]}
+                                        {...answer}
+                                        className={s.inputCol}
+                                        name={[answer.name, "answer"]}
+                                        fieldKey={[answer.fieldKey, "answer"]}
                                         key={index2}
                                         // noStyle
                                         rules={[
@@ -30,11 +31,11 @@ const BedForm = props => {
                                             }
                                         ]}
                                     >
-                                        <Input placeholder={'Ответ'}></Input>
+                                        <Input placeholder={'Ответ'}/>
                                     </Form.Item>
                                     <MinusCircleOutlined
                                         onClick={() => {
-                                            remove(bed.name);
+                                            remove(answer.name);
                                         }}
                                     />
                                 </Space>
@@ -46,7 +47,7 @@ const BedForm = props => {
                                         add();
                                     }}
                                 >
-                                    <PlusOutlined/> Добавить отевт
+                                    <PlusOutlined/> Добавить ответ
                                 </Button>
                             </Form.Item>
                         </div>
@@ -57,4 +58,4 @@ const BedForm = props => {
     );
 };
 
-export default BedForm;
+export default AnswerForm;
