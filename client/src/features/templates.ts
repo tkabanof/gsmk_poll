@@ -8,6 +8,7 @@ type template = {
 }
 
 type templateData = {
+    template_name: string,
     questions: Array<question>
 
 }
@@ -47,17 +48,22 @@ export const templateSlice = createSlice({
         }
     }
 })
-
-export const createNewTemplate = (description: string) => async (dispatch: any) => {
-    let response = await templateApi.createNewTemplate(description);
+export const createBrandNewTemplate = (data: templateData) => async (dispatch: any) => {
+    let response = await templateApi.createBrandNewTemplate(data);
     if (response.status === 200) {
         dispatch(getAllTemplate())
     }
 };
-export const updateTemplate = (data: templateData) => async (dispatch: any) => {
-    let response = await templateApi.updateTemplateDetails(data);
-
-};
+// export const createNewTemplate = (description: string) => async (dispatch: any) => {
+//     let response = await templateApi.createNewTemplate(description);
+//     if (response.status === 200) {
+//         dispatch(getAllTemplate())
+//     }
+// };
+// export const updateTemplate = (data: templateData) => async (dispatch: any) => {
+//     let response = await templateApi.updateTemplateDetails(data);
+//
+// };
 export const getAllTemplate = () => async (dispatch: any) => {
     let response = await templateApi.getAllTemplate();
 

@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
-import {createNewTemplate} from "../../../features/templates";
 import {Button, Form, Input} from "antd";
 import s from './TemplateEdit.module.css'
+import {createBrandNewTemplate} from "../../../features/templates";
 
 const TemplateCreateModalForm = (props) => {
 
@@ -11,7 +11,7 @@ const TemplateCreateModalForm = (props) => {
         const newTemplate = {
             description: values.name,
         }
-        dispatch(createNewTemplate(newTemplate.description))
+        dispatch(createBrandNewTemplate(newTemplate.description))
         props.setIsModalVisible(false)
     };
 
@@ -51,4 +51,4 @@ const TemplateCreateModalForm = (props) => {
     )
 
 }
-export default TemplateCreateModalForm
+//export default TemplateCreateModalForm

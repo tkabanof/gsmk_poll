@@ -1,25 +1,29 @@
 const {Template, Question, Answer} = require("../models/models")
 
 class TemplateController {
-    async addNew(req, res, next) {
-        const {description} = req.body
-        try {
-            const template = await Template.create({description})
-            return res.status(200).json(template)
-        } catch (e) {
-            return res.status(400).json({
-                message: 'Новый шаблон не создан!',
-                errorDetail: e
-            })
-        }
-    }
+    // async addNew(req, res, next) {
+    //     const {description} = req.body
+    //     try {
+    //         const template = await Template.create({description})
+    //         return res.status(200).json(template)
+    //     } catch (e) {
+    //         return res.status(400).json({
+    //             message: 'Новый шаблон не создан!',
+    //             errorDetail: e
+    //         })
+    //     }
+    // }
 
-    async updateOne(req, res, next) {
+    async createBrandNew(req, res, next) {
+        console.log(req.body.data)
 
-        const arr = req.body.data.data.questions
-        const template_id = req.body.data.template_id
+        const template_name = req.body.data.template_name
+        const arr = req.body.data.questions
 
-        //arr.forEach((q) => {
+        const template = await Template.create({description: template_name})
+
+        const template_id = template.id
+
         for (const q of arr) {
 
             let answers = q.answers
@@ -31,20 +35,18 @@ class TemplateController {
                     text: q.question_text
                 })
 
-                //answers.forEach((a)=> {
                 for (const a of answers) {
                     console.log(a)
                     try {
-                       await Answer.create({
+                        await Answer.create({
                             text: a.answer,
                             questionId: question.id
                         })
                     } catch (e) {
-                        console.log(e)
-                        // return res.status(400).json({
-                        //     message: 'Новый шаблон не обновленн!',
-                        //     errorDetail: e
-                        // })
+                        return res.status(400).json({
+                            message: 'Новый шаблон не обновленн!',
+                            errorDetail: e
+                        })
                     }
                 }
                 return res.status(200).json({
@@ -59,8 +61,6 @@ class TemplateController {
             // console.log(q.question_text)
             // console.log(q.answers)
         }
-        // const template = await Template.findAll()
-        // return res.status(200).json(template)
     }
 
     async getAll(req, res, next) {
@@ -69,7 +69,7 @@ class TemplateController {
     }
 
     async deleteOne(req, res, next) {
-        console.log(req)
+        //console.log(req.body)
         const templateId = req.body.id
         const template = await Template.findOne({where: {id: templateId}})
         try {

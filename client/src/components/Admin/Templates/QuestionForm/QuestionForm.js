@@ -5,32 +5,34 @@ import FormControl from "./FormControl";
 import AnswerForm from "./AnswerForm";
 import "antd/dist/antd.css";
 import {useDispatch} from "react-redux";
-import {updateTemplate} from "../../../../features/templates";
 import s from "./QuestionForm.module.css"
+import {createBrandNewTemplate} from "../../../../features/templates";
+
 const QuestionForm = (props) => {
-
-
-    const template_id = props.template_id
 
     const dispatch = useDispatch()
 
     const onSubmit = (data) => {
-        console.log(template_id);
-        const template_data = {data, template_id}
-        dispatch(updateTemplate(template_data))
+        console.log(data)
+        dispatch(createBrandNewTemplate(data))
         props.setIsModalVisible(false)
     };
 
     return (
         <Form onFinish={(e) => onSubmit(e)}>
             <div>
-                <div>
-                    <Input placeholder={'Название шаблона'}/>
-                </div>
-                <br/>
+
                 <FormControl
                     //error={errors.guest && <span>This field is required!</span>}
                 >
+                    <Form.Item
+                    name = "template_name"
+                    >
+                        <div>
+                            <Input placeholder={'Название шаблона'}/>
+                        </div>
+                    </Form.Item>
+
                     {/* This is the Dynamic room Adder */}
                     <Form.List name="questions">
                         {(fields, {add, remove}) => {
