@@ -1,11 +1,21 @@
 import {Button, DatePicker, Form, Input, Select, Switch} from "antd";
-import {useDispatch} from "react-redux";
-import {createNewPoll} from "../../../features/polls";
+import {useDispatch, useSelector} from "react-redux";
+import {createNewPoll, getAllPoll} from "../../../features/polls";
+import {useEffect} from "react";
+import {getAllTemplate} from "../../../features/templates";
 
 
 const PollEdit = (props) => {
 
     const dispatch = useDispatch()
+
+
+    useEffect(() => {
+            dispatch(getAllTemplate())
+        },
+        [])
+
+    const templates = useSelector(state => state.template.data)
 
     const onFinish = (values) => {
         const newPoll = {
@@ -46,7 +56,7 @@ const PollEdit = (props) => {
                     label="Шаблон опроса"
                     name="template">
                     <Select>
-                        <Select.Option value="demo">Demo</Select.Option>
+                        {templates.map((t)=><Select.Option value={t.id}>{t.description}</Select.Option>)}
                     </Select>
                 </Form.Item>
                 <Form.Item label="Показать"
