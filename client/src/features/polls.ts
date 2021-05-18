@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {pollApi} from "../Api/Api";
+import {logDOM} from "@testing-library/react";
 
 type poll = {
     key: string,
@@ -47,7 +48,10 @@ export const pollSlice = createSlice({
                 p.name = p.description
                 return p
             })
-            state.data = polls
+            if (state.data !== polls) {
+                state.data = polls
+            }
+
         }
     }
 })
@@ -58,8 +62,9 @@ export const createNewPoll = (description: string, templateId: number, state: st
         dispatch(getAllPoll())
     }
 };
-export const changeStatusPoll = (id: number, state: boolean) => async (dispatch: any) => {
+export const changeStatusPoll = (id: number, state: string) => async (dispatch: any) => {
     let response = await pollApi.changeStatusPoll(id, state);
+    console.log(response)
     if (response.status === 200) {
         dispatch(getAllPoll())
     }
@@ -72,8 +77,6 @@ export const deleteOnePoll = (id: number) => async (dispatch: any) => {
 };
 export const getAllPoll = () => async (dispatch: any) => {
     let response = await pollApi.getAllPoll();
-
-    console.log(response.data)
     if (response.status === 200) {
         dispatch(setPoll(response.data))
     }

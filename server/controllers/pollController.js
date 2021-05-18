@@ -15,8 +15,11 @@ class PollController {
     }
 
     async changePollStatus(req, res, next) {
+
+
         const pollId = req.body.id
         const state = req.body.state
+
 
         let newState
 
@@ -28,15 +31,18 @@ class PollController {
                 newState = 'close'
                 break
             default:
-                newState = 'close'
+                newState = 'undefined'
         }
 
         const willbeUpdatetd = await Poll.findOne({where: {id: pollId}})
+
         if (willbeUpdatetd) {
             try {
                 willbeUpdatetd.state = newState
                 await willbeUpdatetd.save()
-                return res.status(200)
+                return res.status(200).json({
+                    message: 'Статус изменен'
+                })
             } catch (e) {
                 return res.status(400)
             }

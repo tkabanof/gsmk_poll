@@ -15,14 +15,14 @@ export const Polls = () => {
     useEffect(() => {
             dispatch(getAllPoll())
         },
-        [dataPoll])
+        [])
 
     const columns = [
         {
             title: 'Навзание',
             dataIndex: 'name',
             key: 'name',
-            render: text => <a>{text}</a>,
+            //render: text => <a>{text}</a>,
         },
         {
             title: 'Шаблон',
@@ -47,7 +47,10 @@ export const Polls = () => {
                     </Popconfirm>
 
                     <Button
-                        onClick={() => dispatch(changeStatusPoll(record.key, record.state))}
+                        onClick={() => {
+                            dispatch(changeStatusPoll(record.key, record.state))
+
+                        }}
                         icon={record.state === 'close' ? <EyeInvisibleOutlined/> : <EyeOutlined/>}
                     />
                 </Space>
@@ -55,35 +58,6 @@ export const Polls = () => {
         },
     ];
 
-    const data = [
-        {
-            key: '1',
-            name: 'Опрос о прохождении диспансеризации 1',
-            state: 'close',
-            dateCreate: '2021-01-01',
-            userCreate: 'Иванов И. И.',
-            template: {
-                id: 1,
-                description: "sfasfgag",
-                createdAt: "2021-04-26T18:32:37.345Z",
-                updatedAt: "2021-04-26T18:32:37.345Z"
-            }
-        },
-        {
-            key: '2',
-            name: 'Опрос о прохождении диспансеризации 2',
-            state: 'open',
-            dateCreate: '2021-01-01',
-            userCreate: 'Иванов И. И.',
-        },
-        {
-            key: '3',
-            name: 'Опрос о прохождении диспансеризации 3',
-            state: 'open',
-            dateCreate: '2021-01-01',
-            userCreate: 'Иванов И. И.',
-        },
-    ]
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
