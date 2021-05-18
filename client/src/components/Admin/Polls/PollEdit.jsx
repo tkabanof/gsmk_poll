@@ -24,7 +24,7 @@ const PollEdit = (props) => {
         }
 
 
-        dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state))
+       dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state))
         props.setIsModalVisible(false)
     };
 
@@ -65,7 +65,7 @@ const PollEdit = (props) => {
                 </Form.Item>
                 <Form.Item label="Данные"
                     name="dataSet">
-                    <input type="file" accept="text/plain, text/x-csv"
+                    <input type="file" accept=".csv"
                            onChange={handleChange}/>
                 </Form.Item>
                 <Form.Item>
