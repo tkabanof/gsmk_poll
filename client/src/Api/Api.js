@@ -49,6 +49,9 @@ export const pollApi = {
     },
     deleteOnePoll(id) {
         return instanceAPI.post('poll/del', {id})
+    },
+    changeStatusPoll(id, state) {
+        return instanceAPI.post('poll/setstate', {id, state})
     }
 }
 export const templateApi = {

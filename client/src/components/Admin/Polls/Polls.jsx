@@ -3,7 +3,8 @@ import Modal from "antd/es/modal/Modal";
 import PollEdit from "./PollEdit";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteOnePoll, getAllPoll} from "../../../features/polls";
+import {changeStatusPoll, deleteOnePoll, getAllPoll} from "../../../features/polls";
+import {EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
 
 export const Polls = () => {
 
@@ -12,9 +13,9 @@ export const Polls = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getAllPoll())
+            dispatch(getAllPoll())
         },
-        [])
+        [dataPoll])
 
     const columns = [
         {
@@ -27,12 +28,7 @@ export const Polls = () => {
             title: 'Шаблон',
             dataIndex: 'template',
             key: 'template',
-            render: text => <a>{text ? text.description : "ERROR Опрос без ШАБЛОНА!" }</a>
-        },
-        {
-            title: 'Состояние',
-            dataIndex: 'state',
-            key: 'state',
+            render: text => <a>{text ? text.description : "ERROR Опрос без ШАБЛОНА!"}</a>
         },
         {
             title: 'Дата создания',
@@ -44,12 +40,16 @@ export const Polls = () => {
             key: 'action',
             render: (text, record) => (
                 <Space size="middle">
-                    <Popconfirm title="Sure to delete?"
+                    <Popconfirm title="Уверены что хотите удалить?"
                                 onConfirm={() => dispatch(deleteOnePoll(record.key))}
                     >
                         <Button danger>Удалить</Button>
                     </Popconfirm>
-                    <a>Скрыть</a>
+
+                    <Button
+                        onClick={() => dispatch(changeStatusPoll(record.key, record.state))}
+                        icon={record.state === 'close' ? <EyeInvisibleOutlined/> : <EyeOutlined/>}
+                    />
                 </Space>
             ),
         },
@@ -104,10 +104,10 @@ export const Polls = () => {
             <Button onClick={showModal}>Создать новый опрос</Button>
 
             <Modal title="Новый опрос" visible={isModalVisible}
-                   //onOk={handleOk}
+                //onOk={handleOk}
                    onCancel={handleCancel}
                    footer={null}>
-                <PollEdit setIsModalVisible = {setIsModalVisible}/>
+                <PollEdit setIsModalVisible={setIsModalVisible}/>
             </Modal>
         </div>
     )

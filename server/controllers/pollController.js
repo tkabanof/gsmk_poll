@@ -14,6 +14,35 @@ class PollController {
         }
     }
 
+    async changePollStatus(req, res, next) {
+        const pollId = req.body.id
+        const state = req.body.state
+
+        let newState
+
+        switch (state) {
+            case 'close':
+                newState = 'open'
+                break;
+            case 'open':
+                newState = 'close'
+                break
+            default:
+                newState = 'close'
+        }
+
+        const willbeUpdatetd = await Poll.findOne({where: {id: pollId}})
+        if (willbeUpdatetd) {
+            try {
+                willbeUpdatetd.state = newState
+                await willbeUpdatetd.save()
+                return res.status(200)
+            } catch (e) {
+                return res.status(400)
+            }
+        }
+    }
+
     async getAll(req, res, next) {
         //const {description, state, user_idCreate} = req.body
         const poll = await Poll.findAll({
