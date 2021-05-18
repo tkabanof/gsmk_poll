@@ -15,7 +15,7 @@ class TemplateController {
     // }
 
     async createBrandNew(req, res, next) {
-        console.log(req.body.data)
+        //console.log(req.body.data)
 
         const template_name = req.body.data.template_name
         const arr = req.body.data.questions

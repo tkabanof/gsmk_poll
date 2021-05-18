@@ -58,6 +58,12 @@ export const createNewPoll = (description: string, templateId: number, state: st
         dispatch(getAllPoll())
     }
 };
+export const deleteOnePoll = (id: number) => async (dispatch: any) => {
+    let response = await pollApi.deleteOnePoll(id);
+    if (response.status === 200) {
+        dispatch(getAllPoll())
+    }
+};
 export const getAllPoll = () => async (dispatch: any) => {
     let response = await pollApi.getAllPoll();
 

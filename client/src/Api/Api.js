@@ -46,6 +46,9 @@ export const pollApi = {
     },
     createNewPoll(description, templateId, state) {
         return instanceAPI.post('poll', {description, templateId, state})
+    },
+    deleteOnePoll(id) {
+        return instanceAPI.post('poll/del', {id})
     }
 }
 export const templateApi = {
@@ -53,9 +56,7 @@ export const templateApi = {
         return instanceAPI.get('template')
     },
     createBrandNewTemplate(data) {
-        return instanceAPI.post('template', {
-            data
-        })
+        return instanceAPI.post('template', {data})
     },
     // createNewTemplate(description) {
     //     return instanceAPI.post('template', {
@@ -68,8 +69,6 @@ export const templateApi = {
     //     })
     // },
     deleteOne(id) {
-        return instanceAPI.post('template/del', {
-            id: id
-        })
+        return instanceAPI.post('template/del', {id})
     }
 }

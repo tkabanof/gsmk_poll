@@ -23,6 +23,24 @@ class PollController {
         })
         return res.status(200).json(poll)
     }
+
+    async deleteOne(req, res, nex) {
+        const pollId = req.body.id
+        const willbedeleted = await Poll.findOne({where: {id: pollId}})
+
+        if (willbedeleted) {
+            try {
+                willbedeleted.destroy()
+                return res.status(200).json({
+                    message: "Опрос удален"
+                })
+            } catch (e) {
+                return res.status(400).json({
+                    message: "Ошибка удаления опроса"
+                })
+            }
+        }
+    }
 }
 
 module.exports = new PollController()

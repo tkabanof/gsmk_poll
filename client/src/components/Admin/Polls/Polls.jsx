@@ -1,9 +1,9 @@
-import {Button, Space, Table, Tag} from "antd";
+import {Button, Popconfirm, Space, Table, Tag} from "antd";
 import Modal from "antd/es/modal/Modal";
 import PollEdit from "./PollEdit";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllPoll} from "../../../features/polls";
+import {deleteOnePoll, getAllPoll} from "../../../features/polls";
 
 export const Polls = () => {
 
@@ -44,7 +44,11 @@ export const Polls = () => {
             key: 'action',
             render: (text, record) => (
                 <Space size="middle">
-                    <a>Удалить</a>
+                    <Popconfirm title="Sure to delete?"
+                                onConfirm={() => dispatch(deleteOnePoll(record.key))}
+                    >
+                        <Button danger>Удалить</Button>
+                    </Popconfirm>
                     <a>Скрыть</a>
                 </Space>
             ),
