@@ -1,10 +1,9 @@
-import {Avatar, Button, Col, Menu, Row} from "antd";
+import {Button, Col, Menu, Row} from "antd";
 import {Layout} from "antd";
 import {useHistory} from "react-router-dom";
 import s from './Header.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {auth, wipeAuthData} from "../../features/auth";
-import {useEffect} from "react";
+import {wipeAuthData} from "../../features/auth";
 
 const {Header} = Layout;
 
@@ -17,14 +16,9 @@ const UserCard = () => {
         dispatch(wipeAuthData())
     };
 
-    useEffect(()=>{
-        console.log('header useefect')
-        //dispatch(auth())
-    },[])
-
     return (
         <div className={s.userCard}>
-            <a> ФИО {fio}</a>
+            <a>{fio ?? 'Без имени'}</a>
             <Button
                 size="small"
                 style={{
@@ -60,7 +54,7 @@ const HeaderNav = (props) => {
                     </Menu>
                 </Col>
                 <Col span={6}>
-                    <UserCard />
+                    <UserCard/>
                 </Col>
 
             </Row>

@@ -28,10 +28,8 @@ const Login = () => {
     const dispatch = useDispatch()
 
     useEffect(()=>{
-        console.log('loginUseEffect')
         dispatch(auth())
     }, [])
-
 
     const history = useHistory()
 

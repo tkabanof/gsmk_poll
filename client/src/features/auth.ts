@@ -24,8 +24,6 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setToken: (state, action) => {
-            console.log('settoken')
-            console.log(action.payload)
             state.token = action.payload
             //localStorage.removeItem('token')
             localStorage.setItem('token', action.payload)
@@ -59,11 +57,10 @@ export const authSlice = createSlice({
 //
 // };
 export const auth = () => async (dispatch: any) => {
-    const token = localStorage.getItem('token')
+//    const token = localStorage.getItem('token')
 
     let response = await authAPI.authMe();
     if (response.status === 200) {
-        //dispatch(setToken(response.data.token)
         dispatch(setAuthData(response.data.user))
         dispatch(setToken(response.data.token))
     }
