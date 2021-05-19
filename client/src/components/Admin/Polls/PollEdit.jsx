@@ -17,6 +17,19 @@ const PollEdit = (props) => {
     const templates = useSelector(state => state.template.data)
 
     const onFinish = (values) => {
+        console.log(values)
+
+        let file = values.dataSet
+        console.log(file)
+
+        if (file.type && !file.type.startsWith('image/')) {
+            console.log('File is not an image.', file.type, file)}
+
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+
         const newPoll = {
             description: values.name,
             templateId: values.template_id,
@@ -24,12 +37,27 @@ const PollEdit = (props) => {
         }
 
 
-       dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state))
+       //dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state))
         props.setIsModalVisible(false)
     };
 
-    const handleChange = () => {
-        console.log('file picked')
+    const handleChange = (e) => {
+
+        let file = e.target.files[0]
+        console.log(file.size)
+
+        const reader = new FileReader();
+
+        reader.readAsText(file);
+
+        reader.onerror = () => {
+            console.log('Ошибка чтения файла')
+        }
+
+        reader.onload = () => {
+            console.log(reader.result)
+        }
+
     }
     return (
         <div>
