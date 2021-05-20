@@ -40,7 +40,8 @@ const Client = sequelize.define('client', {
         birthday: {type: DataTypes.DATE},
         phone: {type: DataTypes.STRING},
         state: {type: DataTypes.STRING},
-        call_date: {type: DataTypes.DATE}
+        call_date: {type: DataTypes.DATE},
+        params: {type: DataTypes.JSON}
     },
     {
         schema: 'gsmk_poll'

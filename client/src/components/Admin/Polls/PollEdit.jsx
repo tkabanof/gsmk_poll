@@ -3,34 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getAllTemplate} from "../../../features/templates";
 import {createNewPoll} from "../../../features/polls";
+import {checkAndPrepareRequiredFields, csvToArray} from "./pollEditor";
 
 
 const PollEdit = (props) => {
-    function csvToArray(str, delimiter = ",") {
-        // slice from start of text to the first \n index
-        // use split to create an array from string by delimiter
-        const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
-
-        // slice from \n index + 1 to the end of the text
-        // use split to create an array of each csv value row
-        const rows = str.slice(str.indexOf("\n") + 1).split("\n");
-
-        // Map the rows
-        // split values from each row into an array
-        // use headers.reduce to create an object
-        // object properties derived from headers:values
-        // the object passed as an element of the array
-        const arr = rows.map(function (row) {
-            const values = row.split(delimiter);
-            const el = headers.reduce(function (object, header, index) {
-                object[header] = values[index];
-                return object;
-            }, {});
-            return el;
-        });
-
-        return arr;
-    }
 
     let dataset = null
 
@@ -54,7 +30,7 @@ const PollEdit = (props) => {
 
         console.log(newPoll)
 
-        dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state, newPoll.dataSet))
+        //dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state, newPoll.dataSet))
         props.setIsModalVisible(false)
     };
 
@@ -66,18 +42,26 @@ const PollEdit = (props) => {
 
             const reader = new FileReader();
             reader.onprogress = (event) => {
-                console.log(event.loaded + '/' + event.total)
+                //console.log(event.loaded + '/' + event.total)
             }
             reader.onerror = () => {
                 console.log('Ошибка чтения csv')
             }
             reader.onload = () => {
                 const text = reader.result
-                const data = csvToArray(text)
+                let data = csvToArray(text)
                 console.log(data)
-                dataset = data
+                data = checkAndPrepareRequiredFields(data)
+
+                if (data) {
+                    console.log(data)
+                    dataset = data
+                }else {
+                    alert('Ошибка! Проверь поля')
+                }
+
             }
-            reader.readAsText(file)
+            reader.readAsText(file, 'CP1251')
         } catch (e) {
             console.log(e)
         }
@@ -136,6 +120,7 @@ const PollEdit = (props) => {
                            ]}>
                     <input type="file" accept=".csv"
                            onChange={handleChange}/>
+                    <a>Кодировка CP1251 разделитель ';'</a>
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary"
