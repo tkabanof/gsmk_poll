@@ -2,6 +2,7 @@ import {Button, Form, Input, Select, Switch} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getAllTemplate} from "../../../features/templates";
+import {createNewPoll} from "../../../features/polls";
 
 
 const PollEdit = (props) => {
@@ -31,6 +32,8 @@ const PollEdit = (props) => {
         return arr;
     }
 
+    let dataset = null
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -41,51 +44,43 @@ const PollEdit = (props) => {
     const templates = useSelector(state => state.template.data)
 
     const onFinish = (values) => {
-        console.log(values)
-
-        let file = values.dataSet
-        console.log(file)
-
-        if (file.type && !file.type.startsWith('image/')) {
-            console.log('File is not an image.', file.type, file)}
-
-        const reader = new FileReader();
-
-        reader.readAsDataURL(file);
-
 
         const newPoll = {
             description: values.name,
             templateId: values.template_id,
-            state: values.state ? 'open' : 'close'
+            state: values.state ? 'open' : 'close',
+            dataSet: dataset
         }
 
+        console.log(newPoll)
 
-       //dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state))
+        dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state, newPoll.dataSet))
         props.setIsModalVisible(false)
     };
 
 
-
     const handleChange = (e) => {
+        try {
+            let file = e.target.files[0]
+            console.log(file.type)
 
-        let file = e.target.files[0]
-        console.log(file.name)
-
-        const reader = new FileReader();
-        reader.onprogress = (event) => {
-            console.log(event.loaded + '/' + event.total)
+            const reader = new FileReader();
+            reader.onprogress = (event) => {
+                console.log(event.loaded + '/' + event.total)
+            }
+            reader.onerror = () => {
+                console.log('Ошибка чтения csv')
+            }
+            reader.onload = () => {
+                const text = reader.result
+                const data = csvToArray(text)
+                console.log(data)
+                dataset = data
+            }
+            reader.readAsText(file)
+        } catch (e) {
+            console.log(e)
         }
-        reader.onerror = ()=>{
-            console.log('Ошибка чтения csv')
-        }
-        reader.onload = () => {
-            const text = reader.result
-            const data = csvToArray(text)
-            console.log(data)
-        }
-        reader.readAsText(file)
-
 
     }
     return (
@@ -106,14 +101,27 @@ const PollEdit = (props) => {
             >
                 <Form.Item
                     label="Название"
-                    name="name">
-                    <Input />
+                    name="name"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Нужно ввести название опроса!'
+                        }
+                    ]}
+                >
+                    <Input/>
                 </Form.Item>
                 <Form.Item
                     label="Шаблон опроса"
-                    name="template_id">
+                    name="template_id"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Нужно указать шаблон опроса!'
+                        }
+                    ]}>
                     <Select>
-                        {templates.map((t)=><Select.Option value={t.id}>{t.description}</Select.Option>)}
+                        {templates.map((t) => <Select.Option value={t.id}>{t.description}</Select.Option>)}
                     </Select>
                 </Form.Item>
                 <Form.Item label="Показать"
@@ -121,7 +129,11 @@ const PollEdit = (props) => {
                     <Switch/>
                 </Form.Item>
                 <Form.Item label="Данные"
-                    name="dataSet">
+                           name="dataSet"
+                           rules={[
+                               {required: true,
+                                   message: 'Выберете фаил с данными для опроса!'}
+                           ]}>
                     <input type="file" accept=".csv"
                            onChange={handleChange}/>
                 </Form.Item>

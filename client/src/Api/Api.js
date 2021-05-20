@@ -44,8 +44,8 @@ export const pollApi = {
     getAllPoll() {
         return instanceAPI.get('poll')
     },
-    createNewPoll(description, templateId, state) {
-        return instanceAPI.post('poll', {description, templateId, state})
+    createNewPoll(description, templateId, state, dataSet) {
+        return instanceAPI.post('poll', {description, templateId, state, dataSet})
     },
     deleteOnePoll(id) {
         return instanceAPI.post('poll/del', {id})

@@ -2,9 +2,9 @@ const {Poll, Template} = require("../models/models")
 
 class PollController {
     async addNew(req, res, next) {
-        const {description, templateId, state} = req.body
+        const {description, templateId, state, dataSet} = req.body
         try {
-            const poll = await Poll.create({description, state, templateId})
+            //const poll = await Poll.create({description, state, templateId})
             return res.status(200).json(poll)
         } catch (e) {
             return res.status(400).json({
