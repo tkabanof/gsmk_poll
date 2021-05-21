@@ -11,7 +11,6 @@ class PollController {
             })
 
             const set = Client.bulkCreate(newDataSet, {returning: true})
-            console.log(set)
 
             return res.status(200).json({
                 message: 'Опрос создан!'
@@ -79,7 +78,8 @@ class PollController {
                 await Client.destroy({
                     where: {
                         pollId: pollId
-                    }
+                    },
+                    truncate: true
                 })
                 return res.status(200).json({
                     message: "Опрос удален"

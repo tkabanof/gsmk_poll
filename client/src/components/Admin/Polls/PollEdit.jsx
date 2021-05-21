@@ -28,7 +28,6 @@ const PollEdit = (props) => {
             dataSet: dataset
         }
 
-
         dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state, newPoll.dataSet))
         props.setIsModalVisible(false)
     };
@@ -46,6 +45,8 @@ const PollEdit = (props) => {
             }
             reader.onload = () => {
                 let text = reader.result
+
+                text = text.replaceAll('"', '')
                 let data = csvToArray(text)
                 data = checkAndPrepareRequiredFields(data)
 
