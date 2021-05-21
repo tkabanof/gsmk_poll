@@ -28,9 +28,8 @@ const PollEdit = (props) => {
             dataSet: dataset
         }
 
-        console.log(newPoll)
 
-        //dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state, newPoll.dataSet))
+        dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state, newPoll.dataSet))
         props.setIsModalVisible(false)
     };
 
@@ -38,8 +37,6 @@ const PollEdit = (props) => {
     const handleChange = (e) => {
         try {
             let file = e.target.files[0]
-            console.log(file.type)
-
             const reader = new FileReader();
             reader.onprogress = (event) => {
                 //console.log(event.loaded + '/' + event.total)
@@ -48,15 +45,13 @@ const PollEdit = (props) => {
                 console.log('Ошибка чтения csv')
             }
             reader.onload = () => {
-                const text = reader.result
+                let text = reader.result
                 let data = csvToArray(text)
-                console.log(data)
                 data = checkAndPrepareRequiredFields(data)
 
                 if (data) {
-                    console.log(data)
                     dataset = data
-                }else {
+                } else {
                     alert('Ошибка! Проверь поля')
                 }
 
@@ -114,10 +109,13 @@ const PollEdit = (props) => {
                 </Form.Item>
                 <Form.Item label="Данные"
                            name="dataSet"
-                           rules={[
-                               {required: true,
-                                   message: 'Выберете фаил с данными для опроса!'}
-                           ]}>
+                           // rules={[
+                           //     {
+                           //         required: true,
+                           //         message: 'Выберете фаил с данными для опроса!'
+                           //     }
+                           // ]}
+                >
                     <input type="file" accept=".csv"
                            onChange={handleChange}/>
                     <a>Кодировка CP1251 разделитель ';'</a>

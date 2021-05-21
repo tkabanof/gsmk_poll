@@ -1,11 +1,22 @@
-const {Poll, Template} = require("../models/models")
+const {Poll, Template, Client} = require("../models/models")
 
 class PollController {
     async addNew(req, res, next) {
         const {description, templateId, state, dataSet} = req.body
         try {
-            //const poll = await Poll.create({description, state, templateId})
-            return res.status(200).json(poll)
+            const poll = await Poll.create({description, state, templateId})
+            const newDataSet = dataSet.map((item)=> {
+                item.pollId = poll.id
+                return item
+            })
+
+            const set = Client.bulkCreate(newDataSet, {returning: true})
+            console.log(set)
+
+            return res.status(200).json({
+                message: 'Опрос создан!'
+            })
+
         } catch (e) {
             return res.status(400).json({
                 message: 'Новый опрос не создан!',
@@ -15,7 +26,6 @@ class PollController {
     }
 
     async changePollStatus(req, res, next) {
-
 
         const pollId = req.body.id
         const state = req.body.state
@@ -65,7 +75,12 @@ class PollController {
 
         if (willbedeleted) {
             try {
-                willbedeleted.destroy()
+                await willbedeleted.destroy()
+                await Client.destroy({
+                    where: {
+                        pollId: pollId
+                    }
+                })
                 return res.status(200).json({
                     message: "Опрос удален"
                 })
