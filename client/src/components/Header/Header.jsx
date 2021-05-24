@@ -44,14 +44,14 @@ const HeaderNav = (props) => {
         <Header>
             <Row>
                 <Col span={18}>
-                    <div className="logo"/>
-                    <Menu theme="dark"
-                          mode="horizontal"
-                          defaultSelectedKeys={['2']}
-                          onClick={handleClick}>
-                        <Menu.Item key="/admin">Администратор</Menu.Item>
-                        <Menu.Item key="/call">Звонки</Menu.Item>
-                    </Menu>
+                    {/*<div className="logo"/>*/}
+                    {/*<Menu theme="dark"*/}
+                    {/*      mode="horizontal"*/}
+                    {/*      defaultSelectedKeys={['2']}*/}
+                    {/*      onClick={handleClick}>*/}
+                    {/*    <Menu.Item key="/admin">Администратор</Menu.Item>*/}
+                    {/*    <Menu.Item key="/call">Звонки</Menu.Item>*/}
+                    {/*</Menu>*/}
                 </Col>
                 <Col span={6}>
                     <UserCard/>

@@ -1,8 +1,8 @@
 import {Button, Form, Input, Select, Switch} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getAllTemplate} from "../../../features/templates";
-import {createNewPoll} from "../../../features/polls";
+import {getAllTemplate} from "../../features/templates";
+import {createNewPoll} from "../../features/polls";
 import {checkAndPrepareRequiredFields, csvToArray} from "./pollEditor";
 
 

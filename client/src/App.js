@@ -6,19 +6,18 @@ import AppRouter from "./components/AppRouter";
 
 import React from "react";
 import {useSelector} from "react-redux";
+import SideMenu from "./components/SideMenu/SideMenu";
 
 const {Footer} = Layout;
 
 function App() {
 
-    const token = useSelector((state) => state.auth.token)
-    const isAuth = !!token
-
     return (
             <BrowserRouter>
                 <Layout className="layout">
                     <HeaderNav/>
-                    <AppRouter/>
+                    {/*<AppRouter/>*/}
+                    <SideMenu/>
                     {/*<Content style={{ padding: '0 50px' }}>*/}
 
                     {/*  */}

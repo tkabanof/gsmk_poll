@@ -3,7 +3,7 @@ import Modal from "antd/es/modal/Modal";
 import PollEdit from "./PollEdit";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeStatusPoll, deleteOnePoll, getAllPoll} from "../../../features/polls";
+import {changeStatusPoll, deleteOnePoll, getAllPoll} from "../../features/polls";
 import {EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
 
 export const Polls = () => {

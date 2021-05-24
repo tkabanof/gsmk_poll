@@ -6,7 +6,7 @@ import AnswerForm from "./AnswerForm";
 import "antd/dist/antd.css";
 import {useDispatch} from "react-redux";
 import s from "./QuestionForm.module.css"
-import {createBrandNewTemplate} from "../../../../features/templates";
+import {createBrandNewTemplate} from "../../../features/templates";
 
 const QuestionForm = (props) => {
 

@@ -1,8 +1,15 @@
-import {ADMIN_ROUTE, CALL_ROUTE, HOME_ROUTE, LOGIN_ROUTE} from "./components/utils/consts";
-import Admin from "./components/Admin/Admin";
+import {
+    CALL_ROUTE,
+    HOME_ROUTE,
+    LOGIN_ROUTE,
+    POLL_ROUTE,
+    Templates_ROUTE
+} from "./components/utils/consts";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Call from "./components/Call/Call";
+import {Polls} from "./components/Polls/Polls";
+import {Templates} from "./components/Templates/Template";
 
 export const authRoutes = [
     {
@@ -10,12 +17,16 @@ export const authRoutes = [
         Component: Home
     },
     {
-        path: CALL_ROUTE,
-        Component: Call
+        path: Templates_ROUTE,
+        Component: Templates
     },
     {
-        path: ADMIN_ROUTE,
-        Component: Admin
+        path: POLL_ROUTE,
+        Component: Polls
+    },
+    {
+        path: CALL_ROUTE,
+        Component: Call
     },
 ]
 

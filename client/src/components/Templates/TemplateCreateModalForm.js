@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
 import {Button, Form, Input} from "antd";
 import s from './TemplateEdit.module.css'
-import {createBrandNewTemplate} from "../../../features/templates";
+import {createBrandNewTemplate} from "../../features/templates";
 
 const TemplateCreateModalForm = (props) => {
 

@@ -2,8 +2,7 @@ import {Button, Popconfirm, Space, Table} from "antd";
 import Modal from "antd/es/modal/Modal";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteTemplate, getAllTemplate} from "../../../features/templates";
-import TemplateCreateModalForm from "./TemplateCreateModalForm";
+import {deleteTemplate, getAllTemplate} from "../../features/templates";
 import QuestionForm from "./QuestionForm/QuestionForm";
 
 export const Templates = (props) => {
@@ -47,11 +46,6 @@ export const Templates = (props) => {
                         <Button danger>Delete</Button>
                     </Popconfirm>
                     <a> </a>
-                    {/*<Button type={"dashed"} onClick={() => {*/}
-                    {/*    props.setEditTemplateId(record.key)*/}
-                    {/*    console.log(11)*/}
-                    {/*}}>Редактировать </Button>*/}
-
                 </div>
 
             ),
@@ -81,7 +75,6 @@ export const Templates = (props) => {
                    width={1200}
                    onCancel={handleCancel}
                    footer={null}>
-                {/*<TemplateCreateModalForm setIsModalVisible={setIsModalVisible}/>*/}
                 <QuestionForm
                     setIsModalVisible={setIsModalVisible}
                 />
