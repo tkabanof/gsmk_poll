@@ -9,6 +9,14 @@ class ClientController {
         return res.status(200).json(poll)
     }
     async getFieldValue(req, res, next) {
+
+        function getValues(arr, field) {
+            let values = []
+            arr.forEach((a)=>values.push(a[field]))
+            return values
+        }
+
+
         const pollId = req.params.id
         const clients = await Client.findAll({where: {pollId: pollId}})
 
@@ -16,9 +24,12 @@ class ClientController {
             return p.params
         })
 
+        let keys = Object.keys(cli[0])
+        let keyValue = {}
+        keys.forEach((a)=> keyValue[a] = getValues(cli, a))
 
 
-        return res.status(400).json({cli})
+        return res.status(200).json({keyValue})
 
     }
     async getAll(req, res, next) {
