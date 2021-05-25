@@ -24,6 +24,7 @@ class PollController {
         }
     }
 
+
     async changePollStatus(req, res, next) {
 
         const pollId = req.body.id

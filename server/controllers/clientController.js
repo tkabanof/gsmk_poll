@@ -8,6 +8,19 @@ class ClientController {
         // const poll = await Client.create({description, state, user_idCreate})
         return res.status(200).json(poll)
     }
+    async getFieldValue(req, res, next) {
+        const pollId = req.params.id
+        const clients = await Client.findAll({where: {pollId: pollId}})
+
+        const cli = clients.map((p)=> {
+            return p.params
+        })
+
+
+
+        return res.status(400).json({cli})
+
+    }
     async getAll(req, res, next) {
 
         const poll = await Client.findAll()
