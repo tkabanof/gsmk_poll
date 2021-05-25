@@ -1,12 +1,26 @@
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Route, Switch, Redirect, useLocation} from 'react-router-dom'
 import {authRoutes, publicRoutes} from "../routes";
 import {LOGIN_ROUTE} from "./utils/consts";
-import {useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import {useEffect} from "react";
+import {auth} from "../features/auth";
 
 const AppRouter = () => {
 
-    const token = useSelector(state => state.auth.token)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(auth())
+    }, [])
+
+
+    //const token = useSelector(state => state.auth.token)
+    const token = localStorage.getItem('token')
+
+
     const isAuth = !!token
+    console.log(token)
+    const path = useLocation()
+    console.log(path.pathname)
 
     return (
         <Switch>

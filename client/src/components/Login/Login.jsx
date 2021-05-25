@@ -27,9 +27,6 @@ const tailLayout = {
 const Login = () => {
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        dispatch(auth())
-    }, [])
 
     const history = useHistory()
 

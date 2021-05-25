@@ -1,5 +1,5 @@
 import {
-    CALL_ROUTE,
+    CALL_ROUTE, CALL_ROUTE_DETAIL,
     HOME_ROUTE,
     LOGIN_ROUTE,
     POLL_ROUTE,
@@ -10,6 +10,7 @@ import Home from "./components/Home/Home";
 import Call from "./components/Call/Call";
 import {Polls} from "./components/Polls/Polls";
 import {Templates} from "./components/Templates/Template";
+import CallForm from "./components/Call/CallForm";
 
 export const authRoutes = [
     {
@@ -27,6 +28,10 @@ export const authRoutes = [
     {
         path: CALL_ROUTE,
         Component: Call
+    },
+    {
+        path: CALL_ROUTE_DETAIL,
+        Component: CallForm
     },
 ]
 

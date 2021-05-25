@@ -56,7 +56,6 @@ const HeaderNav = (props) => {
                 <Col span={6}>
                     <UserCard/>
                 </Col>
-
             </Row>
         </Header>
     )

@@ -9,6 +9,7 @@ interface state {
     token: null | string
     isAuth: boolean
 }
+
 const initialState = {
     userid: null,
     email: null,
