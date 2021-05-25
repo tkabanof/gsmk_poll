@@ -8,18 +8,20 @@ class ClientController {
         // const poll = await Client.create({description, state, user_idCreate})
         return res.status(200).json(poll)
     }
-    async getFieldValue(req, res, next) {
 
+    async getFieldValue(req, res, next) {
         function getValues(arr, field) {
             let values = []
-            arr.forEach((a)=>values.push(a[field]))
+            arr.forEach((a)=>{
+                if (values.indexOf(a[field]) === -1 ){
+                    values.push(a[field])
+                }
+            })
             return values
         }
 
-
         const pollId = req.params.id
         const clients = await Client.findAll({where: {pollId: pollId}})
-
         const cli = clients.map((p)=> {
             return p.params
         })
@@ -28,12 +30,10 @@ class ClientController {
         let keyValue = {}
         keys.forEach((a)=> keyValue[a] = getValues(cli, a))
 
-
         return res.status(200).json({keyValue})
 
     }
     async getAll(req, res, next) {
-
         const poll = await Client.findAll()
         return res.status(200).json(poll)
     }
