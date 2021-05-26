@@ -1,11 +1,10 @@
 import s from './Login.module.css'
 import {message, Form, Input, Button} from 'antd'
-import {useDispatch, useSelector} from "react-redux"
-import {auth, login, setAuthData, setToken} from "../../features/auth";
+import {useDispatch} from "react-redux"
+import {setAuthData, setToken} from "../../features/auth";
 import {authAPI} from "../../Api/Api";
 import {useHistory} from "react-router-dom";
 import {HOME_ROUTE} from "../utils/consts";
-import {useEffect} from "react";
 
 
 const layout = {
@@ -23,25 +22,17 @@ const tailLayout = {
     },
 };
 
-
 const Login = () => {
     const dispatch = useDispatch()
-
-
     const history = useHistory()
 
     const onFinish = async (values) => {
         let {email, password} = values
-
         await authAPI.login(email, password)
             .then((response) => {
-                console.log(response.data.user)
-                console.log(response.data.token)
                 dispatch(setAuthData(response.data.user))
                 dispatch(setToken(response.data.token))
-
                 history.push(HOME_ROUTE)
-
             })
             .catch((error) => {
                 if (error.response) {

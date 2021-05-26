@@ -44,6 +44,9 @@ export const pollApi = {
     getAllPoll() {
         return instanceAPI.get('poll')
     },
+    getPollFieldValueData(id) {
+        return instanceAPI.get('client/keyValue/'+ id)
+    },
     createNewPoll(description, templateId, state, dataSet) {
         return instanceAPI.post('poll', {description, templateId, state, dataSet})
     },

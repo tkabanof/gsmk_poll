@@ -15,7 +15,7 @@ const Call = () => {
 
     return (
         <div>
-            {dataPoll.map((p) => <CallInfoCard name = {p.name}/>)}
+            {dataPoll.map((p) => <CallInfoCard id = {p.id} name = {p.name}/>)}
         </div>
     )
 }
