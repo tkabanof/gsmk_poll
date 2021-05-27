@@ -9,6 +9,11 @@ const CallInfoCard = (props) => {
     let [values, setValues] = useState(['1', '2'])
     let [value, setValue] = useState('Значение')
 
+    const setVal = (val) => {
+        setValue(val)
+
+    }
+
     const setSortParams = (value) => {
         setSortParam(value)
         setValues(data[sortParam])
@@ -48,7 +53,7 @@ const CallInfoCard = (props) => {
                 return (
                     <Menu.Item>
                         <a target="_blank"
-                           onClick={(event) => setValue(event.target.text)}
+                           onClick={(event) => setVal(event.target.text)}
                            key={p}
                         >
                             {p}
