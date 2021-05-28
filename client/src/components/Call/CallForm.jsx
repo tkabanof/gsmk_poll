@@ -2,14 +2,21 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    useParams
+    useParams, useLocation
 } from "react-router-dom";
 
 const CallForm = () => {
-    let {id} = useParams();
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
+    let query = useQuery();
+    for (let p of query) {
+        console.log(p);
+    }
+    //let {id} = useParams();
 
     return (
-        <div>Форма {id}</div>
+        <div>Форма </div>
     )
 }
 

@@ -8,6 +8,7 @@ const CallInfoCard = (props) => {
 
     const history = useHistory()
 
+
     let [data, setData] = useState(1)
     let [sortParam, setSortParam] = useState('Параметр')
     let [values, setValues] = useState(['1', '2'])
@@ -15,18 +16,17 @@ const CallInfoCard = (props) => {
 
     const setVal = (val) => {
         setValue(val)
-        const query_param = {sortParam: val}
-        console.log(query_param)
-        //history.push(CALL_ROUTE_DETAIL + '/' + props.id)
+        let searchParams = new URLSearchParams()
+        searchParams.append('id', props.id)
+        searchParams.append(sortParam, val)
+        //const query_param = {sortParam: val}
+
+        history.push(CALL_ROUTE_DETAIL +'?'+ searchParams)
     }
 
     const setSortParams = (value) => {
-        debugger
-        console.log(value)
         setSortParam(value)
-        console.log(sortParam)
         setValues(data[value])
-
     }
     const onLoad = async (id) => {
         return await pollApi.getPollFieldValueData(id)

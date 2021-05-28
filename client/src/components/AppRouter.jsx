@@ -15,7 +15,7 @@ const AppRouter = () => {
     //const token = useSelector(state => state.auth.token)
     const token = localStorage.getItem('token')
     const isAuth = !!token
-    const path = useLocation()
+    //const path = useLocation()
 
     return (
         <Switch>
