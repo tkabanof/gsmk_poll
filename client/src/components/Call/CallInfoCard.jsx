@@ -1,22 +1,31 @@
 import {Button, Card, Dropdown, Menu} from "antd";
 import {pollApi} from "../../Api/Api";
 import {useEffect, useState} from "react";
+import {useHistory} from "react-router-dom";
+import {CALL_ROUTE_DETAIL} from "../utils/consts";
 
 const CallInfoCard = (props) => {
 
+    const history = useHistory()
+
     let [data, setData] = useState(1)
-    let [sortParam, setSortParam] = useState("Признак")
+    let [sortParam, setSortParam] = useState('Параметр')
     let [values, setValues] = useState(['1', '2'])
     let [value, setValue] = useState('Значение')
 
     const setVal = (val) => {
         setValue(val)
-
+        const query_param = {sortParam: val}
+        console.log(query_param)
+        //history.push(CALL_ROUTE_DETAIL + '/' + props.id)
     }
 
     const setSortParams = (value) => {
+        debugger
+        console.log(value)
         setSortParam(value)
-        setValues(data[sortParam])
+        console.log(sortParam)
+        setValues(data[value])
 
     }
     const onLoad = async (id) => {
@@ -72,7 +81,7 @@ const CallInfoCard = (props) => {
             </Dropdown>
             <a> </a>
             <Dropdown overlay={menu2} placement="bottomLeft">
-                <Button>{value}</Button>
+                <Button>Выбрать {sortParam}</Button>
             </Dropdown>
         </Card>
     )
