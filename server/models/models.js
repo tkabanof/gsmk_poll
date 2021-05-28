@@ -47,6 +47,13 @@ const Client = sequelize.define('client', {
         schema: 'gsmk_poll'
     }
 )
+const ClientOnHold = sequelize.define('clientOnHold', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    userId: {type: DataTypes.INTEGER},
+    clientId: {type: DataTypes.INTEGER}
+}, {
+    schema: 'gsmk_poll'
+})
 const Question = sequelize.define('question', {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
         text: {type: DataTypes.STRING}
