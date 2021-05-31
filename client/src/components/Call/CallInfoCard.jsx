@@ -8,45 +8,55 @@ const CallInfoCard = (props) => {
 
     const history = useHistory()
 
+    const id = props.id
+    const name = props.name
 
-    let [data, setData] = useState(1)
-    let [sortParam, setSortParam] = useState('Параметр')
-    let [values, setValues] = useState(['1', '2'])
-    let [value, setValue] = useState('Значение')
+    let [data, setData] = useState([1])
+
+    const setMO = (text) => {
+        let searchParams = new URLSearchParams()
+        searchParams.append('pollId', props.id)
+        searchParams.append('mo', text)
+        history.push(CALL_ROUTE_DETAIL + '?' + searchParams)
+    }
 
     const setVal = (val) => {
-        setValue(val)
         let searchParams = new URLSearchParams()
-        searchParams.append('id', props.id)
-        searchParams.append(sortParam, val)
+        searchParams.append('pollId', props.id)
+        //searchParams.append(mo, val)
         //const query_param = {sortParam: val}
 
-        history.push(CALL_ROUTE_DETAIL +'?'+ searchParams)
+        history.push(CALL_ROUTE_DETAIL + '?' + searchParams)
     }
 
-    const setSortParams = (value) => {
-        setSortParam(value)
-        setValues(data[value])
-    }
+
     const onLoad = async (id) => {
-        return await pollApi.getPollFieldValueData(id)
+        return await pollApi.getUniqMO(id)
     }
 
     useEffect(() => {
-        onLoad(props.id).then((r) => {
-            setData(r.data.keyValue)
-        }).catch(() => {
-            console.log('Ошибка')
+        console.log(id)
+        if (id !== 1) {
+            onLoad(id).then((r) => {
+            setData(r.data)
+
+        }).catch((e) => {
+            console.log('Ошибка подгрузки МО')
+            console.log(e)
         })
-    }, [])
+        }
+    }, [id])
+
+
+
 
     let menu = (
         <Menu>
-            {Object.keys(data).map((p) => {
+            {data && data.map((p) => {
                 return (
                     <Menu.Item>
                         <a target="_blank"
-                           onClick={(event) => setSortParams(event.target.text)}
+                           onClick={(event) => setMO(event.target.text)}
                            key={p}
                         >
                             {p}
@@ -56,32 +66,14 @@ const CallInfoCard = (props) => {
             })}
         </Menu>
     )
-    let menu2 = (
-        <Menu>
-            {values.map((p) => {
-                return (
-                    <Menu.Item>
-                        <a target="_blank"
-                           onClick={(event) => setVal(event.target.text)}
-                           key={p}
-                        >
-                            {p}
-                        </a>
-                    </Menu.Item>
-                )
-            })}
-        </Menu>
-    )
+
     return (
-        <Card title={props.name}
+        <Card title={name + ' id: ' + id}
             //extra={<a href="#">More</a>}
               style={{width: 700}}>
+
             <Dropdown overlay={menu} placement="bottomLeft">
-                <Button>{sortParam}</Button>
-            </Dropdown>
-            <a> </a>
-            <Dropdown overlay={menu2} placement="bottomLeft">
-                <Button>Выбрать {sortParam}</Button>
+                <Button>Выбор МО</Button>
             </Dropdown>
         </Card>
     )

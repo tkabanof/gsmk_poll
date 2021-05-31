@@ -44,8 +44,8 @@ export const pollApi = {
     getAllPoll() {
         return instanceAPI.get('poll')
     },
-    getPollFieldValueData(id) {
-        return instanceAPI.get('client/keyValue/'+ id)
+    getUniqMO(id) {
+        return instanceAPI.get('client/mo/'+ id)
     },
     createNewPoll(description, templateId, state, dataSet) {
         return instanceAPI.post('poll', {description, templateId, state, dataSet})
@@ -55,6 +55,14 @@ export const pollApi = {
     },
     changeStatusPoll(id, state) {
         return instanceAPI.post('poll/setstate', {id, state})
+    }
+}
+
+export const clientApi = {
+    getOneClient(query) {
+        return instanceAPI.get('client/getOne',{
+            params: query
+            })
     }
 }
 export const templateApi = {

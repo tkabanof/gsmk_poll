@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {pollApi} from "../Api/Api";
-import {logDOM} from "@testing-library/react";
 
 type poll = {
-    key: string,
+    key: number,
+    id: number,
     name: string,
     state: string,
     dateCreate: string,
@@ -22,7 +22,8 @@ interface state {
 const initialState = {
     data : [
         {
-            key: '1',
+            key: 1,
+            id: 1,
             name: 'Опрос о прохождении диспансеризации 1',
             state: 'close',
             dateCreate: '2021-01-01',

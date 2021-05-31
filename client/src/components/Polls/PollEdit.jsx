@@ -121,7 +121,7 @@ const PollEdit = (props) => {
                            onChange={handleChange}/>
                     <a>Кодировка CP1251 разделитель ';'</a>
                     <br></br>
-                    <a>Обязательные поля: surname, name1, name2, birthday, phone</a>
+                    <a>Обязательные поля: surname, name1, name2, birthday, phone, MO</a>
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary"

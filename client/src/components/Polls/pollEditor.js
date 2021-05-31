@@ -28,10 +28,10 @@ export const checkAndPrepareRequiredFields = (arr) => {
 
     try {
         return arr.map((a) => {
-            let {surname, name1, name2, birthday, phone, ...params} = a
+            let {surname, name1, name2, birthday, phone, mo, ...params} = a
             return {
-                surname, name1, name2, birthday, phone,
-                params: params
+                surname, name1, name2, birthday, phone, mo
+                //params: params
             }
         })
     } catch (e) {
