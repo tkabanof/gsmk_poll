@@ -11,7 +11,7 @@ import {Descriptions, Tag} from "antd";
 
 const CallForm = () => {
 
-    let data = useSelector(state => state.client.data)
+    let data = useSelector(state => state.client.data.client)
 
     const dispatch = useDispatch()
 
@@ -62,6 +62,10 @@ const CallForm = () => {
                 <Descriptions.Item label="Дата рождения">{data.birthday}</Descriptions.Item>
                 <Descriptions.Item label="MO">{data.mo}</Descriptions.Item>
             </Descriptions>
+
+            <div>
+
+            </div>
         </div>
     )
 }

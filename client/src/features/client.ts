@@ -10,16 +10,36 @@ type Client = {
     phone: string,
     state: string,
     call_date: string,
+}
 
+type Answer = {
+    id: number,
+    text: string,
+    createdAt: string,
+    updatedAt: string,
+    questionId: number
+}
+type Question = {
+    id: number,
+    text: string,
+    createdAt: string,
+    updatedAt: string,
+    templateId: number,
+    answers: Array<Answer>
 }
 
 interface state {
-    data: Client
+    data: {
+        client: Client
+        question: Question
+    }
 }
 
 const initialState = {
     data: {
-        id: 1
+        client: {
+            id: 1
+        }
     }
 
 } as state
@@ -29,9 +49,7 @@ export const clientSlice = createSlice({
     initialState,
     reducers: {
         setClient: (state, action) => {
-            console.log(action.payload)
-            const id = action.payload.id
-            state.data = action.payload
+            state.data.client = action.payload
         }
     }
 })

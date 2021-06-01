@@ -1,4 +1,6 @@
 const ApiError = require('../error/ApiError')
+const {Answer} = require("../models/models");
+const {Poll} = require("../models/models");
 const {Question} = require("../models/models");
 
 class QuestionController {
@@ -16,11 +18,27 @@ class QuestionController {
     async getAll(req, res) {
         const questions = await Question.findAll()
         return res.json(questions)
-
     }
 
-    async getById(req, res) {
+    async getQuestionAnswerByIdPoll(req, res) {
+        const pollId = req.params.id
+        const poll = await Poll.findOne({
+            where: {
+                id: pollId
+            }
+        })
+        const templateId = poll.templateId
 
+        const questions = await Question.findAll({
+                where: {
+                    templateId: templateId
+                },
+            include: [{
+                model: Answer
+            }]
+            },
+        )
+        return res.json(questions)
     }
 
 }
