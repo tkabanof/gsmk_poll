@@ -37,7 +37,7 @@ class ClientController {
             return p.mo
         })
         cli = [...new Set(cli)]
-        console.log(cli)
+        //console.log(cli)
 
         return res.status(200).json(cli)
 

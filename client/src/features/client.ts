@@ -13,10 +13,16 @@ type Client = {
 
 }
 
-const initialState = {
-    id: 1
+interface state {
+    data: Client
+}
 
-} as Client
+const initialState = {
+    data: {
+        id: 1
+    }
+
+} as state
 
 export const clientSlice = createSlice({
     name: 'client',
@@ -25,7 +31,7 @@ export const clientSlice = createSlice({
         setClient: (state, action) => {
             console.log(action.payload)
             const id = action.payload.id
-            state = id
+            state.data = action.payload
         }
     }
 })
