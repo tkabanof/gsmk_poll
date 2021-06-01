@@ -41,7 +41,14 @@ const initialState = {
             id: 1
         },
         questions: [
-            {id: 1}
+            {
+                id: 1,
+                text: 'Вопрос 1',
+                answers: [{
+                    id: 1,
+                    text: 'Ответ1'
+                }]
+            }
         ]
     }
 

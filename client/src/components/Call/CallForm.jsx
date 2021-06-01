@@ -21,10 +21,6 @@ const CallForm = () => {
     const pollId = query.get('pollId')
 
 
-    let data = useSelector(state => state.client.data.client)
-    let qa = useSelector(state => state.client.data.questions)
-
-
     useEffect(() => {
         dispatch(getNewClient(query))
         dispatch(getQuestionAnswer(pollId))
@@ -32,14 +28,17 @@ const CallForm = () => {
         console.log(qa)
     }, [])
 
-    let questiosn = (
+    let data = useSelector(state => state.client.data.client)
+    let qa = useSelector(state => state.client.data.questions)
+
+
+    let questions = (
         <div>
             {qa.map((q) => {
-                const answer = q.answers.map((a) => {
-                    return(<Option value={a.id}>
-                            {a.text}
-                    </Option>)
-                })
+                let answers = q.answers
+                console.log(q)
+                answers = answers.map((a) => <Option value={a.id}>{a.text}</Option>)
+
                 return (<Form.Item
                     label={q.text}
                     name={q.id}
@@ -48,7 +47,7 @@ const CallForm = () => {
                         placeholder="Вырери ответ на вопрос"
                         allowClear
                     >
-                    {answer}
+                        {answers}
                     </Select>
                 </Form.Item>)
             })}
@@ -80,7 +79,7 @@ const CallForm = () => {
 
             <div>
                 <Form onFinish={onFinish}>
-                    {questiosn}
+                    {questions}
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
                             Submit

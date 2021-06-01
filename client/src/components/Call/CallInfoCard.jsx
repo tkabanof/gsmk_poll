@@ -20,15 +20,6 @@ const CallInfoCard = (props) => {
         history.push(CALL_ROUTE_DETAIL + '?' + searchParams)
     }
 
-    const setVal = (val) => {
-        let searchParams = new URLSearchParams()
-        searchParams.append('pollId', props.id)
-        //searchParams.append(mo, val)
-        //const query_param = {sortParam: val}
-
-        history.push(CALL_ROUTE_DETAIL + '?' + searchParams)
-    }
-
 
     const onLoad = async (id) => {
         return await pollApi.getUniqMO(id)
@@ -37,16 +28,14 @@ const CallInfoCard = (props) => {
     useEffect(() => {
         if (id !== 1) {
             onLoad(id).then((r) => {
-            setData(r.data)
+                setData(r.data)
 
-        }).catch((e) => {
-            console.log('Ошибка подгрузки МО')
-            console.log(e)
-        })
+            }).catch((e) => {
+                console.log('Ошибка подгрузки МО')
+                console.log(e)
+            })
         }
     }, [id])
-
-
 
 
     let menu = (
