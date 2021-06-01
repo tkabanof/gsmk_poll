@@ -5,14 +5,12 @@ import {
     useParams, useLocation
 } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getNewClient} from "../../features/client";
-import {useEffect} from "react";
-import {Descriptions, Tag} from "antd";
+import {getNewClient, getQuestionAnswer} from "../../features/client";
+import {useEffect, useState} from "react";
+import {Button, Descriptions, Form, Select, Tag} from "antd";
+import {Option} from "antd/es/mentions";
 
 const CallForm = () => {
-
-    let data = useSelector(state => state.client.data.client)
-
     const dispatch = useDispatch()
 
     function useQuery() {
@@ -20,28 +18,45 @@ const CallForm = () => {
     }
 
     let query = useQuery();
+    const pollId = query.get('pollId')
 
 
-    /*
+    let data = useSelector(state => state.client.data.client)
+    let qa = useSelector(state => state.client.data.questions)
 
-    const keys = query.keys()
-    const id = keys.next().value
-    const filedParam = keys.next().value
-
-    let o = {query: {}}
-    o.id = query.get(id)
-    o.query[filedParam] = query.get(filedParam)
-    */
-
-    //dispatch(getNewClient(o.query))
-
-    //console.log(o)}
 
     useEffect(() => {
         dispatch(getNewClient(query))
+        dispatch(getQuestionAnswer(pollId))
         console.log(data)
+        console.log(qa)
     }, [])
 
+    let questiosn = (
+        <div>
+            {qa.map((q) => {
+                const answer = q.answers.map((a) => {
+                    return(<Option value={a.id}>
+                            {a.text}
+                    </Option>)
+                })
+                return (<Form.Item
+                    label={q.text}
+                    name={q.id}
+                >
+                    <Select
+                        placeholder="Вырери ответ на вопрос"
+                        allowClear
+                    >
+                    {answer}
+                    </Select>
+                </Form.Item>)
+            })}
+        </div>
+    )
+    const onFinish = (values) => {
+        console.log(values);
+    }
 
 
     return (
@@ -64,7 +79,15 @@ const CallForm = () => {
             </Descriptions>
 
             <div>
+                <Form onFinish={onFinish}>
+                    {questiosn}
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                    </Form.Item>
 
+                </Form>
             </div>
         </div>
     )

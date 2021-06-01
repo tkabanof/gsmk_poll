@@ -35,7 +35,6 @@ const CallInfoCard = (props) => {
     }
 
     useEffect(() => {
-        console.log(id)
         if (id !== 1) {
             onLoad(id).then((r) => {
             setData(r.data)

@@ -31,7 +31,7 @@ type Question = {
 interface state {
     data: {
         client: Client
-        question: Question
+        questions: Array<Question>
     }
 }
 
@@ -39,7 +39,10 @@ const initialState = {
     data: {
         client: {
             id: 1
-        }
+        },
+        questions: [
+            {id: 1}
+        ]
     }
 
 } as state
@@ -50,6 +53,9 @@ export const clientSlice = createSlice({
     reducers: {
         setClient: (state, action) => {
             state.data.client = action.payload
+        },
+        setQuestionAnswer: (state, action) => {
+            state.data.questions = action.payload
         }
     }
 })
@@ -59,7 +65,13 @@ export const getNewClient = (data: any) => async (dispatch: any) => {
         dispatch(setClient(response.data))
     }
 };
+export const getQuestionAnswer = (id: number) => async (dispatch: any) => {
+    let response = await clientApi.getQuestionAnswer(id);
+    if (response.status === 200) {
+        dispatch(setQuestionAnswer(response.data))
+    }
+};
 
-export const {setClient} = clientSlice.actions
+export const {setClient, setQuestionAnswer} = clientSlice.actions
 
 export default clientSlice.reducer

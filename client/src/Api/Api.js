@@ -63,7 +63,10 @@ export const clientApi = {
         return instanceAPI.get('client/getOne',{
             params: query
             })
-    }
+    },
+    getQuestionAnswer(id) {
+        return instanceAPI.get('client/question/'+ id)
+    },
 }
 export const templateApi = {
     getAllTemplate() {
