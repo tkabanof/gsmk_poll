@@ -1,4 +1,5 @@
 const ApiError = require('../error/ApiError')
+const {ClientOnHold} = require("../models/models");
 const {Poll} = require("../models/models");
 const {Client} = require("../models/models")
 
@@ -36,16 +37,35 @@ class ClientController {
 
     async getOne(req, res, next) {
 
-        let queryParam = req.query
-        // delete queryParam.id
-        const client = await Client.findOne({
-            where: queryParam
-        })
-        // const poll = await Client.findOne({
-        //
-        // })
+        const userId = req.res.user.userid
+        const queryParam = req.query
+        const pollId = queryParam.pollId
+        let client = null
 
-        return res.status(200).json(client)
+
+        const clientHold = await ClientOnHold.findOne({
+            where: {
+                userId: userId,
+                pollId: pollId
+            }
+        })
+
+        if (!clientHold) {
+            client = await Client.findOne({
+                where: queryParam
+            })
+            await ClientOnHold.create({
+                userId: userId,
+                clientId: client.id,
+                pollId: client.pollId
+            })
+            return res.status(200).json(client)
+        } else {
+            client = await Client.findOne({
+                where: {id: clientHold.clientId}
+            })
+            return res.status(200).json(client)
+        }
     }
 }
 

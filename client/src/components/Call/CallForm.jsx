@@ -82,7 +82,7 @@ const CallForm = () => {
                     {questions}
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
-                            Submit
+                            Отправить ответ
                         </Button>
                     </Form.Item>
 

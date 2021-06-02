@@ -50,7 +50,8 @@ const Client = sequelize.define('client', {
 const ClientOnHold = sequelize.define('clientOnHold', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     userId: {type: DataTypes.INTEGER},
-    clientId: {type: DataTypes.INTEGER}
+    clientId: {type: DataTypes.INTEGER},
+    pollId: {type: DataTypes.INTEGER}
 }, {
     schema: 'gsmk_poll'
 })
@@ -97,8 +98,7 @@ Client.belongsTo(Poll)
 User.hasMany(Poll)
 Poll.belongsTo(User)
 
-
 module.exports = {
-    User, Question, Poll, AnswerQuestion, Client, Answer, Template
+    User, Question, Poll, AnswerQuestion, Client, Answer, Template, ClientOnHold
 }
 
