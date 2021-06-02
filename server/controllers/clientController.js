@@ -52,7 +52,11 @@ class ClientController {
 
         if (!clientHold) {
             client = await Client.findOne({
-                where: queryParam
+                where: queryParam,
+                include: {
+                    model: ClientOnHold,
+                    where: {id: null}
+                }
             })
             await ClientOnHold.create({
                 userId: userId,
