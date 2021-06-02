@@ -15,20 +15,14 @@ class TemplateController {
     // }
 
     async createBrandNew(req, res, next) {
-        //console.log(req.body.data)
-
         const template_name = req.body.data.template_name
         const arr = req.body.data.questions
-
         const template = await Template.create({description: template_name})
-
         const template_id = template.id
 
-        for (const q of arr) {
+        for (const  q of arr) {
 
             let answers = q.answers
-            console.log(answers)
-            console.log(answers.length)
             try {
                 let question = await Question.create({
                     templateId: template_id,
@@ -36,7 +30,6 @@ class TemplateController {
                 })
 
                 for (const a of answers) {
-                    console.log(a)
                     try {
                         await Answer.create({
                             text: a.answer,
@@ -49,18 +42,17 @@ class TemplateController {
                         })
                     }
                 }
-                return res.status(200).json({
-                    message: 'Шаблон обновленн!'
-                })
+
             } catch (e) {
                 return res.status(400).json({
                     message: 'Новый шаблон не обновленн!',
                     errorDetail: e
                 })
             }
-            // console.log(q.question_text)
-            // console.log(q.answers)
         }
+        return res.status(200).json({
+            message: 'Шаблон обновленн!'
+        })
     }
 
     async getAll(req, res, next) {

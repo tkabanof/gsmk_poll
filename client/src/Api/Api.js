@@ -75,16 +75,7 @@ export const templateApi = {
     createBrandNewTemplate(data) {
         return instanceAPI.post('template', {data})
     },
-    // createNewTemplate(description) {
-    //     return instanceAPI.post('template', {
-    //         description: description
-    //     })
-    // },
-    // updateTemplateDetails(data) {
-    //     return instanceAPI.post('template/details', {
-    //         data: data
-    //     })
-    // },
+
     deleteOne(id) {
         return instanceAPI.post('template/del', {id})
     }

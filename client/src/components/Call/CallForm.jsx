@@ -24,8 +24,6 @@ const CallForm = () => {
     useEffect(() => {
         dispatch(getNewClient(query))
         dispatch(getQuestionAnswer(pollId))
-        console.log(data)
-        console.log(qa)
     }, [])
 
     let data = useSelector(state => state.client.data.client)
@@ -42,6 +40,7 @@ const CallForm = () => {
                 return (<Form.Item
                     label={q.text}
                     name={q.id}
+                    rules={[{required: true}]}
                 >
                     <Select
                         placeholder="Вырери ответ на вопрос"
@@ -54,7 +53,11 @@ const CallForm = () => {
         </div>
     )
     const onFinish = (values) => {
-        console.log(values);
+        const data = {
+            pollId: pollId,
+            answers: values
+        }
+        console.log(data);
     }
 
 

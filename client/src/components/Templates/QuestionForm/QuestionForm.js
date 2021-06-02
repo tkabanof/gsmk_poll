@@ -90,7 +90,7 @@ const QuestionForm = (props) => {
             <div>
                 <div className="inner-wrapper">
                     <Button type="primary" htmlType="submit">
-                        Next
+                        Сохранить
                     </Button>
                 </div>
             </div>
