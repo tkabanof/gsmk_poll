@@ -9,7 +9,6 @@ class ClientController {
     async getUniqMo(req, res, next) {
 
         const pollId = req.params.id
-        console.log(pollId)
         const poll = Poll.findOne({where: {id: pollId}})
         if (!poll) {
             return res.status(400).json({message: 'Нет такого опроса!'})
@@ -42,7 +41,6 @@ class ClientController {
         const pollId = queryParam.pollId
         let client = null
 
-
         const clientHold = await ClientOnHold.findOne({
             where: {
                 userId: userId,
@@ -55,6 +53,7 @@ class ClientController {
                 where: queryParam,
                 include: {
                     model: ClientOnHold,
+                    required: false,
                     where: {id: null}
                 }
             })

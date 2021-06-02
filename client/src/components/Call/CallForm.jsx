@@ -20,7 +20,6 @@ const CallForm = () => {
     let query = useQuery();
     const pollId = query.get('pollId')
 
-
     useEffect(() => {
         dispatch(getNewClient(query))
         dispatch(getQuestionAnswer(pollId))
@@ -34,9 +33,7 @@ const CallForm = () => {
         <div>
             {qa.map((q) => {
                 let answers = q.answers
-                console.log(q)
                 answers = answers.map((a) => <Option value={a.id}>{a.text}</Option>)
-
                 return (<Form.Item
                     label={q.text}
                     name={q.id}

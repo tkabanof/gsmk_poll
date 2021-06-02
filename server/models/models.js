@@ -83,6 +83,9 @@ const AnswerQuestion = sequelize.define('answerquestion', {
 Client.hasMany(AnswerQuestion)
 AnswerQuestion.belongsTo(Client)
 
+Client.hasMany(ClientOnHold)
+ClientOnHold.belongsTo(Client)
+
 Question.hasMany(Answer)
 Answer.belongsTo(Question)
 
