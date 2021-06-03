@@ -67,6 +67,9 @@ export const clientApi = {
     getQuestionAnswer(id) {
         return instanceAPI.get('client/question/'+ id)
     },
+    setAnswers(data) {
+        return instanceAPI.post('client/setAnswer', {data})
+    }
 }
 export const templateApi = {
     getAllTemplate() {

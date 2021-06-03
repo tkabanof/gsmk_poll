@@ -9,5 +9,6 @@ router.get ('/', authMiddleware, clientController.getAll)
 router.get ('/mo/:id', authMiddleware, clientController.getUniqMo)
 router.get ('/getOne', authMiddleware, clientController.getOne)
 router.get('/question/:id', questController.getQuestionAnswerByIdPoll)
+router.post('/setAnswer', clientController.setAnswers)
 
 module.exports = router

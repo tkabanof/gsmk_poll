@@ -5,7 +5,7 @@ import {
     useParams, useLocation
 } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getNewClient, getQuestionAnswer} from "../../features/client";
+import {getNewClient, getQuestionAnswer, setAnswers} from "../../features/client";
 import {useEffect, useState} from "react";
 import {Button, Descriptions, Form, Select, Tag} from "antd";
 import {Option} from "antd/es/mentions";
@@ -20,13 +20,19 @@ const CallForm = () => {
     let query = useQuery();
     const pollId = query.get('pollId')
 
-    useEffect(() => {
-        dispatch(getNewClient(query))
-        dispatch(getQuestionAnswer(pollId))
-    }, [])
-
     let data = useSelector(state => state.client.data.client)
     let qa = useSelector(state => state.client.data.questions)
+
+
+    useEffect(() => {
+        if (data.id === 1) {
+            dispatch(getNewClient(query))
+        }
+    }, [data])
+
+    useEffect(() => {
+        dispatch(getQuestionAnswer(pollId))
+    }, [])
 
 
     let questions = (
@@ -50,11 +56,13 @@ const CallForm = () => {
         </div>
     )
     const onFinish = (values) => {
-        const data = {
-            pollId: pollId,
+        const client_data = {
+            clientId: data.id,
             answers: values
         }
-        console.log(data);
+        //dispatch(setAnswers(client_data))
+        console.log(client_data);
+
     }
 
 
@@ -79,7 +87,7 @@ const CallForm = () => {
 
             <div>
                 <Form onFinish={onFinish}>
-                    {questions}
+                        {questions}
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
                             Отправить ответ

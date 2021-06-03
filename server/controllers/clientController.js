@@ -33,6 +33,14 @@ class ClientController {
         const poll = await Client.findAll()
         return res.status(200).json(poll)
     }
+    async setAnswers(req, res, next) {
+        const clientId = req.body.clientId
+        const answers = req.body.answers
+
+        console.log(req.body)
+        // const poll = await Client.findOne()
+        return res.status(200).json('poll')
+    }
 
     async getOne(req, res, next) {
 
