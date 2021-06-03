@@ -100,20 +100,11 @@ class ClientController {
 
         if (!clientHold) {
             client = await Client.findOne({
-                where: [queryParam, {
-                    //'$coh.id' : {[Op.is]: null},
-                    '$AnswerQuestion.id$' : {[Op.is]: null}
-                }],
-                include: [
-                    {
-                        model: ClientOnHold,
-                        required: false,
+                where: [queryParam,
+                    sequelize.literal('not exists (select 1 from gsmk_poll."clientOnHolds" as "c" where "c"."clientId" = "client"."id")'),
+                    sequelize.literal('not exists (select 1 from gsmk_poll."answerquestions" as "a" where "a"."clientId" = "client"."id")')
+                ],
 
-                    },
-                    {
-                        model: AnswerQuestion,
-                        required: false,
-                    }]
 
             })
             await ClientOnHold.create({

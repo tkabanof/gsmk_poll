@@ -80,7 +80,7 @@ const AnswerQuestion = sequelize.define('answerquestion', {
         schema: 'gsmk_poll'
     }
 )
-Client.hasMany(AnswerQuestion)
+Client.hasMany(AnswerQuestion, {as: 'Answers'})
 AnswerQuestion.belongsTo(Client)
 
 Client.hasMany(ClientOnHold)
