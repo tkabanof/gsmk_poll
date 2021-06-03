@@ -1,4 +1,6 @@
 const ApiError = require('../error/ApiError')
+const sequelize = require("sequelize");
+const {Op} = require("sequelize");
 const {AnswerQuestion} = require("../models/models");
 const {ClientOnHold} = require("../models/models");
 const {Poll} = require("../models/models");
@@ -42,6 +44,12 @@ class ClientController {
                 id: clientId
             }
         })
+        const hold = await ClientOnHold.findOne({where: {
+                clientId: clientId
+            }})
+        if (hold) {
+            await hold.destroy()
+        }
 
         if (!client) {
             return res.status(400).json({
@@ -59,16 +67,18 @@ class ClientController {
             }
         })
 
-        await AnswerQuestion.bulkCreate(newArr).then((result)=> {
-            return res.status(200).json({
-                message: 'Ответ принят!'
-            })
+
+
+        await AnswerQuestion.bulkCreate(newArr).then((result) => {
+                return res.status(200).json({
+                    message: 'Ответ принят!'
+                })
             }
-        ).catch((e)=>{
-            return res.status(400).json({
-                message: 'Ответ не принят!',
-                error: e
-            })
+        ).catch((e) => {
+                return res.status(400).json({
+                    message: 'Ответ не принят!',
+                    error: e
+                })
             }
         )
 
@@ -90,12 +100,21 @@ class ClientController {
 
         if (!clientHold) {
             client = await Client.findOne({
-                where: queryParam,
-                include: {
-                    model: ClientOnHold,
-                    required: false,
-                    where: {id: null}
-                }
+                where: [queryParam, {
+                    //'$coh.id' : {[Op.is]: null},
+                    '$AnswerQuestion.id$' : {[Op.is]: null}
+                }],
+                include: [
+                    {
+                        model: ClientOnHold,
+                        required: false,
+
+                    },
+                    {
+                        model: AnswerQuestion,
+                        required: false,
+                    }]
+
             })
             await ClientOnHold.create({
                 userId: userId,
