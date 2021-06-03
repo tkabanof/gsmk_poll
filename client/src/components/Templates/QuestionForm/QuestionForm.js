@@ -56,8 +56,6 @@ const QuestionForm = (props) => {
                                                 <Input placeholder="Вопрос"/>
                                             </Form.Item>
 
-                                            {/* This is the Dynamic bed Adder */}
-
                                             <Form.Item>
                                                 <AnswerForm fieldKey={field.name}/>
                                             </Form.Item>
@@ -65,7 +63,6 @@ const QuestionForm = (props) => {
                                             <MinusCircleOutlined
                                                 onClick={() => {
                                                     remove(field.name);
-                                                    console.log(field);
                                                 }}
                                             />
                                         </Space>

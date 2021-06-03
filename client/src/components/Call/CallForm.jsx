@@ -60,7 +60,7 @@ const CallForm = () => {
             clientId: data.id,
             answers: values
         }
-        //dispatch(setAnswers(client_data))
+        dispatch(setAnswers(client_data))
         console.log(client_data);
 
     }

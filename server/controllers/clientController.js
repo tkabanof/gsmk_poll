@@ -1,4 +1,5 @@
 const ApiError = require('../error/ApiError')
+const {AnswerQuestion} = require("../models/models");
 const {ClientOnHold} = require("../models/models");
 const {Poll} = require("../models/models");
 const {Client} = require("../models/models")
@@ -33,13 +34,44 @@ class ClientController {
         const poll = await Client.findAll()
         return res.status(200).json(poll)
     }
-    async setAnswers(req, res, next) {
-        const clientId = req.body.clientId
-        const answers = req.body.answers
 
-        console.log(req.body)
-        // const poll = await Client.findOne()
-        return res.status(200).json('poll')
+    async setAnswers(req, res, next) {
+        const clientId = req.body.data.clientId
+        const client = await Client.findOne({
+            where: {
+                id: clientId
+            }
+        })
+
+        if (!client) {
+            return res.status(400).json({
+                message: 'Такое client не найден!'
+            })
+        }
+
+        const answers = req.body.data.answers
+        const questions = Object.keys(answers)
+        const newArr = questions.map((q) => {
+            return {
+                clientId: clientId,
+                Questionid: q,
+                AnswerId: answers[q]
+            }
+        })
+
+        await AnswerQuestion.bulkCreate(newArr).then((result)=> {
+            return res.status(200).json({
+                message: 'Ответ принят!'
+            })
+            }
+        ).catch((e)=>{
+            return res.status(400).json({
+                message: 'Ответ не принят!',
+                error: e
+            })
+            }
+        )
+
     }
 
     async getOne(req, res, next) {

@@ -73,8 +73,8 @@ const Answer = sequelize.define('answer', {
 )
 const AnswerQuestion = sequelize.define('answerquestion', {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-        Questionid: {type: DataTypes.STRING},
-        AnswerId: {type: DataTypes.BOOLEAN}
+        Questionid: {type: DataTypes.INTEGER},
+        AnswerId: {type: DataTypes.INTEGER}
     },
     {
         schema: 'gsmk_poll'
