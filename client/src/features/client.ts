@@ -30,6 +30,7 @@ type Question = {
 
 interface state {
     data: {
+        errorMessage: string
         client: Client
         questions: Array<Question>
     }
@@ -37,6 +38,7 @@ interface state {
 
 const initialState = {
     data: {
+        errorMessage: '',
         client: {
             id: 1
         },
@@ -58,6 +60,9 @@ export const clientSlice = createSlice({
     name: 'client',
     initialState,
     reducers: {
+        setErrorMessage: (state, action) => {
+            state.data.errorMessage = action.payload
+        },
         setClient: (state, action) => {
             state.data.client = action.payload
         },
@@ -67,10 +72,16 @@ export const clientSlice = createSlice({
     }
 })
 export const getNewClient = (data: any) => async (dispatch: any) => {
-    let response = await clientApi.getOneClient(data);
-    if (response.status === 200) {
-        dispatch(setClient(response.data))
-    }
+    await clientApi.getOneClient(data).then((r) => {
+        if (r.status === 200) {
+            if (r.data) {
+                dispatch(setClient(r.data))
+            }
+        }
+    }).catch((e) => {
+        console.log(e)
+    })
+
 };
 export const getQuestionAnswer = (id: number) => async (dispatch: any) => {
     let response = await clientApi.getQuestionAnswer(id);
@@ -85,6 +96,6 @@ export const setAnswers = (data: any) => async (dispatch: any) => {
     }
 };
 
-export const {setClient, setQuestionAnswer} = clientSlice.actions
+export const {setClient, setQuestionAnswer, setErrorMessage} = clientSlice.actions
 
 export default clientSlice.reducer

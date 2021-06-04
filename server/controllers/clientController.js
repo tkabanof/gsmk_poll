@@ -104,9 +104,10 @@ class ClientController {
                     sequelize.literal('not exists (select 1 from gsmk_poll."clientOnHolds" as "c" where "c"."clientId" = "client"."id")'),
                     sequelize.literal('not exists (select 1 from gsmk_poll."answerquestions" as "a" where "a"."clientId" = "client"."id")')
                 ],
-
-
             })
+            if (!client) {
+                return res.status(200).json(null)
+            }
             await ClientOnHold.create({
                 userId: userId,
                 clientId: client.id,

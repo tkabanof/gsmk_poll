@@ -2,17 +2,19 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    useParams, useLocation
+    useParams, useLocation, useHistory
 } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getNewClient, getQuestionAnswer, setAnswers} from "../../features/client";
 import {useEffect, useState} from "react";
 import {Button, Descriptions, Form, Select, Tag} from "antd";
 import {Option} from "antd/es/mentions";
+import {CALL_ROUTE, CALL_SUCCESS_ROUTE} from "../utils/consts";
 
 const CallForm = () => {
     const [form] = Form.useForm();
     const dispatch = useDispatch()
+    const history = useHistory()
 
     function useQuery() {
         return new URLSearchParams(useLocation().search);
@@ -24,10 +26,12 @@ const CallForm = () => {
     let data = useSelector(state => state.client.data.client)
     let qa = useSelector(state => state.client.data.questions)
 
-
     useEffect(() => {
         if (data.id === 1) {
             dispatch(getNewClient(query))
+            if (data.id === 1) {//если обновлений нет
+                history.push(CALL_SUCCESS_ROUTE)
+            }
         }
     }, [data])
 

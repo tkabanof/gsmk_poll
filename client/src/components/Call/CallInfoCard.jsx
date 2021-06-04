@@ -41,12 +41,12 @@ const CallInfoCard = (props) => {
                          showSearch
                          style={{ width: 620 }}
                          onChange={setMO}>
-            <Option value="">Все МО</Option>
+            <Select.Option value="">Все МО</Select.Option>
             {data && data.map((p) => {
                 return (
-                    <Option value={p}>
+                    <Select.Option value={p}>
                         {p}
-                    </Option>
+                    </Select.Option>
                 )
             })}
         </Select>
