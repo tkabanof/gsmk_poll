@@ -71,11 +71,13 @@ export const clientSlice = createSlice({
         }
     }
 })
-export const getNewClient = (data: any) => async (dispatch: any) => {
+export const getNewClient = (data: any, callback: any) => async (dispatch: any) => {
     await clientApi.getOneClient(data).then((r) => {
         if (r.status === 200) {
             if (r.data) {
                 dispatch(setClient(r.data))
+            }else {
+                callback()
             }
         }
     }).catch((e) => {

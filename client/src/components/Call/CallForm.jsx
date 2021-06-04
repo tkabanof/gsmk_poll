@@ -26,12 +26,14 @@ const CallForm = () => {
     let data = useSelector(state => state.client.data.client)
     let qa = useSelector(state => state.client.data.questions)
 
+    const redirect = () => {
+        history.push(CALL_SUCCESS_ROUTE)
+    }
+
     useEffect(() => {
         if (data.id === 1) {
-            dispatch(getNewClient(query))
-            if (data.id === 1) {//если обновлений нет
-                history.push(CALL_SUCCESS_ROUTE)
-            }
+            dispatch(getNewClient(query, redirect))
+
         }
     }, [data])
 
