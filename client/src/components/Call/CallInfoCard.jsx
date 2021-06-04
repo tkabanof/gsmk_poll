@@ -16,10 +16,9 @@ const CallInfoCard = (props) => {
     const setMO = (text) => {
         let searchParams = new URLSearchParams()
         searchParams.append('pollId', props.id)
-        searchParams.append('mo', text)
+        if (text) {searchParams.append('mo', text)}
         history.push(CALL_ROUTE_DETAIL + '?' + searchParams)
     }
-
 
     const onLoad = async (id) => {
         return await pollApi.getUniqMO(id)
@@ -40,6 +39,14 @@ const CallInfoCard = (props) => {
 
     let menu = (
         <Menu>
+            <Menu.Item>
+                <a target="_blank"
+                   onClick={(event) => setMO()}
+                   key={'all'}
+                >
+                    Все МО
+                </a>
+            </Menu.Item>
             {data && data.map((p) => {
                 return (
                     <Menu.Item>
@@ -56,7 +63,7 @@ const CallInfoCard = (props) => {
     )
 
     return (
-        <Card title={name + ' id: ' + id}
+        <Card title={name}
             //extra={<a href="#">More</a>}
               style={{width: 700}}>
 
