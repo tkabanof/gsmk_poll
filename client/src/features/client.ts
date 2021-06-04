@@ -81,7 +81,7 @@ export const getQuestionAnswer = (id: number) => async (dispatch: any) => {
 export const setAnswers = (data: any) => async (dispatch: any) => {
     let response = await clientApi.setAnswers(data);
     if (response.status === 200) {
-        //dispatch(setClient({id: 1}))
+        dispatch(setClient({id: 1}))
     }
 };
 

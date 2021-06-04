@@ -11,6 +11,7 @@ import {Button, Descriptions, Form, Select, Tag} from "antd";
 import {Option} from "antd/es/mentions";
 
 const CallForm = () => {
+    const [form] = Form.useForm();
     const dispatch = useDispatch()
 
     function useQuery() {
@@ -25,7 +26,6 @@ const CallForm = () => {
 
 
     useEffect(() => {
-
         if (data.id === 1) {
             dispatch(getNewClient(query))
         }
@@ -62,8 +62,8 @@ const CallForm = () => {
             answers: values
         }
         dispatch(setAnswers(client_data))
+        form.resetFields();
         console.log(client_data);
-
     }
 
 
@@ -87,10 +87,13 @@ const CallForm = () => {
             </Descriptions>
 
             <div>
-                <Form onFinish={onFinish}>
-                        {questions}
+                <Form onFinish={onFinish}
+                      form={form}>
+                    {questions}
                     <Form.Item>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary"
+                                style={{background: "green"}}
+                                htmlType="submit">
                             Отправить ответ
                         </Button>
                     </Form.Item>

@@ -37,37 +37,11 @@ const CallInfoCard = (props) => {
         }
     }, [id])
 
-
-    let menu = (
-        <Menu>
-            <Menu.Item>
-                <a target="_blank"
-                   onClick={(event) => setMO()}
-                   key={'all'}
-                >
-                    Все МО
-                </a>
-            </Menu.Item>
-            {data && data.map((p) => {
-                return (
-                    <Menu.Item>
-                        <a target="_blank"
-                           onClick={(event) => setMO(event.target.text)}
-                           key={p}
-                        >
-                            {p}
-                        </a>
-                    </Menu.Item>
-                )
-            })}
-        </Menu>
-    )
-
-    let menu2 = (<Select defaultValue="Все МО"
+    let menu = (<Select defaultValue="Все МО"
                          showSearch
                          style={{ width: 620 }}
                          onChange={setMO}>
-            <Option value="ALL">Все МО</Option>
+            <Option value="">Все МО</Option>
             {data && data.map((p) => {
                 return (
                     <Option value={p}>
@@ -82,13 +56,7 @@ const CallInfoCard = (props) => {
         <Card title={name}
             //extra={<a href="#">More</a>}
               style={{width: 700}}>
-
-            {/*<Dropdown overlay={menu} placement="bottomLeft">*/}
-            {/*    <Button>Выбор МО</Button>*/}
-            {/*</Dropdown>*/}
-
-                {menu2}
-
+                {menu}
         </Card>
     )
 }
