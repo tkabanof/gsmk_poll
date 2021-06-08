@@ -2,6 +2,7 @@ import {useEffect} from "react";
 import {getAllPoll} from "../../features/polls";
 import {useDispatch, useSelector} from "react-redux";
 import CallInfoCard from "./CallInfoCard";
+import {Space} from "antd";
 
 const Call = () => {
     const dispatch = useDispatch()
@@ -14,9 +15,9 @@ const Call = () => {
         [])
 
     return (
-        <div>
+        <Space direction="vertical">
             {dataPoll.map((p) => <CallInfoCard id = {p.id} name = {p.name}/>)}
-        </div>
+        </Space>
     )
 }
 
