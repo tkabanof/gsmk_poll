@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import s from './Header.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {wipeAuthData} from "../../features/auth";
+import {LOGIN_ROUTE} from "../utils/consts";
 
 const {Header} = Layout;
 
@@ -11,9 +12,11 @@ const UserCard = () => {
 
     const dispatch = useDispatch()
     const fio = useSelector(state => state.auth.fio)
+    const history = useHistory()
 
     const changeUser = () => {
         dispatch(wipeAuthData())
+        history.push(LOGIN_ROUTE)
     };
 
     return (
@@ -44,14 +47,6 @@ const HeaderNav = (props) => {
         <Header>
             <Row>
                 <Col span={18}>
-                    {/*<div className="logo"/>*/}
-                    {/*<Menu theme="dark"*/}
-                    {/*      mode="horizontal"*/}
-                    {/*      defaultSelectedKeys={['2']}*/}
-                    {/*      onClick={handleClick}>*/}
-                    {/*    <Menu.Item key="/admin">Администратор</Menu.Item>*/}
-                    {/*    <Menu.Item key="/call">Звонки</Menu.Item>*/}
-                    {/*</Menu>*/}
                 </Col>
                 <Col span={6}>
                     <UserCard/>

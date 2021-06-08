@@ -1,18 +1,20 @@
 import {Route, Switch, Redirect, useLocation} from 'react-router-dom'
 import {authRoutes, publicRoutes} from "../routes";
 import {LOGIN_ROUTE} from "./utils/consts";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {auth} from "../features/auth";
 
 const AppRouter = () => {
 
     const dispatch = useDispatch()
+    const tokenState = useSelector(state => state.auth.token)
+    let token = localStorage.getItem('token')
     useEffect(() => {
         dispatch(auth())
-    }, [])
+    }, [tokenState])
     
-    const token = localStorage.getItem('token')
+
     const isAuth = !!token
 
     return (

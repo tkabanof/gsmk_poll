@@ -15,8 +15,7 @@ const initialState = {
     email: null,
     role: null,
     fio: null,
-    token: null,
-    isAuth: false
+    token: null
 
 } as state
 
@@ -30,13 +29,10 @@ export const authSlice = createSlice({
             localStorage.setItem('token', action.payload)
         },
         setAuthData: (state, action) => {
-            //console.log(action.payload)
             state.userid = action.payload.userid
             state.email = action.payload.email
             state.role = action.payload.role
             state.fio = action.payload.fio
-            //state.token = action.payload.token
-            //localStorage.setItem('token', action.payload.token);
         },
         wipeAuthData: (state, action) => {
             state.userid = null
@@ -58,7 +54,6 @@ export const authSlice = createSlice({
 //
 // };
 export const auth = () => async (dispatch: any) => {
-//    const token = localStorage.getItem('token')
 
     let response = await authAPI.authMe();
     if (response.status === 200) {
