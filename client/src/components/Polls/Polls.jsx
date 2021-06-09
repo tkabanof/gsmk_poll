@@ -12,6 +12,7 @@ export const Polls = () => {
 
     const dispatch = useDispatch()
 
+
     useEffect(() => {
             dispatch(getAllPoll())
         },
@@ -72,9 +73,12 @@ export const Polls = () => {
         setIsModalVisible(false);
     };
 
+    const table = (<Table columns={columns} dataSource={dataPoll}/>)
+
     return (
         <div>
-            <Table columns={columns} dataSource={dataPoll}/>
+            {/*<Table columns={columns} dataSource={dataPoll}/>*/}
+            {table}
             <Button onClick={showModal}>Создать новый опрос</Button>
 
             <Modal title="Новый опрос" visible={isModalVisible}
