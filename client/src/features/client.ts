@@ -97,6 +97,12 @@ export const setAnswers = (data: any) => async (dispatch: any) => {
         dispatch(setClient({id: 1}))
     }
 };
+export const refuseClient = (data: any) => async (dispatch: any) => {
+    let response = await clientApi.refuseClient(data);
+    if (response.status === 200) {
+        dispatch(setClient({id: 1}))
+    }
+};
 
 export const {setClient, setQuestionAnswer, setErrorMessage} = clientSlice.actions
 

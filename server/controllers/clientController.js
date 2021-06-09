@@ -36,6 +36,29 @@ class ClientController {
         const poll = await Client.findAll()
         return res.status(200).json(poll)
     }
+    async closeClient(req, res, next) {
+        const clientId = req.body.data.clientId
+        const client = await Client.findOne({
+            where: {
+                id: clientId
+            }
+        })
+
+        await ClientOnHold.findOne({where: {
+                clientId: clientId
+            }})
+            .then((r)=> {
+                r.destroy()
+            })
+            .catch(()=> {
+
+        })
+
+
+        client.state = 'REFUSED'
+        await client.save()
+        return res.status(200).json({message: 'Статус REFUSED'})
+    }
 
     async setAnswers(req, res, next) {
         const clientId = req.body.data.clientId
@@ -58,6 +81,7 @@ class ClientController {
         }
 
         const answers = req.body.data.answers
+
         const questions = Object.keys(answers)
         const newArr = questions.map((q) => {
             return {
@@ -100,7 +124,9 @@ class ClientController {
 
         if (!clientHold) {
             client = await Client.findOne({
-                where: [queryParam,
+                where: [queryParam, {
+                    state: null
+                },
                     sequelize.literal('not exists (select 1 from gsmk_poll."clientOnHolds" as "c" where "c"."clientId" = "client"."id")'),
                     sequelize.literal('not exists (select 1 from gsmk_poll."answerquestions" as "a" where "a"."clientId" = "client"."id")')
                 ],

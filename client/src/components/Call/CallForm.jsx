@@ -5,9 +5,9 @@ import {
     useParams, useLocation, useHistory
 } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getNewClient, getQuestionAnswer, setAnswers} from "../../features/client";
+import {getNewClient, getQuestionAnswer, refuseClient, setAnswers} from "../../features/client";
 import {useEffect, useState} from "react";
-import {Button, Descriptions, Form, Select, Tag} from "antd";
+import {Button, Descriptions, Form, Select, Space, Tag} from "antd";
 import {Option} from "antd/es/mentions";
 import {CALL_ROUTE, CALL_SUCCESS_ROUTE} from "../utils/consts";
 
@@ -69,7 +69,14 @@ const CallForm = () => {
         }
         dispatch(setAnswers(client_data))
         form.resetFields();
-        console.log(client_data);
+    }
+
+    const onRefuse = () => {
+        const client_data = {
+            clientId: data.id
+        }
+        dispatch(refuseClient(client_data))
+        form.resetFields();
     }
 
 
@@ -97,11 +104,19 @@ const CallForm = () => {
                       form={form}>
                     {questions}
                     <Form.Item>
+                        <Space>
                         <Button type="primary"
                                 style={{background: "green"}}
                                 htmlType="submit">
                             Отправить ответ
                         </Button>
+                        <Button type="primary"
+                                style={{background: "red"}}
+                                onClick={()=> {onRefuse()}}
+                                >
+                            Закрыть без ответа
+                        </Button>
+                        </Space>
                     </Form.Item>
 
                 </Form>

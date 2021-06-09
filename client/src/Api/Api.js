@@ -69,6 +69,9 @@ export const clientApi = {
     },
     setAnswers(data) {
         return instanceAPI.post('client/setAnswer', {data})
+    },
+    refuseClient(data) {
+        return instanceAPI.post('client/close', {data})
     }
 }
 export const templateApi = {
