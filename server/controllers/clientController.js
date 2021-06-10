@@ -18,16 +18,21 @@ class ClientController {
             return res.status(400).json({message: 'Нет такого опроса!'})
         }
 
-        const clients = await Client.findAll({where: {pollId: pollId}})
+        const clients = await Client.findAll({
+            attributes: ['mo',[sequelize.fn('COUNT', sequelize.col('id')), 'persons']],
+            where: {pollId: pollId},
+            group: ['mo']
+        })
         if (clients.length === 0) {
             return res.status(400).json({message: 'Опрос есть но он пуст!'})
         }
 
         let cli = clients.map((p) => {
-            return p.mo
+            console.log(p.dataValues)
+            return p.dataValues.mo + ' (' + p.dataValues.persons + ')'
         })
-        cli = [...new Set(cli)]
-        //console.log(cli)
+        //cli = [...new Set(cli)]
+        console.log(cli)
 
         return res.status(200).json(cli)
 
