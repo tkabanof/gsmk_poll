@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {clientApi} from "../Api/Api";
+import {setAuthData} from "./auth";
 
 type Client = {
     id: number,
@@ -30,6 +31,7 @@ type Question = {
 
 interface state {
     data: {
+        count: number
         client: Client
         questions: Array<Question>
     }
@@ -37,6 +39,7 @@ interface state {
 
 const initialState = {
     data: {
+        count: 0,
         client: {
             id: 1
         },
@@ -63,6 +66,9 @@ export const clientSlice = createSlice({
         },
         setQuestionAnswer: (state, action) => {
             state.data.questions = action.payload
+        },
+        addCount: (state) => {
+            state.data.count = state.data.count + 1
         }
     }
 })
@@ -72,7 +78,7 @@ export const getNewClient = (data: any, callback: any) => async (dispatch: any) 
             if (r.data) {
                 dispatch(setClient(r.data))
             }else {
-                callback()
+                callback() //Если по запросу больше некого обзванинвать то вызываем колюбек (редирект)
             }
         }
     }).catch((e) => {
@@ -89,21 +95,24 @@ export const getQuestionAnswer = (id: number) => async (dispatch: any) => {
 export const setAnswers = (data: any) => async (dispatch: any) => {
     let response = await clientApi.setAnswers(data);
     if (response.status === 200) {
-        dispatch(setClient({id: 1}))
+        //dispatch(setClient({id: 1}))
+        dispatch(addCount())
     }
 };
 export const refuseClient = (data: any) => async (dispatch: any) => {
     let response = await clientApi.refuseClient(data);
     if (response.status === 200) {
-        dispatch(setClient({id: 1}))
+        //dispatch(setClient({id: 1}))
+        dispatch(addCount())
     }
 };
 export const delayClient = (data: any) => async (dispatch: any) => {
     let response = await clientApi.delayClient(data);
     if (response.status === 200) {
-        dispatch(setClient({id: 1}))
+        //dispatch(setClient({id: 1}))
+        dispatch(addCount())
     }
 };
-export const {setClient, setQuestionAnswer} = clientSlice.actions
+export const {setClient, setQuestionAnswer, addCount} = clientSlice.actions
 
 export default clientSlice.reducer

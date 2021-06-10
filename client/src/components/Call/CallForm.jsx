@@ -5,7 +5,7 @@ import {
     useParams, useLocation, useHistory
 } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {delayClient, getNewClient, getQuestionAnswer, refuseClient, setAnswers} from "../../features/client";
+import {delayClient, getNewClient, getQuestionAnswer, refuseClient, setAnswers, setData} from "../../features/client";
 import {useEffect, useState} from "react";
 import {Button, Descriptions, Form, Select, Space, Tag} from "antd";
 import {Option} from "antd/es/mentions";
@@ -25,17 +25,22 @@ const CallForm = () => {
 
     let data = useSelector(state => state.client.data.client)
     let qa = useSelector(state => state.client.data.questions)
+    let counter  = useSelector(state => state.client.data.count)
 
     const redirect = () => {
         history.push(CALL_SUCCESS_ROUTE)
     }
 
-    useEffect(() => {
-        if (data.id === 1) {
-            dispatch(getNewClient(query, redirect))
+    // useEffect(() => {
+    //     if (data.id === 1) {
+    //         dispatch(getNewClient(query, redirect))
+    //
+    //     }
+    // }, [data])
 
-        }
-    }, [data])
+    useEffect(() => {
+            dispatch(getNewClient(query, redirect))
+    }, [counter])
 
     useEffect(() => {
         dispatch(getQuestionAnswer(pollId))
@@ -44,6 +49,7 @@ const CallForm = () => {
 
     let questions = (
         <div>
+
             {qa.map((q) => {
                 let answers = q.answers
                 answers = answers.map((a) => <Option value={a.id}>{a.text}</Option>)
