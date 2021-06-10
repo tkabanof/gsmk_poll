@@ -11,5 +11,6 @@ router.get ('/getOne', authMiddleware, clientController.getOne)
 router.get('/question/:id', questController.getQuestionAnswerByIdPoll)
 router.post('/setAnswer', clientController.setAnswers)
 router.post('/close', clientController.closeClient)
+router.post('/delay', clientController.delayClient)
 
 module.exports = router

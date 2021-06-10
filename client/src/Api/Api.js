@@ -72,6 +72,9 @@ export const clientApi = {
     },
     refuseClient(data) {
         return instanceAPI.post('client/close', {data})
+    },
+    delayClient(data) {
+        return instanceAPI.post('client/delay', {data})
     }
 }
 export const templateApi = {

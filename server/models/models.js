@@ -47,6 +47,12 @@ const Client = sequelize.define('client', {
         schema: 'gsmk_poll'
     }
 )
+const ClientDelayed = sequelize.define('clientDelayed', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    timeDelay: {type: DataTypes.DATE}
+}, {
+    schema: 'gsmk_poll'
+})
 const ClientOnHold = sequelize.define('clientOnHold', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     userId: {type: DataTypes.INTEGER},
@@ -86,6 +92,9 @@ AnswerQuestion.belongsTo(Client)
 Client.hasMany(ClientOnHold)
 ClientOnHold.belongsTo(Client)
 
+Client.hasMany(ClientDelayed)
+ClientDelayed.belongsTo(Client)
+
 Question.hasMany(Answer)
 Answer.belongsTo(Question)
 
@@ -102,6 +111,6 @@ User.hasMany(Poll)
 Poll.belongsTo(User)
 
 module.exports = {
-    User, Question, Poll, AnswerQuestion, Client, Answer, Template, ClientOnHold
+    User, Question, Poll, AnswerQuestion, Client, Answer, Template, ClientOnHold, ClientDelayed
 }
 

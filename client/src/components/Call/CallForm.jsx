@@ -5,7 +5,7 @@ import {
     useParams, useLocation, useHistory
 } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getNewClient, getQuestionAnswer, refuseClient, setAnswers} from "../../features/client";
+import {delayClient, getNewClient, getQuestionAnswer, refuseClient, setAnswers} from "../../features/client";
 import {useEffect, useState} from "react";
 import {Button, Descriptions, Form, Select, Space, Tag} from "antd";
 import {Option} from "antd/es/mentions";
@@ -78,6 +78,13 @@ const CallForm = () => {
         dispatch(refuseClient(client_data))
         form.resetFields();
     }
+    const onDelay = () => {
+        const client_data = {
+            clientId: data.id
+        }
+        dispatch(delayClient(client_data))
+        form.resetFields();
+    }
 
 
     return (
@@ -110,11 +117,17 @@ const CallForm = () => {
                                 htmlType="submit">
                             Отправить ответ
                         </Button>
+                            <Button type="dashed"
+                                    style={{background: "yellow"}}
+                                    onClick={()=> {onDelay()}}
+                            >
+                                Позвонить попозже
+                            </Button>
                         <Button type="primary"
                                 style={{background: "red"}}
                                 onClick={()=> {onRefuse()}}
                                 >
-                            Закрыть без ответа
+                            Не звонить ему больше
                         </Button>
                         </Space>
                     </Form.Item>
