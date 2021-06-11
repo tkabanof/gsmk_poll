@@ -82,6 +82,12 @@ export const getAllPoll = () => async (dispatch: any) => {
         dispatch(setPoll(response.data))
     }
 };
+export const getAllPollOpen = () => async (dispatch: any) => {
+    let response = await pollApi.getAllPollOpen();
+    if (response.status === 200) {
+        dispatch(setPoll(response.data))
+    }
+};
 
 export const {setPoll} = pollSlice.actions
 

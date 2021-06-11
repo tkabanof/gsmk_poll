@@ -44,6 +44,9 @@ export const pollApi = {
     getAllPoll() {
         return instanceAPI.get('poll')
     },
+    getAllPollOpen() {
+        return instanceAPI.get('poll/open')
+    },
     getUniqMO(id) {
         return instanceAPI.get('client/mo/'+ id)
     },

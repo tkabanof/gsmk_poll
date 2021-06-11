@@ -68,6 +68,16 @@ class PollController {
         })
         return res.status(200).json(poll)
     }
+    async getAllOpen(req, res, next) {
+        //const {description, state, user_idCreate} = req.body
+        const poll = await Poll.findAll({
+            where: {state: 'open'},
+            include: [{
+                model: Template
+            }]
+        })
+        return res.status(200).json(poll)
+    }
 
     async deleteOne(req, res, nex) {
         const pollId = req.body.id
