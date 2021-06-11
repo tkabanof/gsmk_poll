@@ -19,8 +19,11 @@ class ClientController {
         }
 
         const clients = await Client.findAll({
-            attributes: ['mo',[sequelize.fn('COUNT', sequelize.col('id')), 'persons']],
-            where: {pollId: pollId},
+            attributes: ['mo', [sequelize.fn('COUNT', sequelize.col('id')), 'persons']],
+            where: {
+                pollId: pollId,
+                state: null
+            },
             group: ['mo']
         })
         if (clients.length === 0) {
@@ -28,10 +31,11 @@ class ClientController {
         }
 
         let cli = clients.map((p) => {
-            console.log(p.dataValues)
-            return p.dataValues.mo + ' (' + p.dataValues.persons + ')'
+            return {
+                mo: p.dataValues.mo,
+                count: p.dataValues.persons
+            }
         })
-        //cli = [...new Set(cli)]
         console.log(cli)
 
         return res.status(200).json(cli)

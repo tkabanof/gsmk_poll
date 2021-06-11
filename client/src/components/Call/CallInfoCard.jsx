@@ -44,8 +44,10 @@ const CallInfoCard = (props) => {
             <Select.Option value="">Все МО</Select.Option>
             {data && data.map((p) => {
                 return (
-                    <Select.Option value={p}>
-                        {p}
+                    <Select.Option
+                        key = {p.mo}
+                        value={p.mo}>
+                        {p.mo + '. остаток (' + p.count + ')'}
                     </Select.Option>
                 )
             })}
