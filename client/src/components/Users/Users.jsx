@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllUsers} from "../../features/users";
+import {Table} from "antd";
 
 const Users = () => {
 
@@ -10,10 +11,40 @@ const Users = () => {
     useEffect(()=> {
         dispatch(getAllUsers())
     }, [])
-    const list = (users.map((u)=><a>{u.id}</a> ))
+
+    const columns = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            sorter: true,
+            //render: name => `${name.first} ${name.last}`,
+            width: '20%',
+        },
+        {
+            title: 'ФИО',
+            dataIndex: 'fio',
+            // filters: [
+            //     { text: 'Male', value: 'male' },
+            //     { text: 'Female', value: 'female' },
+            // ],
+            width: '20%',
+        },
+        {
+            title: 'РОЛЬ',
+            dataIndex: 'role',
+        }
+    ];
+
     return (
         <div>
-            {list}
+            <Table
+                columns={columns}
+                rowKey={record => record.id}
+                dataSource={users}
+                //pagination={pagination}
+                //loading={loading}
+                //onChange={this.handleTableChange}
+            />
         </div>
     )
 }
