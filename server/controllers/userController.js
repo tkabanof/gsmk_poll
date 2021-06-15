@@ -33,19 +33,20 @@ class UserController {
     }
     async getAllUsers(req, res, next) {
 
-        const page =  req.body.page = null ? 1 : req.body.page
+        const page =  req.body.page = undefined ? 1 : req.body.page
+        console.log(page)
         const {count, rows} = await User.findAndCountAll({
             attributes: ['id', 'email', 'fio', 'role'],
             order: [['id', 'ASC']],
             offset: 0,
-            limit: 2
+            limit: 10
         })
-        console.log(count)
 
 
-        if (rows){
+        if (count > 0){
             res.status(200).json({
-                rows
+                users: [...rows],
+                count
             })
         } else {
             res.status(400).json({

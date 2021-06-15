@@ -1,29 +1,41 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {userApi} from "../Api/Api";
+
+type user = {
+    id: number,
+    email: string,
+    fio: string,
+    role: string
+}
 
 interface state {
-    userid: null | number
-    email: null | string
-    role: null | string
-    fio: null | string
-    token: null | string
-    isAuth: boolean
+    users: Array<user>
+    count: number
 }
 
 const initialState = {
-    userid: null,
-    email: null,
-    role: null,
-    fio: null,
-    token: null
+    users: [],
+    count: 0
 
 } as state
 
-export const authSlice = createSlice({
+export const userSlice = createSlice({
     name: 'users',
     initialState,
-    reducers: {}
+    reducers: {
+        setUsers: (state, action) => {
+            state.users = action.payload
+        }
+    }
 })
 
-export const {} = authSlice.actions
+export const getAllUsers = () => async (dispatch: any) => {
+    const response = await userApi.getAllUsers()
+    if (response.status === 200) {
+        dispatch(setUsers(response.data.users))
+    }
+}
 
-export default authSlice.reducer
+export const {setUsers} = userSlice.actions
+
+export default userSlice.reducer

@@ -92,3 +92,8 @@ export const templateApi = {
         return instanceAPI.post('template/del', {id})
     }
 }
+export const userApi = {
+    getAllUsers() {
+        return instanceAPI.get('user/getAll')
+    }
+}
