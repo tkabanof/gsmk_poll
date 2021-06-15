@@ -7,11 +7,24 @@ const Users = () => {
 
     const dispatch = useDispatch()
     const users = useSelector(state => state.user.users)
+    const paginator = useSelector(state => state.user.paginator)
 
-    useEffect(()=> {
-        dispatch(getAllUsers())
-    }, [])
+    const defaultPaginator = {
+        current: 1,
+        pageSize: 10,
+    }
 
+
+    const pagination = {
+        total: paginator.total,
+        current: paginator.current,
+        pageSize: paginator.pageSize
+    }
+
+    const handleTableChange = (pagination, filters, sorter) => {
+        dispatch(getAllUsers(pagination))
+        console.log(pagination)
+    };
     const columns = [
         {
             title: 'ID',
@@ -35,16 +48,47 @@ const Users = () => {
         }
     ];
 
-    return (
-        <div>
+
+    let list = (
+        <Table
+            columns={columns}
+            rowKey={record => record.id}
+            dataSource={users}
+            pagination={pagination}
+            //loading={loading}
+            onChange={handleTableChange}
+        />
+    )
+
+
+    useEffect(()=> {
+        dispatch(getAllUsers(defaultPaginator))
+    }, [])
+
+    useEffect(()=> {
+        console.log(paginator)
+        list = (
             <Table
                 columns={columns}
                 rowKey={record => record.id}
                 dataSource={users}
-                //pagination={pagination}
+                pagination={pagination}
                 //loading={loading}
-                //onChange={this.handleTableChange}
+                onChange={handleTableChange}
             />
+        )
+
+    },[pagination])
+
+
+
+
+
+
+
+    return (
+        <div>
+            {list}
         </div>
     )
 }

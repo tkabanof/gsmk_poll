@@ -93,7 +93,9 @@ export const templateApi = {
     }
 }
 export const userApi = {
-    getAllUsers() {
-        return instanceAPI.get('user/getAll')
+    getAllUsers(paginator) {
+        return instanceAPI.get('user/getAll',{
+            params: paginator
+        })
     }
 }

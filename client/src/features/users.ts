@@ -7,15 +7,24 @@ type user = {
     fio: string,
     role: string
 }
+type paginator = {
+    current: number,
+    pageSize: number,
+    total: number
+}
 
 interface state {
-    users: Array<user>
-    count: number
+    users: Array<user>,
+    paginator: paginator
 }
 
 const initialState = {
     users: [],
-    count: 0
+    paginator: {
+        current: 0,
+        pageSize: 0,
+        total: 0
+    }
 
 } as state
 
@@ -24,15 +33,19 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         setUsers: (state, action) => {
-            state.users = action.payload
+            state.users = action.payload.users
+            state.paginator.current = action.payload.paginator.current
+            state.paginator.pageSize = action.payload.paginator.pageSize
+            state.paginator.total = action.payload.paginator.total
         }
     }
 })
 
-export const getAllUsers = () => async (dispatch: any) => {
-    const response = await userApi.getAllUsers()
+export const getAllUsers = (paginator: paginator) => async (dispatch: any) => {
+    const response = await userApi.getAllUsers(paginator)
     if (response.status === 200) {
-        dispatch(setUsers(response.data.users))
+        dispatch(setUsers(response.data))
+
     }
 }
 
