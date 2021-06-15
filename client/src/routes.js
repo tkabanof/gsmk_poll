@@ -3,7 +3,7 @@ import {
     HOME_ROUTE,
     LOGIN_ROUTE,
     POLL_ROUTE,
-    Templates_ROUTE
+    Templates_ROUTE, USERS_ROUTE
 } from "./components/utils/consts";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
@@ -12,6 +12,7 @@ import {Polls} from "./components/Polls/Polls";
 import {Templates} from "./components/Templates/Template";
 import CallForm from "./components/Call/CallForm";
 import CallSuccess from "./components/Call/CallSuccess";
+import Users from "./components/Users/Users";
 
 export const authRoutes = [
     {
@@ -25,6 +26,10 @@ export const authRoutes = [
     {
         path: POLL_ROUTE,
         Component: Polls
+    },
+    {
+        path: USERS_ROUTE,
+        Component: Users
     },
     {
         path: CALL_ROUTE,
