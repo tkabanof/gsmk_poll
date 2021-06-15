@@ -31,6 +31,30 @@ class UserController {
         return res.json({token})
 
     }
+    async getAllUsers(req, res, next) {
+
+        const page =  req.body.page = null ? 1 : req.body.page
+        const {count, rows} = await User.findAndCountAll({
+            attributes: ['id', 'email', 'fio', 'role'],
+            order: [['id', 'ASC']],
+            offset: 0,
+            limit: 2
+        })
+        console.log(count)
+
+
+        if (rows){
+            res.status(200).json({
+                rows
+            })
+        } else {
+            res.status(400).json({
+                message: 'Пользователи не найдены'
+            })
+        }
+
+
+    }
 
     async login(req, res, next) {
         try {
