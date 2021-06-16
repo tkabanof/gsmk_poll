@@ -8,9 +8,9 @@ const questController = require('../controllers/questionController')
 router.get ('/', authMiddleware, clientController.getAll)
 router.get ('/mo/:id', authMiddleware, clientController.getUniqMo)
 router.get ('/getOne', authMiddleware, clientController.getOne)
-router.get('/question/:id', questController.getQuestionAnswerByIdPoll)
-router.post('/setAnswer', clientController.setAnswers)
-router.post('/close', clientController.closeClient)
-router.post('/delay', clientController.delayClient)
+router.get('/question/:id', authMiddleware, questController.getQuestionAnswerByIdPoll)
+router.post('/setAnswer', authMiddleware, clientController.setAnswers)
+router.post('/close', authMiddleware, clientController.closeClient)
+router.post('/delay', authMiddleware, clientController.delayClient)
 
 module.exports = router

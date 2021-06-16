@@ -4,8 +4,8 @@ const questController = require('../controllers/questionController')
 const checkRole = require('../middleware/checkRoleMiddleware')
 
 router.post('/',checkRole('ADMIN'), questController.create)
-router.delete('/', questController.delete)
-router.get('/', questController.getAll)
+router.delete('/', checkRole('ADMIN'), questController.delete)
+router.get('/', checkRole('ADMIN'), questController.getAll)
 
 
 module.exports = router
