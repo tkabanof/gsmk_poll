@@ -1,7 +1,9 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllUsers} from "../../features/users";
-import {Table} from "antd";
+import {Button, Table} from "antd";
+import PollEdit from "../Polls/PollEdit";
+import Modal from "antd/es/modal/Modal";
 
 const Users = () => {
 
@@ -80,15 +82,35 @@ const Users = () => {
 
     },[pagination])
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
 
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
 
-
-
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
 
     return (
         <div>
             {list}
+            <Button
+                onClick={showModal}
+            >новый пользователь</Button>
+
+            <Modal title="Новый опрос" visible={isModalVisible}
+                //onOk={handleOk}
+                   onCancel={handleCancel}
+                   footer={null}>
+                {/*<PollEdit */}
+                {/*    //setIsModalVisible={setIsModalVisible}*/}
+                {/*/>*/}
+            </Modal>
         </div>
     )
 }
