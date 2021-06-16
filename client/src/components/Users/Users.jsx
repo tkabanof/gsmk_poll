@@ -2,8 +2,8 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllUsers} from "../../features/users";
 import {Button, Table} from "antd";
-import PollEdit from "../Polls/PollEdit";
 import Modal from "antd/es/modal/Modal";
+import UserEdit from "./UserEdit";
 
 const Users = () => {
 
@@ -101,15 +101,15 @@ const Users = () => {
             {list}
             <Button
                 onClick={showModal}
-            >новый пользователь</Button>
+            >Новый пользователь</Button>
 
-            <Modal title="Новый опрос" visible={isModalVisible}
+            <Modal title="Новый пользователь" visible={isModalVisible}
                 //onOk={handleOk}
                    onCancel={handleCancel}
                    footer={null}>
-                {/*<PollEdit */}
-                {/*    //setIsModalVisible={setIsModalVisible}*/}
-                {/*/>*/}
+                <UserEdit
+                    setIsModalVisible={setIsModalVisible}
+                />
             </Modal>
         </div>
     )
