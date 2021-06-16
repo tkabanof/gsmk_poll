@@ -31,6 +31,30 @@ class UserController {
         return res.json({token})
 
     }
+    async createNewUser(req, res, next) {
+        const {email, password, role, fio} = req.body
+        if (!email || !password) {
+            return next(ApiError.badRequest('Неправильный логин или пароль'))
+
+        }
+        const candidate = await User.findOne({where: {email}})
+        if (candidate) {
+            return next(ApiError.badRequest('Такой пользователь уже есть'))
+        }
+        const user = await User.create({email, role, password, fio})
+        if (user) {
+            return res.status(200).json({
+                message: 'Пользователь создан!'
+            })
+        } else {
+            return res.status(400).json({
+                message: 'Ошибка создания пользователя!'
+            })
+        }
+
+
+    }
+
     async getAllUsers(req, res, next) {
 
         const current = req.query.current
