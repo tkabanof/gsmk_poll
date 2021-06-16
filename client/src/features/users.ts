@@ -34,9 +34,9 @@ export const userSlice = createSlice({
     reducers: {
         setUsers: (state, action) => {
             state.users = action.payload.users
-            state.paginator.current = action.payload.paginator.current
-            state.paginator.pageSize = action.payload.paginator.pageSize
-            state.paginator.total = action.payload.paginator.total
+            state.paginator.current = Number.parseInt(action.payload.paginator.current)
+            state.paginator.pageSize = Number.parseInt(action.payload.paginator.pageSize)
+            state.paginator.total = Number.parseInt(action.payload.paginator.total)
         }
     }
 })
