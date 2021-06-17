@@ -8,16 +8,28 @@ import {logDOM} from "@testing-library/react";
 
 const UserEdit = (props) => {
 
+    const [form] = Form.useForm();
+
     let dataset = null
 
     const dispatch = useDispatch()
 
+    const onFormLayoutChange = (e) => {
+        //setComponentSize(size);
+        console.log(e)
+    };
+
     const newPass = () => {
         return generator.generate({length: 6})
     }
-
     let [password, setPassword] = useState(newPass())
 
+    const setNewPass = () => {
+        setPassword(newPass())
+        form.setFieldsValue({
+            password: password
+        })
+    }
 
     useEffect(() => {
 
@@ -28,20 +40,22 @@ const UserEdit = (props) => {
 
     const onFinish = (values) => {
 
-        const newPoll = {
-            description: values.name,
-            templateId: values.template_id,
-            state: values.state ? 'open' : 'close',
-            dataSet: dataset
+        const newUser = {
+            fio: values.fio,
+            email: values.email,
+            password: values.password,
+            role: values.role
         }
+        console.log(newUser)
 
         //dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state, newPoll.dataSet))
-        props.setIsModalVisible(false)
+        //props.setIsModalVisible(false)
     };
 
     return (
         <div>
             <Form
+                form={form}
                 labelCol={{
                     span: 8,
                 }}
@@ -50,9 +64,11 @@ const UserEdit = (props) => {
                 }}
                 layout="horizontal"
                 initialValues={{
-                    size: 'default',
+                    password: password,
+                    role: 'oper'
                 }}
                 size={'middle'}
+                onFieldsChange={onFormLayoutChange}
                 onFinish={onFinish}
             >
                 <Form.Item
@@ -90,13 +106,26 @@ const UserEdit = (props) => {
                     ]}
                 >
                     <Input
-                        suffix={<RedoOutlined />}
-                        defaultValue = {password}/>
+                        suffix={<RedoOutlined
+                            onClick = {setNewPass}
+                        />}
+                        //defaultValue = {password}
+                    />
 
                 </Form.Item>
 
-                <Form.Item label="РОЛЬ">
-                    <Select defaultValue="oper">
+                <Form.Item label="РОЛЬ"
+                           name="role"
+                           rules={[
+                               {
+                                   required: true,
+                                   message: 'Укажите роль пользователя'
+                               }
+                           ]}
+                >
+                    <Select
+                        //defaultValue="oper"
+                    >
                         <Select.Option value="admin">АДМИН</Select.Option>
                         <Select.Option value="oper">ОПЕРАТОР</Select.Option>
                     </Select>
