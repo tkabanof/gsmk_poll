@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import generator from 'generate-password'
 import {RedoOutlined} from "@ant-design/icons";
 import {createUser} from "../../features/users";
+import {userApi} from "../../Api/Api";
 
 
 const UserEdit = (props) => {
@@ -23,14 +24,6 @@ const UserEdit = (props) => {
             password: password
         })
     }
-
-    useEffect(() => {
-
-            //dispatch(getAllTemplate())
-        },
-        [])
-
-
     const onFinish = (values) => {
 
         const newUser = {
@@ -83,10 +76,23 @@ const UserEdit = (props) => {
                         {
                             required: true,
                             message: 'Введите email (логин) нового пользователя!'
-                        }
+                        },
+                        {
+                            min: 3,
+                            message: 'Минимальная длина 3 символа'
+                        },
+                        ({getFieldValue}) => ({
+                            async validator(_, value) {
+                                const res = await userApi.checkFreeLogin(value)
+                                if (res.data.loginExists === true) {
+                                    console.log(res.data.loginExists)
+                                    return Promise.reject(new Error('Такой логин уже занят'));
+                                }
+                            }
+                        })
                     ]}
                 >
-                    <Input />
+                    <Input/>
                 </Form.Item>
                 <Form.Item
                     label="ПАРОЛЬ"
@@ -98,7 +104,7 @@ const UserEdit = (props) => {
                         }
                     ]}
                 >
-                    <Input suffix={<RedoOutlined onClick = {setNewPass}/>}
+                    <Input suffix={<RedoOutlined onClick={setNewPass}/>}
                     />
 
                 </Form.Item>

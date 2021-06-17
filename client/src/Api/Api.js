@@ -48,7 +48,7 @@ export const pollApi = {
         return instanceAPI.get('poll/open')
     },
     getUniqMO(id) {
-        return instanceAPI.get('client/mo/'+ id)
+        return instanceAPI.get('client/mo/' + id)
     },
     createNewPoll(description, templateId, state, dataSet) {
         return instanceAPI.post('poll', {description, templateId, state, dataSet})
@@ -63,12 +63,12 @@ export const pollApi = {
 
 export const clientApi = {
     getOneClient(query) {
-        return instanceAPI.get('client/getOne',{
+        return instanceAPI.get('client/getOne', {
             params: query
-            })
+        })
     },
     getQuestionAnswer(id) {
-        return instanceAPI.get('client/question/'+ id)
+        return instanceAPI.get('client/question/' + id)
     },
     setAnswers(data) {
         return instanceAPI.post('client/setAnswer', {data})
@@ -94,13 +94,18 @@ export const templateApi = {
 }
 export const userApi = {
     getAllUsers(paginator) {
-        return instanceAPI.get('user/getAll',{
+        return instanceAPI.get('user/getAll', {
             params: paginator
         })
     },
     createUser(user) {
         return instanceAPI.post('user/createUser', {
             user
+        })
+    },
+    checkFreeLogin(login) {
+        return instanceAPI.post('user/checkLogin', {
+            login
         })
     }
 

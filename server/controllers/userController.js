@@ -16,6 +16,17 @@ const generateJwt = (id, email, fio, role) => {
 }
 
 class UserController {
+    async checkLogin(req, res, next) {
+        const email = req.body.login.trim()
+        const candidate = await User.findOne({where: {email}})
+        if (candidate) {
+            return res.status(200).json({loginExists: true})
+        } else {
+            return res.status(200).json({loginExists: false})
+        }
+
+    }
+
     async registration(req, res, next) {
         const {email, password, role, fio} = req.body
         if (!email || !password) {
@@ -31,6 +42,7 @@ class UserController {
         return res.json({token})
 
     }
+
     async createNewUser(req, res, next) {
         const {email, password, role, fio} = req.body.user
         console.log(req.body)
@@ -54,8 +66,6 @@ class UserController {
                 message: 'Ошибка создания пользователя!'
             })
         }
-
-
     }
 
     async getAllUsers(req, res, next) {
@@ -63,7 +73,7 @@ class UserController {
         const current = req.query.current
         const pageSize = req.query.pageSize
 
-        const offset = (current-1) * pageSize
+        const offset = (current - 1) * pageSize
 
         const {count, rows} = await User.findAndCountAll({
             attributes: ['id', 'email', 'fio', 'role'],
@@ -73,7 +83,7 @@ class UserController {
         })
 
 
-        if (count > 0){
+        if (count > 0) {
             res.status(200).json({
                 users: [...rows],
                 paginator: {
@@ -123,7 +133,7 @@ class UserController {
 
     async auth(req, res, next) {
         let token = req.headers.authorization.split(' ')[1]
-        if (!token){
+        if (!token) {
             console.log('Пустой токен')
             return res.status(400).json({
                 message: 'токен пустой'

@@ -62,11 +62,11 @@ const Users = () => {
     )
 
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(getAllUsers(defaultPaginator))
     }, [])
 
-    useEffect(()=> {
+    useEffect(() => {
         list = (
             <Table
                 columns={columns}
@@ -78,7 +78,7 @@ const Users = () => {
             />
         )
 
-    },[pagination])
+    }, [pagination])
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
