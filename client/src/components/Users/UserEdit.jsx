@@ -3,21 +3,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import generator from 'generate-password'
 import {RedoOutlined} from "@ant-design/icons";
-import {logDOM} from "@testing-library/react";
+import {createUser} from "../../features/users";
 
 
 const UserEdit = (props) => {
 
     const [form] = Form.useForm();
 
-    let dataset = null
-
     const dispatch = useDispatch()
-
-    const onFormLayoutChange = (e) => {
-        //setComponentSize(size);
-        console.log(e)
-    };
 
     const newPass = () => {
         return generator.generate({length: 6})
@@ -48,8 +41,9 @@ const UserEdit = (props) => {
         }
         console.log(newUser)
 
-        //dispatch(createNewPoll(newPoll.description, newPoll.templateId, newPoll.state, newPoll.dataSet))
-        //props.setIsModalVisible(false)
+        dispatch(createUser(newUser))
+        props.setIsModalVisible(false)
+
     };
 
     return (
@@ -68,7 +62,6 @@ const UserEdit = (props) => {
                     role: 'oper'
                 }}
                 size={'middle'}
-                onFieldsChange={onFormLayoutChange}
                 onFinish={onFinish}
             >
                 <Form.Item
@@ -105,11 +98,7 @@ const UserEdit = (props) => {
                         }
                     ]}
                 >
-                    <Input
-                        suffix={<RedoOutlined
-                            onClick = {setNewPass}
-                        />}
-                        //defaultValue = {password}
+                    <Input suffix={<RedoOutlined onClick = {setNewPass}/>}
                     />
 
                 </Form.Item>
@@ -123,9 +112,7 @@ const UserEdit = (props) => {
                                }
                            ]}
                 >
-                    <Select
-                        //defaultValue="oper"
-                    >
+                    <Select>
                         <Select.Option value="admin">АДМИН</Select.Option>
                         <Select.Option value="oper">ОПЕРАТОР</Select.Option>
                     </Select>

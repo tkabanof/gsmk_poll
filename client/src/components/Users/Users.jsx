@@ -25,7 +25,6 @@ const Users = () => {
 
     const handleTableChange = (pagination, filters, sorter) => {
         dispatch(getAllUsers(pagination))
-        console.log(pagination)
     };
     const columns = [
         {
@@ -68,7 +67,6 @@ const Users = () => {
     }, [])
 
     useEffect(()=> {
-        console.log(paginator)
         list = (
             <Table
                 columns={columns}

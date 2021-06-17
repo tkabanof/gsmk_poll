@@ -97,5 +97,11 @@ export const userApi = {
         return instanceAPI.get('user/getAll',{
             params: paginator
         })
+    },
+    createUser(user) {
+        return instanceAPI.post('user/createUser', {
+            user
+        })
     }
+
 }

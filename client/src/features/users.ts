@@ -48,6 +48,12 @@ export const getAllUsers = (paginator: paginator) => async (dispatch: any) => {
 
     }
 }
+export const createUser = (user: user) => async (dispatch: any) => {
+    const response = await userApi.createUser(user)
+    if (response.status === 200) {
+        //dispatch(setUsers(response.data))
+    }
+}
 
 export const {setUsers} = userSlice.actions
 
