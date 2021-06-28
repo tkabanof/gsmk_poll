@@ -10,6 +10,9 @@ const AppRouter = () => {
     const dispatch = useDispatch()
     const tokenState = useSelector(state => state.auth.token)
     let token = localStorage.getItem('token')
+
+    const role = useSelector(state => state.auth.role)
+
     useEffect(() => {
         dispatch(auth())
     }, [tokenState])
@@ -19,10 +22,12 @@ const AppRouter = () => {
 
     return (
         <Switch>
-            {isAuth && authRoutes.map(({path, Component}) =>
-                <Route key={path} path={path} component={Component} exact/>
+            {isAuth && authRoutes.map(({path, Component, RBA}) => {
+                if (RBA.includes(role) || RBA.length === 0) return <Route key={path} path={path} component={Component} exact/>
+            }
+
             )}
-            {!isAuth && publicRoutes.map(({path, Component}) =>
+            {!isAuth && publicRoutes.map(({path, Component, RBA}) =>
                 <Route key={path} path={path} component={Component} exact/>
             )}
             <Redirect to={LOGIN_ROUTE}/>

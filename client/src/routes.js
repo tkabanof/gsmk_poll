@@ -17,30 +17,37 @@ import Users from "./components/Users/Users";
 export const authRoutes = [
     {
         path: HOME_ROUTE,
-        Component: Home
+        Component: Home,
+        RBA: []
     },
     {
         path: Templates_ROUTE,
-        Component: Templates
+        Component: Templates,
+        RBA: ['admin']
     },
     {
         path: POLL_ROUTE,
-        Component: Polls
+        Component: Polls,
+        RBA: ['admin']
     },
     {
         path: USERS_ROUTE,
-        Component: Users
+        Component: Users,
+        RBA: ['admin']
     },
     {
         path: CALL_ROUTE,
-        Component: Call
+        Component: Call,
+        RBA: []
     },{
         path: CALL_SUCCESS_ROUTE,
-        Component: CallSuccess
+        Component: CallSuccess,
+        RBA: []
     },
     {
         path: CALL_ROUTE_DETAIL,
-        Component: CallForm
+        Component: CallForm,
+        RBA: []
     },
 ]
 
