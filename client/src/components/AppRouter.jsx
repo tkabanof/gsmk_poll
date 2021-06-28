@@ -1,4 +1,4 @@
-import {Route, Switch, Redirect, useLocation} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import {authRoutes, publicRoutes} from "../routes";
 import {LOGIN_ROUTE} from "./utils/consts";
 import {useDispatch, useSelector} from "react-redux";

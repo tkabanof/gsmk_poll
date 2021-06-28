@@ -33,7 +33,7 @@ export const authSlice = createSlice({
             state.role = action.payload.role
             state.fio = action.payload.fio
         },
-        wipeAuthData: (state, action) => {
+        wipeAuthData: (state) => {
             state.userid = null
             state.email = null
             state.isAuth = false
@@ -58,6 +58,8 @@ export const auth = () => async (dispatch: any) => {
     if (response.status === 200) {
         dispatch(setAuthData(response.data.user))
         dispatch(setToken(response.data.token))
+    } else {
+        dispatch(wipeAuthData())
     }
 }
 
