@@ -42,8 +42,8 @@ export const Templates = (props) => {
             key: 'action',
             render: (text, record) => (
                 <div>
-                    <Popconfirm title="Sure to delete?" onConfirm={() => deleteTemplateClick(record.key)}>
-                        <Button danger>Delete</Button>
+                    <Popconfirm title="Вы уверены?" onConfirm={() => deleteTemplateClick(record.key)}>
+                        <Button danger>Удалить</Button>
                     </Popconfirm>
                     <a> </a>
                 </div>
