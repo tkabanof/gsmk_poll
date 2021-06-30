@@ -22,7 +22,7 @@ const UserCard = () => {
 
     return (
         <div className={s.userCard}>
-            <Tag color = "blue">{role === 'admin' ? 'Администратор' : 'Оператор'}</Tag>
+            <Tag color="blue">{role === 'admin' ? 'Администратор' : 'Оператор'}</Tag>
             <a>{fio ?? 'Без имени'}</a>
             <Button
                 size="small"
