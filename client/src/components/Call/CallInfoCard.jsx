@@ -1,9 +1,9 @@
-import {Button, Card, Dropdown, Menu, Select} from "antd";
+import {Card, Select, Space, Tag} from "antd";
 import {pollApi} from "../../Api/Api";
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {CALL_ROUTE_DETAIL} from "../utils/consts";
-import {Option} from "antd/es/mentions";
+import s from './CallInfoCard.module.css'
 
 const CallInfoCard = (props) => {
 
@@ -47,7 +47,13 @@ const CallInfoCard = (props) => {
                     <Select.Option
                         key = {p.mo}
                         value={p.mo}>
-                        {p.mo + '. остаток (' + p.count + ')'}
+                        <Space className ={s.cardRow}>
+                            <a>{p.mo ?? 'НЕИЗВЕСТНОЕ МО'} </a>
+                            <div className={s.moCount}>{p.count}
+                        </div>
+                        </Space>
+                        {/*{p.mo + '. остаток (' + p.count + ')'}*/}
+                        {/*<a>{p.mo} </a><a>остаток {p.count} </a>*/}
                     </Select.Option>
                 )
             })}

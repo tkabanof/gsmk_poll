@@ -1,0 +1,15 @@
+.cardRow {
+
+}
+
+.moCount {
+    position: relative;
+    width: 2em;
+
+    border: 1px solid cornflowerblue;
+    border-radius: 1px;
+    padding-right: 2px;
+    text-align: right;
+
+
+}
