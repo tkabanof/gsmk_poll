@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {authAPI} from "../Api/Api";
+import jwt_decode from 'jwt-decode';
 
 interface state {
     userid: null | number
@@ -7,17 +8,33 @@ interface state {
     role: null | string
     fio: null | string
     token: null | string
-    isAuth: boolean
+}
+type dataInit = {
+    email: string
+    exp: number
+    fio: string
+    iat: number
+    role: string
+    userid: number
 }
 
+const tokenData = ()=>{
+    const token = localStorage.getItem('token')
+    const decoded = jwt_decode(token as string)
+    return decoded
+}
+const dataInit = tokenData() as dataInit
+
 const initialState = {
-    userid: null,
-    email: null,
-    role: null,
-    fio: null,
-    token: null
+    userid: dataInit.userid,
+    email: dataInit.email,
+    role: dataInit.role,
+    fio: dataInit.fio,
+    token: localStorage.getItem('token')
 
 } as state
+
+//const initialState = tokenData() as state
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -26,6 +43,7 @@ export const authSlice = createSlice({
         setToken: (state, action) => {
             state.token = action.payload
             localStorage.setItem('token', action.payload)
+            console.log(tokenData())
         },
         setAuthData: (state, action) => {
             state.userid = action.payload.userid
@@ -36,7 +54,6 @@ export const authSlice = createSlice({
         wipeAuthData: (state) => {
             state.userid = null
             state.email = null
-            state.isAuth = false
             state.role = null
             state.fio = null
             state.token = null
