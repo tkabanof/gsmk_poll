@@ -1,4 +1,4 @@
-import {Button, Col, Menu, Row} from "antd";
+import {Button, Col, Menu, Row, Tag} from "antd";
 import {Layout} from "antd";
 import {useHistory} from "react-router-dom";
 import s from './Header.module.css'
@@ -12,6 +12,7 @@ const UserCard = () => {
 
     const dispatch = useDispatch()
     const fio = useSelector(state => state.auth.fio)
+    const role = useSelector(state => state.auth.role)
     const history = useHistory()
 
     const changeUser = () => {
@@ -21,6 +22,7 @@ const UserCard = () => {
 
     return (
         <div className={s.userCard}>
+            <Tag color = "blue">{role === 'admin' ? 'Администратор' : 'Оператор'}</Tag>
             <a>{fio ?? 'Без имени'}</a>
             <Button
                 size="small"
