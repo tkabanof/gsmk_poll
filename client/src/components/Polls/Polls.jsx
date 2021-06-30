@@ -5,10 +5,13 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {changeStatusPoll, deleteOnePoll, getAllPoll} from "../../features/polls";
 import {EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
+import PollStatistics from "./PollStatistics/PollStatistics";
 
 export const Polls = () => {
 
     const dataPoll = useSelector(state => state.poll.data)
+
+    let [idPollDetails, setIdPollDetails] = useState(0)
 
     const dispatch = useDispatch()
 
@@ -37,7 +40,7 @@ export const Polls = () => {
             dataIndex: 'createdAt',
         },
         {
-            title: 'Action',
+            title: 'Действия',
             key: 'action',
             render: (text, record) => (
                 <Space size="middle">
@@ -54,6 +57,7 @@ export const Polls = () => {
                         }}
                         icon={record.state === 'close' ? <EyeInvisibleOutlined/> : <EyeOutlined/>}
                     />
+                    <Button onClick={()=> setIdPollDetails(record.key)}>Статистика</Button>
                 </Space>
             ),
         },
@@ -77,7 +81,6 @@ export const Polls = () => {
 
     return (
         <div>
-            {/*<Table columns={columns} dataSource={dataPoll}/>*/}
             {table}
             <Button onClick={showModal}>Создать новый опрос</Button>
 
@@ -87,6 +90,10 @@ export const Polls = () => {
                    footer={null}>
                 <PollEdit setIsModalVisible={setIsModalVisible}/>
             </Modal>
+
+            {idPollDetails !== 0 && <PollStatistics setIdPollDetails = {setIdPollDetails}
+                                                   idPollDetails = {idPollDetails}/>}
+
         </div>
     )
 }
