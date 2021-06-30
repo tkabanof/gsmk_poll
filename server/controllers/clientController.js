@@ -36,7 +36,6 @@ class ClientController {
                 count: p.dataValues.persons
             }
         })
-        console.log(cli)
 
         return res.status(200).json(cli)
 
