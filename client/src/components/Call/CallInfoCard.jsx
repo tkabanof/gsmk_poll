@@ -17,7 +17,9 @@ const CallInfoCard = (props) => {
     const setMO = (text) => {
         let searchParams = new URLSearchParams()
         searchParams.append('pollId', props.id)
-        if (text) {searchParams.append('mo', text)}
+        if (text) {
+            searchParams.append('mo', text)
+        }
         history.push(CALL_ROUTE_DETAIL + '?' + searchParams)
     }
 
@@ -38,22 +40,20 @@ const CallInfoCard = (props) => {
     }, [id])
 
     let menu = (<Select defaultValue="Все МО"
-                         showSearch
-                         style={{ width: 620 }}
-                         onChange={setMO}>
+                        showSearch
+                        style={{width: 620}}
+                        onChange={setMO}>
             <Select.Option value="">Все МО</Select.Option>
             {data && data.map((p) => {
                 return (
                     <Select.Option
-                        key = {p.mo}
+                        key={p.mo}
                         value={p.mo}>
-                        <Space className ={s.cardRow}>
+                        <Space>
                             <a>{p.mo ?? 'НЕИЗВЕСТНОЕ МО'} </a>
                             <div className={s.moCount}>{p.count}
-                        </div>
+                            </div>
                         </Space>
-                        {/*{p.mo + '. остаток (' + p.count + ')'}*/}
-                        {/*<a>{p.mo} </a><a>остаток {p.count} </a>*/}
                     </Select.Option>
                 )
             })}
@@ -64,7 +64,7 @@ const CallInfoCard = (props) => {
         <Card title={name}
             //extra={<a href="#">More</a>}
               style={{width: 700}}>
-                {menu}
+            {menu}
         </Card>
     )
 }
