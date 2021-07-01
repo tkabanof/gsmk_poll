@@ -9,6 +9,7 @@ interface state {
     fio: null | string
     token: null | string
 }
+
 type dataInit = {
     email: string
     exp: number
@@ -18,7 +19,7 @@ type dataInit = {
     userid: number
 }
 
-const tokenData = ()=>{
+const tokenData = () => {
     const token = localStorage.getItem('token')
     return jwt_decode(token as string)
 }
