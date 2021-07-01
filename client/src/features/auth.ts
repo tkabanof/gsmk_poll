@@ -20,16 +20,16 @@ type dataInit = {
 
 const tokenData = ()=>{
     const token = localStorage.getItem('token')
-    const decoded = jwt_decode(token as string)
-    return decoded
+    return jwt_decode(token as string)
 }
 const dataInit = tokenData() as dataInit
+const {userid, email, role, fio, ...rest} = dataInit
 
 const initialState = {
-    userid: dataInit.userid,
-    email: dataInit.email,
-    role: dataInit.role,
-    fio: dataInit.fio,
+    userid: userid,
+    email: email,
+    role: role,
+    fio: fio,
     token: localStorage.getItem('token')
 
 } as state
