@@ -34,7 +34,8 @@ interface state {
         count: number
         client: Client
         questions: Array<Question>
-    }
+    },
+    stat: any
 }
 
 const initialState = {
@@ -67,6 +68,10 @@ export const clientSlice = createSlice({
         setQuestionAnswer: (state, action) => {
             state.data.questions = action.payload
         },
+        setStat: (state, action) => {
+            console.log(action.payload)
+            state.stat = action.payload
+        },
         addCount: (state) => {
             state.data.count = state.data.count + 1
         }
@@ -92,6 +97,12 @@ export const getQuestionAnswer = (id: number) => async (dispatch: any) => {
         dispatch(setQuestionAnswer(response.data))
     }
 };
+export const getStat = (id: number) => async (dispatch: any) => {
+    let response = await clientApi.getStat(id);
+    if (response.status === 200) {
+        dispatch(setStat(response.data))
+    }
+};
 export const setAnswers = (data: any) => async (dispatch: any) => {
     let response = await clientApi.setAnswers(data);
     if (response.status === 200) {
@@ -113,6 +124,6 @@ export const delayClient = (data: any) => async (dispatch: any) => {
         dispatch(addCount())
     }
 };
-export const {setClient, setQuestionAnswer, addCount} = clientSlice.actions
+export const {setClient, setQuestionAnswer, addCount, setStat} = clientSlice.actions
 
 export default clientSlice.reducer
