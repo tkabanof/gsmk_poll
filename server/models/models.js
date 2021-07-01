@@ -16,8 +16,7 @@ const User = sequelize.define('user', {
 const Poll = sequelize.define('poll', {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
         description: {type: DataTypes.STRING},
-        state: {type: DataTypes.STRING, defaultValue: 'close'},
-        user_idCreate: {type: DataTypes.INTEGER, defaultValue: 1}
+        state: {type: DataTypes.STRING, defaultValue: 'close'}
     },
     {
         schema: 'gsmk_poll'
@@ -39,14 +38,21 @@ const Client = sequelize.define('client', {
         name2: {type: DataTypes.STRING},
         birthday: {type: DataTypes.STRING},
         phone: {type: DataTypes.STRING},
-        state: {type: DataTypes.STRING},
-        call_date: {type: DataTypes.DATE},
         mo: {type: DataTypes.STRING}
     },
     {
         schema: 'gsmk_poll'
     }
 )
+const ClientState = sequelize.define('clientState', {
+        id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+        state: {type: DataTypes.STRING}
+    },
+    {
+        schema: 'gsmk_poll'
+    }
+)
+
 const ClientDelayed = sequelize.define('clientDelayed', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     timeDelay: {type: DataTypes.DATE}
@@ -110,7 +116,12 @@ Client.belongsTo(Poll)
 User.hasMany(Poll)
 Poll.belongsTo(User)
 
+Client.hasMany(ClientState)
+ClientState.belongsTo(Client)
+
+User.hasMany(ClientState)
+
 module.exports = {
-    User, Question, Poll, AnswerQuestion, Client, Answer, Template, ClientOnHold, ClientDelayed
+    User, Question, Poll, AnswerQuestion, Client, Answer, Template, ClientOnHold, ClientDelayed, ClientState
 }
 

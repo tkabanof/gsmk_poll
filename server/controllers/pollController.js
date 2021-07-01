@@ -2,9 +2,15 @@ const {Poll, Template, Client} = require("../models/models")
 
 class PollController {
     async addNew(req, res, next) {
+        const userId = req.res.user.userid
         const {description, templateId, state, dataSet} = req.body
         try {
-            const poll = await Poll.create({description, state, templateId})
+            const poll = await Poll.create({
+                description,
+                state,
+                templateId,
+                userId:userId
+            })
             const newDataSet = dataSet.map((item)=> {
                 item.pollId = poll.id
                 return item
