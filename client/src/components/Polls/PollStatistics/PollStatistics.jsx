@@ -5,17 +5,12 @@ import {getStat} from "../../../features/client";
 
 const PollStatistics = (props) => {
     const pollID = props.idPollDetails
-
     const dispatch = useDispatch()
+    const stat = useSelector(state => state.client.stat)
 
-    const stat = useSelector(state=>state.client.stat)
-
-
-    useEffect( () => {
+    useEffect(() => {
         dispatch(getStat(pollID))
-
     }, [])
-
 
     return (
         <div>
@@ -27,17 +22,17 @@ const PollStatistics = (props) => {
                    onCancel={() => props.setIdPollDetails(0)}
             >
                 <table
-                    border = '1'
+                    border='1'
                     width={600}
                     cellPadding={3}
                 >
                     <tr align={"center"}>
-                        <th>Всего </th>
+                        <th>Всего</th>
                         <th>Завершено успешно</th>
                         <th>Отмененые звонки</th>
                         <th>Всего завершено</th>
                     </tr>
-                    {stat.total.map((i)=> {
+                    {stat.total.map((i) => {
                         return <tr>
                             <td>{i.TOTAL}</td>
                             <td align={"center"}>{i.DONE}</td>
@@ -48,7 +43,7 @@ const PollStatistics = (props) => {
                 </table>
                 <br/>
                 <table
-                    border = '1'
+                    border='1'
                     width={600}
                     cellPadding={3}
                 >
@@ -58,7 +53,7 @@ const PollStatistics = (props) => {
                         <th>Отменил звонков</th>
                         <th>Всего совершил звонков</th>
                     </tr>
-                    {stat.callByOper.map((i)=> {
+                    {stat.callByOper.map((i) => {
                         return <tr>
                             <td>{i.fio}</td>
                             <td align={"center"}>{i.DONE}</td>
@@ -67,10 +62,6 @@ const PollStatistics = (props) => {
                         </tr>
                     })}
                 </table>
-
-
-
-
             </Modal>
         </div>
     )
