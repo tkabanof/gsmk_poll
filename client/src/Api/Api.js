@@ -78,6 +78,9 @@ export const clientApi = {
     },
     delayClient(data) {
         return instanceAPI.post('client/delay', {data})
+    },
+    getStat(id) {
+        return instanceAPI.get('client/get_poll_stat' + id)
     }
 }
 export const templateApi = {
