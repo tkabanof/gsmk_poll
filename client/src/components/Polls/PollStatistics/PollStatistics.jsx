@@ -24,7 +24,9 @@ const PollStatistics = (props) => {
             >
                 {stat.total.map((i) => {
                     return <div>
+                        <p>Процент завершения </p>
                         <Progress percent={Math.round((i.DONE / i.TOTAL) * 100)}/>
+                        <p>Процент отмены звонков </p>
                         <Progress status="exception" percent={Math.round((i.REFUSED / i.TOTAL) * 100)}/>
                     </div>
                 })}
