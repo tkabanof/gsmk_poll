@@ -58,7 +58,7 @@ const PollStatistics = (props) => {
                             <td>{i.fio}</td>
                             <td align={"center"}>{i.DONE}</td>
                             <td align={"center"}>{i.REFUSED}</td>
-                            <td align={"center"}>{i.REFUSED + i.DONE}</td>
+                            <td align={"center"}>{parseInt(i.REFUSED, 10) + parseInt(i.DONE, 10)}</td>
                         </tr>
                     })}
                 </table>

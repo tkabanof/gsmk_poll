@@ -54,6 +54,22 @@ const initialState = {
                 }]
             }
         ]
+    },
+    stat: {
+        callByOper: [
+            {
+
+            }
+        ],
+        total: [
+            {
+                CLOSED: 0,
+                DONE: 0,
+                REFUSED: 0,
+                TOTAL: 1727
+            }
+        ]
+
     }
 
 } as state
