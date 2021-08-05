@@ -19,19 +19,29 @@ type dataInit = {
     userid: number
 }
 
-const tokenData = () => {
-    const token = localStorage.getItem('token')
-    return jwt_decode(token as string)
+const token = localStorage.getItem('token')
+let {userid, email, role, fio} = {
+    userid: null,
+    email: null,
+    role: null,
+    fio: null
 }
-const dataInit = tokenData() as dataInit
-const {userid, email, role, fio, ...rest} = dataInit
+
+// const tokenData = (token: any) => {
+//     return jwt_decode(token as string)
+// }
+if (token) {
+    const dataInit = jwt_decode(token) as dataInit
+    const {userid, email, role, fio, ...rest} = dataInit
+}
+
 
 const initialState = {
     userid: userid,
     email: email,
     role: role,
     fio: fio,
-    token: localStorage.getItem('token')
+    token: token
 
 } as state
 
@@ -44,7 +54,7 @@ export const authSlice = createSlice({
         setToken: (state, action) => {
             state.token = action.payload
             localStorage.setItem('token', action.payload)
-            console.log(tokenData())
+            //console.log(tokenData())
         },
         setAuthData: (state, action) => {
             state.userid = action.payload.userid
