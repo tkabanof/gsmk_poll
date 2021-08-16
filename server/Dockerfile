@@ -8,3 +8,6 @@ COPY . .
 EXPOSE 7000
 #USER node
 CMD ["node", "index.js"]
+
+#docker build . -t serverpoll
+#docker run -p 49160:7000 -d  serverpoll
