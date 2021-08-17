@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm start \" ",
-    "dev-server": "cd server && npm run dev"
+    "dev-server": "cd server && npm run dev",
+    "docke_compose-up": "docker-compose up",
+    "docker-compose build":"docker-compose build",
+    "docker-compose down": "docker-compose down"
   },
   "keywords": [
     "react",
@@ -18,9 +21,5 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^6.0.2"
-  },
-  "dependencies": {
-    "@ant-design/icons": "^4.6.2",
-    "antd": "^4.15.3"
   }
 }
