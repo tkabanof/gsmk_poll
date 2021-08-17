@@ -1,11 +1,15 @@
-FROM node:12-alpine as builder
+FROM node:14-alpine as build
 WORKDIR /app
 COPY package.json /app/package.json
-RUN yarn --only=prod
-COPY . /app
-RUN yarn build
+RUN npm install --only=prod
+COPY . .
+RUN npm run build
 
-FROM nginx:1.16.0-alpine
+FROM nginx:1.21.1-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
+
+#Справочно
+#docker build . -t clientpoll
+#docker run -p 8080:80 -d clientpoll
