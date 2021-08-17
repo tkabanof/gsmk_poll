@@ -1,18 +1,13 @@
-version: "3"
 services:
-  server:
+  client:
     build: ./client/
-    #command:
-    #  - node index.js
     ports:
       - "8080:80"
     container_name: gsmk-poll-client
-  client:
+    depends_on:
+      - server
+  server:
     build: ./server/
-   # command:
-   #   - nginx, -g, daemon off
     ports:
       - "7000:7000"
     container_name: gsmk-poll-server
-    depends_on:
-      - server
