@@ -10,7 +10,7 @@ const generateJwt = (id, email, fio, role) => {
             fio: fio,
             role: role
         },
-        process.env.secret_key,
+        process.env.SECRET_KEY,
         {expiresIn: '24h'}
     )
 }
@@ -126,6 +126,7 @@ class UserController {
         } catch (e) {
             console.log('не правильный запрос')
             console.log(req.body)
+            console.log(e)
             return next(ApiError.badRequest('не правильный запрос'))
         }
 
